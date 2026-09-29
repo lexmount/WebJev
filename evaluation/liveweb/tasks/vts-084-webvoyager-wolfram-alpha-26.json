@@ -1,0 +1,93 @@
+{
+ "task_id": "vts-084-webvoyager-wolfram-alpha-26",
+ "task_name": "Convert 15 kilograms of sulfuric acid to moles and display the percentage composition of H, S, and O by weight.",
+ "website": "https://www.wolframalpha.com/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "Wolfram Alpha--26",
+  "original_task_name": "Convert 15 kilograms of sulfuric acid to moles and display the percentage composition of H, S, and O by weight.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "sulfuric_acid_amount_in_moles",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": [
+        "(?<![\\d.])(?:153(?:\\.0+)?|152\\.9\\d*)(?![\\d.])[^\\d\\n;]{0,40}\\bmol(?:es?)?\\b",
+        "\\bmol(?:es?)?\\b[^\\d\\n;]{0,40}(?<![\\d.])(?:153(?:\\.0+)?|152\\.9\\d*)(?![\\d.])"
+       ],
+       "flags": "I"
+      }
+     }
+    }
+   },
+   {
+    "name": "hydrogen_mass_percentage",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": [
+        "\\b(?:H|hydrogen)\\b[^\\d\\n;]{0,70}(?<![\\d.])(?:2\\.(?:05\\d*|06(?:0*)?|1(?:0*)?))(?![\\d.])",
+        "(?<![\\d.])(?:2\\.(?:05\\d*|06(?:0*)?|1(?:0*)?))(?![\\d.])[^\\d\\n;]{0,40}\\b(?:H|hydrogen)\\b"
+       ],
+       "flags": "I"
+      }
+     }
+    }
+   },
+   {
+    "name": "sulfur_mass_percentage",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": [
+        "\\b(?:S|sulf(?:ur|ur)|sulphur)\\b[^\\d\\n;]{0,70}(?<![\\d.])(?:32\\.(?:6[89]\\d*|7(?:0*)?))(?![\\d.])",
+        "(?<![\\d.])(?:32\\.(?:6[89]\\d*|7(?:0*)?))(?![\\d.])[^\\d\\n;]{0,40}\\b(?:S|sulf(?:ur|ur)|sulphur)\\b"
+       ],
+       "flags": "I"
+      }
+     }
+    }
+   },
+   {
+    "name": "oxygen_mass_percentage",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": [
+        "\\b(?:O|oxygen)\\b[^\\d\\n;]{0,70}(?<![\\d.])(?:65\\.(?:2[45]\\d*|3(?:0*)?))(?![\\d.])",
+        "(?<![\\d.])(?:65\\.(?:2[45]\\d*|3(?:0*)?))(?![\\d.])[^\\d\\n;]{0,40}\\b(?:O|oxygen)\\b"
+       ],
+       "flags": "I"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

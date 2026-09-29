@@ -1,0 +1,34 @@
+WebJev
+Copyright 2026 Lexmount
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+This repository contains or depends on the following third-party work. Each keeps its own license.
+
+1. browser-use/jev-ultrafast (MIT License, Copyright (c) 2026 Browser Use)
+   https://github.com/browser-use/jev-ultrafast
+   An adapted copy of its agent runtime is in apps/browser-agent/vendor/jev_ultrafast/. The license text is in
+   apps/browser-agent/vendor/LICENSE; the upstream commit and our changes are in
+   apps/browser-agent/vendor/PROVENANCE.json.
+
+2. Mapika/decider (Apache License 2.0)
+   https://github.com/Mapika/decider, commit c4daaac28af9fea95d627015cffa2dd5a5926ee6
+   The training framework and the prompt/answer code used by train/ and evaluation/serving/. It is installed as a
+   dependency from the upstream repository and is not redistributed here.
+
+3. Real-website tasks (evaluation/liveweb/tasks/) are adapted from public benchmarks:
+   - Online-Mind2Web, https://github.com/OSU-NLP-Group/Online-Mind2Web (MIT License)
+   - WebGym, https://github.com/microsoft/webgym
+   - WebVoyager, https://github.com/MinorJerry/WebVoyager (Apache License 2.0)
+   Each task records its source benchmark and the original task id. Task wording was made explicit (site, end state,
+   answer fields) so that it can be verified deterministically.
+
+4. Single-step decision benchmarks (evaluation/benchmarks/) are downloaded from their original sources at run time
+   and are not redistributed. Sources and licenses are listed in evaluation/benchmarks/README.md.
+
+5. Base model: Qwen/Qwen3.5-35B-A3B-Base, https://huggingface.co/Qwen/Qwen3.5-35B-A3B-Base (see its license).
+
+6. Training data sources are listed in train/data/README.md; each source keeps its own license and terms of use.
+
+WebJev is an independent project by Lexmount and is not affiliated with or endorsed by TypeSafe AI.
+Jev is a product of TypeSafe AI.

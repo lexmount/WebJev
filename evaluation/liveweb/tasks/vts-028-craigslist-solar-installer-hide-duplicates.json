@@ -1,0 +1,58 @@
+{
+ "task_id": "vts-028-craigslist-solar-installer-hide-duplicates",
+ "task_name": "On SF Bay Area craigslist (sfbay.craigslist.org), search service listings for solar panel installer using that search phrase, and enable hide duplicates. Leave the filtered service search open.",
+ "website": "https://sfbay.craigslist.org/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "bd1e3770b7181f6fce9c35e18caa9785",
+  "original_task_name": "Browse service listings for a solar panel installer and hide duplicates.",
+  "intent_modified": true,
+  "intent_modified_reason": "Made the site, the target page and the end state explicit, and fixed the city to the San Francisco Bay Area so the IP-based redirect cannot change it. Zero results do not by themselves make the search fail."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https?://(?:sfbay\\.craigslist\\.org/search/(?:[a-z]{3}/)?bbb|(?:www\\.)?craigslist\\.org/search/area/sfbay)(?:[/?#]|$)"
+    }
+   },
+   {
+    "name": "services_category",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "(?:[?&]cat=bbb(?:[&#]|$)|/search/(?:[a-z]{3}/)?bbb(?:[/?#]|$))"
+    }
+   },
+   {
+    "name": "query_and_dedup",
+    "metric": "json_object_match",
+    "result": {
+     "type": "url_parse",
+     "parse_keys": [
+      "query",
+      "bundleDuplicates"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "query": "solar panel installer",
+      "bundleDuplicates": 1
+     }
+    }
+   }
+  ]
+ }
+}

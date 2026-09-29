@@ -1,0 +1,62 @@
+[
+ {
+  "label": "true end state (the click route of a real run)",
+  "expect": 1,
+  "url": "https://www.carmax.com/cars/toyota/corolla/red?year=2018-2023"
+ },
+ {
+  "label": "reversed segment order (color before make), same result set -- must score the same",
+  "expect": 1,
+  "url": "https://www.carmax.com/cars/red/toyota/corolla?year=2018-2023"
+ },
+ {
+  "label": "another segment order + a fragment",
+  "expect": 1,
+  "url": "https://www.carmax.com/cars/corolla/red/toyota?year=2018-2023#results"
+ },
+ {
+  "label": "color filter missing",
+  "expect": 0,
+  "url": "https://www.carmax.com/cars/toyota/corolla?year=2018-2023"
+ },
+ {
+  "label": "year filter missing",
+  "expect": 0,
+  "url": "https://www.carmax.com/cars/toyota/corolla/red"
+ },
+ {
+  "label": "the lower year bound did not apply (a silent rollback seen in a real run)",
+  "expect": 0,
+  "url": "https://www.carmax.com/cars/toyota/corolla/red?year=2014-2023"
+ },
+ {
+  "label": "picked Corolla Cross (one of five Corolla models)",
+  "expect": 0,
+  "url": "https://www.carmax.com/cars/toyota/corolla-cross/red?year=2018-2023"
+ },
+ {
+  "label": "one extra filter ticked (a different result set)",
+  "expect": 0,
+  "url": "https://www.carmax.com/cars/toyota/corolla/red/automatic?year=2018-2023"
+ },
+ {
+  "label": "picked red interior (not a path segment)",
+  "expect": 0,
+  "url": "https://www.carmax.com/cars/toyota/corolla?year=2018-2023&interiorcolor=red"
+ },
+ {
+  "label": "fell back to the top keyword search box",
+  "expect": 0,
+  "url": "https://www.carmax.com/cars/all?search=red%20toyota%20corolla"
+ },
+ {
+  "label": "stopped at the home page",
+  "expect": 0,
+  "url": "https://www.carmax.com/"
+ },
+ {
+  "label": "look-alike domain (url_path_parse / url_parse ignore the host; the first check blocks it)",
+  "expect": 0,
+  "url": "https://evil.example.com/cars/toyota/corolla/red?year=2018-2023"
+ }
+]

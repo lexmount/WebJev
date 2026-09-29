@@ -1,0 +1,241 @@
+{
+ "task_id": "vts-113-webgym-301023",
+ "task_name": "Compare the engine horsepower and mower deck size of the John Deere S110 and S120 lawn tractors, and find out if the S120 offers an Easy Change™ 30-second oil change system.",
+ "website": "https://www.deere.ca",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "301023",
+  "original_task_name": "Compare the engine horsepower and mower deck size of the John Deere S110 and S120 lawn tractors, and find out if the S120 offers an Easy Change™ 30-second oil change system.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "s110_engine_power",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "\\bS[\\s_-]*110\\b(?:(?!\\bS[\\s_-]*(?:110|120)\\b)[\\s\\S]){0,280}(?:(?<![\\d.])(?:(?:19(?:\\.0+)?|nineteen)[\\s-]*(?:h\\.?p\\.?\\b|horsepower\\b|\u9a6c\u529b)|14[.,]2(?:0+)?[\\s-]*(?:kW\\b|kilowatts?\\b|\u5343\u74e6))|(?:horsepower|(?:engine[ _-]*)?hp)[\\s*\"\\x27:=|_()\\[\\]-]{0,24}19(?:\\.0+)?(?![\\d.]|\\s*(?:kW|cm)\\b))",
+         "flags": "I"
+        },
+        {
+         "re": "(?<![\\d.])(?:(?:19(?:\\.0+)?|nineteen)[\\s-]*(?:h\\.?p\\.?\\b|horsepower\\b|\u9a6c\u529b)|14[.,]2(?:0+)?[\\s-]*(?:kW\\b|kilowatts?\\b|\u5343\u74e6))[^\\n\\r.;]{0,50}\\b(?:for|in|on|of|powers?)\\b[^\\n\\r.;]{0,24}\\bS[\\s_-]*110\\b",
+         "flags": "I"
+        },
+        {
+         "all": [
+          {
+           "re": "(?:horsepower|engine[^\\n]{0,30}\\bhp\\b|\\bhp\\b[^\\n]{0,30}engine)",
+           "flags": "I"
+          },
+          {
+           "re": "\\bS[\\s_-]*110\\b(?:(?!\\bS[\\s_-]*(?:110|120)\\b)[^\\n\\r]){0,220}(?<![\\d.])19(?![\\d.])",
+           "flags": "I"
+          }
+         ]
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "s120_engine_power",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "\\bS[\\s_-]*120\\b(?:(?!\\bS[\\s_-]*(?:110|120)\\b)[\\s\\S]){0,280}(?:(?<![\\d.])(?:(?:22(?:\\.0+)?|twenty[ -]two)[\\s-]*(?:h\\.?p\\.?\\b|horsepower\\b|\u9a6c\u529b)|16[.,]4(?:0+)?[\\s-]*(?:kW\\b|kilowatts?\\b|\u5343\u74e6))|(?:horsepower|(?:engine[ _-]*)?hp)[\\s*\"\\x27:=|_()\\[\\]-]{0,24}22(?:\\.0+)?(?![\\d.]|\\s*(?:kW|cm)\\b))",
+         "flags": "I"
+        },
+        {
+         "re": "(?<![\\d.])(?:(?:22(?:\\.0+)?|twenty[ -]two)[\\s-]*(?:h\\.?p\\.?\\b|horsepower\\b|\u9a6c\u529b)|16[.,]4(?:0+)?[\\s-]*(?:kW\\b|kilowatts?\\b|\u5343\u74e6))[^\\n\\r.;]{0,50}\\b(?:for|in|on|of|powers?)\\b[^\\n\\r.;]{0,24}\\bS[\\s_-]*120\\b",
+         "flags": "I"
+        },
+        {
+         "all": [
+          {
+           "re": "(?:horsepower|engine[^\\n]{0,30}\\bhp\\b|\\bhp\\b[^\\n]{0,30}engine)",
+           "flags": "I"
+          },
+          {
+           "re": "\\bS[\\s_-]*120\\b(?:(?!\\bS[\\s_-]*(?:110|120)\\b)[^\\n\\r]){0,220}(?<![\\d.])22(?![\\d.])",
+           "flags": "I"
+          }
+         ]
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "s110_mower_deck_size",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "\\bS[\\s_-]*110\\b(?:(?!\\bS[\\s_-]*(?:110|120)\\b)[\\s\\S]){0,280}(?:(?<![\\d.])(?:42(?:\\.0+)?[\\s-]*(?:in(?:ch(?:es)?)?\\.?\\b|[\"″]|\u82f1\u5bf8)|107(?:\\.0+)?[\\s-]*(?:cm\\b|centimet(?:er|re)s?\\b|\u5398\u7c73))|(?:deck|cutting[ _-]*width|mower[ _-]*deck)[^\\n\\r;]{0,28}(?:inches|inch|\\bin\\b)[\\s*\"\\x27:=|_()\\[\\]-]{0,24}42(?:\\.0+)?(?![\\d.]))",
+         "flags": "I"
+        },
+        {
+         "re": "(?<![\\d.])(?:42(?:\\.0+)?[\\s-]*(?:in(?:ch(?:es)?)?\\.?\\b|[\"″]|\u82f1\u5bf8)|107(?:\\.0+)?[\\s-]*(?:cm\\b|centimet(?:er|re)s?\\b|\u5398\u7c73))[^\\n\\r.;]{0,50}\\b(?:for|in|on|of|powers?)\\b[^\\n\\r.;]{0,24}\\bS[\\s_-]*110\\b",
+         "flags": "I"
+        },
+        {
+         "all": [
+          {
+           "re": "(?:deck|cutting[^\\n]{0,10}width)[^\\n]{0,45}(?:\\bin\\b|inch)",
+           "flags": "I"
+          },
+          {
+           "re": "\\bS[\\s_-]*110\\b(?:(?!\\bS[\\s_-]*(?:110|120)\\b)[^\\n\\r]){0,220}(?<![\\d.])42(?![\\d.])",
+           "flags": "I"
+          }
+         ]
+        },
+        {
+         "all": [
+          {
+           "re": "\\bS[\\s_-]*110\\b",
+           "flags": "I"
+          },
+          {
+           "re": "\\bS[\\s_-]*120\\b",
+           "flags": "I"
+          },
+          {
+           "re": "\\b(?:both|each)\\b[^\\n\\r;]{0,140}(?<![\\d.])(?:42(?:\\.0+)?[\\s-]*(?:in(?:ch(?:es)?)?\\.?\\b|[\"″]|\u82f1\u5bf8)|107(?:\\.0+)?[\\s-]*(?:cm\\b|centimet(?:er|re)s?\\b|\u5398\u7c73))",
+           "flags": "I"
+          }
+         ]
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "s120_mower_deck_size",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "\\bS[\\s_-]*120\\b(?:(?!\\bS[\\s_-]*(?:110|120)\\b)[\\s\\S]){0,280}(?:(?<![\\d.])(?:42(?:\\.0+)?[\\s-]*(?:in(?:ch(?:es)?)?\\.?\\b|[\"″]|\u82f1\u5bf8)|107(?:\\.0+)?[\\s-]*(?:cm\\b|centimet(?:er|re)s?\\b|\u5398\u7c73))|(?:deck|cutting[ _-]*width|mower[ _-]*deck)[^\\n\\r;]{0,28}(?:inches|inch|\\bin\\b)[\\s*\"\\x27:=|_()\\[\\]-]{0,24}42(?:\\.0+)?(?![\\d.]))",
+         "flags": "I"
+        },
+        {
+         "re": "(?<![\\d.])(?:42(?:\\.0+)?[\\s-]*(?:in(?:ch(?:es)?)?\\.?\\b|[\"″]|\u82f1\u5bf8)|107(?:\\.0+)?[\\s-]*(?:cm\\b|centimet(?:er|re)s?\\b|\u5398\u7c73))[^\\n\\r.;]{0,50}\\b(?:for|in|on|of|powers?)\\b[^\\n\\r.;]{0,24}\\bS[\\s_-]*120\\b",
+         "flags": "I"
+        },
+        {
+         "all": [
+          {
+           "re": "(?:deck|cutting[^\\n]{0,10}width)[^\\n]{0,45}(?:\\bin\\b|inch)",
+           "flags": "I"
+          },
+          {
+           "re": "\\bS[\\s_-]*120\\b(?:(?!\\bS[\\s_-]*(?:110|120)\\b)[^\\n\\r]){0,220}(?<![\\d.])42(?![\\d.])",
+           "flags": "I"
+          }
+         ]
+        },
+        {
+         "all": [
+          {
+           "re": "\\bS[\\s_-]*110\\b",
+           "flags": "I"
+          },
+          {
+           "re": "\\bS[\\s_-]*120\\b",
+           "flags": "I"
+          },
+          {
+           "re": "\\b(?:both|each)\\b[^\\n\\r;]{0,140}(?<![\\d.])(?:42(?:\\.0+)?[\\s-]*(?:in(?:ch(?:es)?)?\\.?\\b|[\"″]|\u82f1\u5bf8)|107(?:\\.0+)?[\\s-]*(?:cm\\b|centimet(?:er|re)s?\\b|\u5398\u7c73))",
+           "flags": "I"
+          }
+         ]
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "s120_offers_easy_change",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "all": [
+        {
+         "any": [
+          {
+           "re": "\\bS[\\s_-]*120\\b(?:(?!\\bS[\\s_-]*(?:110|120)\\b|\\b(?:not|no|without|lacks?|unavailable|doesn[’']t|isn[’']t)\\b)[\\s\\S]){0,360}Easy[\\s_-]*Change(?:™|\\(TM\\))?",
+           "flags": "I"
+          },
+          {
+           "re": "Easy[\\s_-]*Change(?:™|\\(TM\\))?[^\\n\\r.;]{0,120}\\b(?:on|for|in|of|with)\\b[^\\n\\r.;]{0,35}\\bS[\\s_-]*120\\b",
+           "flags": "I"
+          },
+          {
+           "all": [
+            {
+             "re": "\\bS[\\s_-]*120\\b",
+             "flags": "I"
+            },
+            {
+             "re": "(?:^|[\\n.!?])\\s*(?:[*_-]\\s*)?Yes\\b",
+             "flags": "I"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "not_re": [
+          "\\bS[\\s_-]*120\\b(?:(?!\\bS[\\s_-]*(?:110|120)\\b)[\\s\\S]){0,280}\\b(?:not|no|without|lacks?|unavailable|doesn[’']t|isn[’']t)\\b[^\\n\\r.;]{0,90}Easy[\\s_-]*Change(?:™|\\(TM\\))?",
+          "\\bS[\\s_-]*120\\b(?:(?!\\bS[\\s_-]*(?:110|120)\\b)[\\s\\S]){0,280}Easy[\\s_-]*Change(?:™|\\(TM\\))?[^\\n\\r.;]{0,35}\\b(?:not\\s+(?:available|offered|included)|unavailable|false|no)\\b",
+          "Easy[\\s_-]*Change(?:™|\\(TM\\))?[^\\n\\r.;]{0,70}\\bnot\\b[^\\n\\r.;]{0,25}\\bS[\\s_-]*120\\b"
+         ],
+         "flags": "I"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

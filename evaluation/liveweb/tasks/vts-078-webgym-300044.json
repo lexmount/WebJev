@@ -1,0 +1,44 @@
+{
+ "task_id": "vts-078-webgym-300044",
+ "task_name": "What are the main areas of investment by Fundo Ambiental as outlined in the article?",
+ "website": "https://www.jornaleconomico.pt",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300044",
+  "original_task_name": "What are the main areas of investment by Fundo Ambiental as outlined in the article?",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "answer_identifies_all_main_investment_areas",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "urban_water_cycle": {
+       "re": "urban[- ]water cycle|ciclo urbano da [áa]gua"
+      },
+      "nature_conservation_and_forests": {
+       "re": "nature conservation(?: and| &)? forests|conservation of nature(?: and| &)? forests|conserva[cç][aã]o da natureza e florestas"
+      },
+      "energy_transition_and_efficiency": {
+       "re": "energy transition(?: and| &)?(?: energy )?efficiency|transi[cç][aã]o e efici[eê]ncia energ[eé]tica"
+      },
+      "sustainable_mobility": {
+       "re": "sustainable mobility|mobilidade sustent[aá]vel"
+      },
+      "water_resources_management": {
+       "re": "water(?:[- ]resources?)? management|management of water resources|gest[aã]o de recursos h[ií]dricos"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

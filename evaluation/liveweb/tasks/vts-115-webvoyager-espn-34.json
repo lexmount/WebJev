@@ -1,0 +1,117 @@
+{
+ "task_id": "vts-115-webvoyager-espn-34",
+ "task_name": "Visit ESPN to view the Philadelphia 76ers' latest injuries.",
+ "website": "https://www.espn.com/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "ESPN--34",
+  "original_task_name": "Visit ESPN to view the Philadelphia 76ers' latest injuries.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_espn",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https?://(?:www\\.)?espn\\.com(?:/|$)"
+    }
+   },
+   {
+    "name": "philadelphia_76ers_injury_heading",
+    "metric": "json_object_match",
+    "requires": [
+     "on_espn"
+    ],
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "headings": "h1.headline"
+     },
+     "all": true,
+     "must_exist": []
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "headings[*]": {
+       "re": "^\\s*Philadelphia\\s+76ers\\s+Injuries\\s*$",
+       "flags": "I"
+      }
+     }
+    }
+   },
+   {
+    "name": "injury_section_available",
+    "metric": "count_in_range",
+    "requires": [
+     "on_espn",
+     "philadelphia_76ers_injury_heading"
+    ],
+    "result": {
+     "type": "dom_count",
+     "selector": "section.Card > .Card__Content > section:has(> div > h1.headline)",
+     "must_exist": true
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "ge": 1
+     }
+    }
+   },
+   {
+    "name": "team_bound_current_injury_content",
+    "metric": "json_object_match",
+    "requires": [
+     "on_espn",
+     "philadelphia_76ers_injury_heading",
+     "injury_section_available"
+    ],
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "sections": "section.Card > .Card__Content > section:has(> div > h1.headline)"
+     },
+     "all": true,
+     "must_exist": []
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "sections[*]": {
+       "all": [
+        {
+         "re": "^\\s*Philadelphia\\s+76ers\\s+Injuries\\b",
+         "flags": "I"
+        },
+        {
+         "any": [
+          {
+           "re": "(?m)^\\s*Status\\s*\\n\\s*\\S[^\\n]*\\n\\s*\\S",
+           "flags": "I"
+          },
+          {
+           "re": "\\bno\\s+(?:(?:current|reported|known)\\s+)?injur(?:ies|y)(?:\\s+(?:to\\s+report|reported|listed))?\\b",
+           "flags": "I"
+          }
+         ]
+        },
+        {
+         "not_re": "\\b(?:failed\\s+to\\s+load|unable\\s+to\\s+load|error\\s+loading|could\\s+not\\s+load)\\b",
+         "flags": "I"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

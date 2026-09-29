@@ -1,0 +1,102 @@
+{
+  "spec_version": "1",
+  "collected_at": "2026-09-17T16:06:25",
+  "phase": "in_session",
+  "getters": {
+    "44fed9f40f84": {
+      "config": {
+        "type": "final_url"
+      },
+      "ok": true,
+      "value": "https://poboxes.usps.com/findBox.html?q=54620"
+    },
+    "0ac682d41f5f": {
+      "config": {
+        "type": "dom_extract",
+        "attr": "id",
+        "must_exist": [
+          "container"
+        ],
+        "selectors": {
+          "container": "#locationContainer_1"
+        }
+      },
+      "ok": true,
+      "value": {
+        "container": "locationContainer_1"
+      }
+    },
+    "e93c578a4400": {
+      "config": {
+        "type": "control_state",
+        "must_exist": [
+          "size4"
+        ],
+        "selectors": {
+          "size4": "#size4"
+        }
+      },
+      "ok": true,
+      "value": {
+        "size4": {
+          "tag": "input",
+          "value": "yes",
+          "checked": true,
+          "selected": null,
+          "text": "",
+          "disabled": false,
+          "aria": {
+            "checked": null,
+            "selected": null,
+            "expanded": null,
+            "pressed": null
+          }
+        }
+      }
+    },
+    "e28f235e0e89": {
+      "config": {
+        "type": "dom_extract",
+        "must_exist": [],
+        "selectors": {
+          "sizes": "#locationContainer_1 .listItemLocation .availableSizes"
+        }
+      },
+      "ok": true,
+      "value": {
+        "sizes": "Size 1 Size 2 Size 3 Size 4"
+      }
+    },
+    "042146bc2db0": {
+      "config": {
+        "type": "dom_extract",
+        "must_exist": [],
+        "selectors": {
+          "name": "#locationContainer_1 .listItemLocation h2.normal span.bold"
+        }
+      },
+      "ok": true,
+      "value": {
+        "name": "Sparta"
+      }
+    }
+  },
+  "health": {
+    "ok": true,
+    "http_status": null,
+    "blocked": false,
+    "empty": false,
+    "signals": [],
+    "chars": 5233
+  },
+  "target": {
+    "n_page_targets": 1,
+    "urls": [
+      "https://poboxes.usps.com/findBox.html?q=54620"
+    ],
+    "rule": "only_page",
+    "agent_target_id": "8D14924F9993A7F161F23BBF16233AD2",
+    "agrees_with_agent": true
+  },
+  "error": null
+}

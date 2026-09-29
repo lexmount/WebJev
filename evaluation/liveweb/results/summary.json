@@ -1,0 +1,115 @@
+{
+ "tasks": 125,
+ "models": {
+  "WebJev-35B-A3B": {
+   "all": {
+    "tasks": 125,
+    "gradable": 122,
+    "success": 47,
+    "success_rate": 0.3852,
+    "infra": 2,
+    "verifier_error": 1,
+    "not_run": 0
+   },
+   "online_mind2web": {
+    "tasks": 75,
+    "gradable": 73,
+    "success": 28,
+    "success_rate": 0.3836,
+    "infra": 1,
+    "verifier_error": 1,
+    "not_run": 0
+   },
+   "webgym": {
+    "tasks": 26,
+    "gradable": 25,
+    "success": 8,
+    "success_rate": 0.32,
+    "infra": 1,
+    "verifier_error": 0,
+    "not_run": 0
+   },
+   "webvoyager": {
+    "tasks": 24,
+    "gradable": 24,
+    "success": 11,
+    "success_rate": 0.4583,
+    "infra": 0,
+    "verifier_error": 0,
+    "not_run": 0
+   }
+  },
+  "Jev-1.13": {
+   "all": {
+    "tasks": 125,
+    "gradable": 120,
+    "success": 20,
+    "success_rate": 0.1667,
+    "infra": 3,
+    "verifier_error": 2,
+    "not_run": 0
+   },
+   "online_mind2web": {
+    "tasks": 75,
+    "gradable": 71,
+    "success": 12,
+    "success_rate": 0.169,
+    "infra": 2,
+    "verifier_error": 2,
+    "not_run": 0
+   },
+   "webgym": {
+    "tasks": 26,
+    "gradable": 25,
+    "success": 2,
+    "success_rate": 0.08,
+    "infra": 1,
+    "verifier_error": 0,
+    "not_run": 0
+   },
+   "webvoyager": {
+    "tasks": 24,
+    "gradable": 24,
+    "success": 6,
+    "success_rate": 0.25,
+    "infra": 0,
+    "verifier_error": 0,
+    "not_run": 0
+   }
+  }
+ },
+ "subsets": {
+  "all": "All 125 tasks",
+  "online_mind2web": "Online-Mind2Web",
+  "webgym": "WebGym",
+  "webvoyager": "WebVoyager"
+ },
+ "paired": {
+  "gradable_for_both": 120,
+  "only_WebJev-35B-A3B": 30,
+  "only_Jev-1.13": 3,
+  "both": 17,
+  "neither": 70
+ },
+ "runs": {
+  "WebJev-35B-A3B": {
+   "date": "2026-09-29",
+   "decision_endpoint": "self-hosted (vLLM behind the Jev-compatible decisions API)"
+  },
+  "Jev-1.13": {
+   "date": "2026-09-24",
+   "decision_endpoint": "OpenRouter, typesafe/jev-1.13-20260917"
+  },
+  "common": {
+   "agent": "apps/browser-agent runtime, decision model alone (no planner, no guide, no review)",
+   "budget_per_task": {
+    "seconds": 900,
+    "actions": 60
+   },
+   "infra_retries": 2,
+   "text_helper": "deepseek-v4.1-flash (writes typed text and the final answer; same for both models)",
+   "browser": "Lexmount Browser (cloud, one isolated session per episode)",
+   "scoring": "deterministic verifier (verifier/), no LLM judge; success rate = success / (success + failure)"
+  }
+ }
+}

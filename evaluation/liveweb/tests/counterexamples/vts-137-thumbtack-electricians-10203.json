@@ -1,0 +1,59 @@
+[
+ {
+  "label": "true end state (questionnaire finished by skipping every question)",
+  "expect": 1
+ },
+ {
+  "label": "closed the questionnaire without answering -- full list, no encoded_answers in the URL",
+  "expect": 1,
+  "url": "https://www.thumbtack.com/instant-results/?deprecate_spr=true&keyword_pk=102906937284094959&zip_code=10203&ir_referrer=HOME_PAGE_SEARCH&user_query_pk=590485667604307981&project_pk=590485674149158927"
+ },
+ {
+  "label": "a different batch of random pks (they change every time)",
+  "expect": 1,
+  "url": "https://www.thumbtack.com/instant-results/?deprecate_spr=true&keyword_pk=102906937284094959&zip_code=10203&ir_referrer=HOME_PAGE_SEARCH&user_query_pk=111111111111111111&project_pk=222222222222222222&encoded_answers=eyJzZl9wayI6IjU3NDcwODYxNjY4NDk4NjM4MiIsImFucyI6eyJhIjoiYiJ9fQ"
+ },
+ {
+  "label": "entered from another entry point (different ir_referrer)",
+  "expect": 1,
+  "url": "https://www.thumbtack.com/instant-results/?zip_code=10203&keyword_pk=102906937284094959&ir_referrer=CATEGORY_PAGE"
+ },
+ {
+  "label": "searched the wrong ZIP",
+  "expect": 0,
+  "url": "https://www.thumbtack.com/instant-results/?zip_code=10001&keyword_pk=102906937284094959"
+ },
+ {
+  "label": "no ZIP entered (no zip_code parameter)",
+  "expect": 0,
+  "url": "https://www.thumbtack.com/instant-results/?keyword_pk=102906937284094959&ir_referrer=HOME_PAGE_SEARCH"
+ },
+ {
+  "label": "opened one pro's detail page, whose URL also carries zip_code=10203",
+  "expect": 0,
+  "url": "https://www.thumbtack.com/ny/maspeth/electrical-repairs/fixservice-llc/service/572451997823107073?service_pk=1&project_pk=2&lp_request_pk=590485674143645709&zip_code=10203&keyword_pk=102906937284094959&category_pk=122769389996753250&hideBack=true"
+ },
+ {
+  "label": "searched for plumbers (title does not contain electric)",
+  "expect": 0,
+  "getters": [
+   {
+    "match": {
+     "type": "page_title"
+    },
+    "value": "Best Plumbers near 10203 - Thumbtack"
+   }
+  ],
+  "url": "https://www.thumbtack.com/instant-results/?zip_code=10203&keyword_pk=999999999999999999"
+ },
+ {
+  "label": "stopped at the home page",
+  "expect": 0,
+  "url": "https://www.thumbtack.com/"
+ },
+ {
+  "label": "look-alike domain",
+  "expect": 0,
+  "url": "https://evil.example.com/instant-results/?zip_code=10203&keyword_pk=102906937284094959"
+ }
+]

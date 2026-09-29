@@ -1,0 +1,45 @@
+{
+ "task_id": "vts-033-accuweather-newyork-daily",
+ "task_name": "On accuweather.com, show the daily forecast for New York City, NY, and leave its daily (10-Day) forecast page open.",
+ "website": "https://www.accuweather.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "26810ed9c123a62992e3eed31db3c5ee",
+  "original_task_name": "Show daily weather for New York City.",
+  "original_website": "https://www.accuweather.com/",
+  "source_row_zero_based": 121,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept the city and the daily forecast; added the site and the end state. The site moved its Daily entry to 10-Day, so both routes are accepted."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://(?:www\\.)?accuweather\\.com/en/us/[^/]+/[^/]+/(?:daily|10-day)-weather-forecast/[^/?#]+(?:/|[?#]|$)"
+    }
+   },
+   {
+    "name": "title_identifies_city_and_daily_view",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "page_title"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "New York City|New York, NY",
+      "(?:Daily|10[- ]Day).{0,20}Weather"
+     ]
+    }
+   }
+  ]
+ }
+}

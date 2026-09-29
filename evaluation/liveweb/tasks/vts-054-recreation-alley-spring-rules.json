@@ -1,0 +1,105 @@
+{
+ "task_id": "vts-054-recreation-alley-spring-rules",
+ "task_name": "On recreation.gov, show me the rules and cancellation information for Alley Spring campground in Ozark National Scenic Riverways, near Eminence, Missouri. Open the campground's Rules & Cancellations tab, wait for the reservation rules and cancellation details to load, and leave that tab selected.",
+ "website": "https://www.recreation.gov/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "73d08420706ae205a9c5be28b6d4e80f",
+  "original_task_name": "Show me the rules and cancellation for Alley Spring.",
+  "original_website": "https://www.recreation.gov/",
+  "source_row_zero_based": 200,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept showing Alley Spring's rules and cancellation policy; the task names the campground and its location (there are same-name places), and \"show me\" became opening the Rules & Cancellations tab and staying there once the content has loaded. No booking or cancellation is required."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_alley_spring_campground",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://www\\.recreation\\.gov/camping/campgrounds/234046/?(?:[?#]|$)"
+    }
+   },
+   {
+    "name": "rules_and_cancellations_tab_selected",
+    "metric": "json_object_match",
+    "result": {
+     "type": "control_state",
+     "selectors": {
+      "rules_tab": "#tabs-button-2"
+     },
+     "must_exist": [
+      "rules_tab"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "rules_tab.text": "Rules & Cancellations",
+      "rules_tab.aria.selected": "true"
+     }
+    },
+    "requires": [
+     "on_alley_spring_campground"
+    ]
+   },
+   {
+    "name": "campground_title_and_rules_panel_loaded",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "title": "h1.sarsa-heading-title",
+      "rules": "#tabs-panel-2"
+     },
+     "must_exist": [
+      "title",
+      "rules"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "title": "Alley Spring",
+      "rules": {
+       "re": "(?s)(?=.*Reservation Rules)(?=.*Maximum Consecutive Stay)(?=.*Cancellations)(?=.*Day Use Rules).+"
+      }
+     }
+    },
+    "requires": [
+     "rules_and_cancellations_tab_selected"
+    ]
+   },
+   {
+    "name": "rules_and_cancellation_details_visible",
+    "metric": "include_exclude",
+    "result": {
+     "type": "visible_text",
+     "selector": "#tabs-panel-2",
+     "max_chars": 20000
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Reservation Rules",
+       "Maximum Consecutive Stay",
+       "Cancellations",
+       "You can cancel the reservation",
+       "Day Use Rules"
+      ]
+     }
+    },
+    "requires": [
+     "campground_title_and_rules_panel_loaded"
+    ]
+   }
+  ]
+ }
+}

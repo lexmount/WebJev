@@ -1,0 +1,32 @@
+{
+  "spec_version": "1",
+  "collected_at": "2026-09-17T15:30:00",
+  "phase": "in_session",
+  "getters": {
+    "44fed9f40f84": {
+      "config": {
+        "type": "final_url"
+      },
+      "ok": true,
+      "value": "https://www.landwatch.com/maryland-land-for-sale/homes/price-under-60000"
+    }
+  },
+  "health": {
+    "ok": true,
+    "http_status": null,
+    "blocked": false,
+    "empty": false,
+    "signals": [],
+    "chars": 4354
+  },
+  "target": {
+    "n_page_targets": 1,
+    "urls": [
+      "https://www.landwatch.com/maryland-land-for-sale/homes/price-under-60000"
+    ],
+    "rule": "only_page",
+    "agent_target_id": "10C05092B6A6E42DC19F4DA01DFB1522",
+    "agrees_with_agent": true
+  },
+  "error": null
+}

@@ -1,0 +1,48 @@
+{
+ "task_id": "vts-120-webgym-300276",
+ "task_name": "How many free lessons, challenges, and projects are included in the free trial on Learn JavaScript?",
+ "website": "https://www.learnjavascript.online",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300276",
+  "original_task_name": "How many free lessons, challenges, and projects are included in the free trial on Learn JavaScript?",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "free_trial_combined_total",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "^\\s*(?:77|seventy[\\s-]+seven)\\s*[.!]?\\s*$"
+        },
+        {
+         "re": "\\b(?:77|seventy[\\s-]+seven)\\b(?=[^\\d.!?\\n]{0,160}\\blessons?\\b)(?=[^\\d.!?\\n]{0,160}\\bchallenges?\\b)(?=[^\\d.!?\\n]{0,160}\\bprojects?\\b)"
+        },
+        {
+         "re": "\\blessons?\\b[^\\d.!?\\n]{0,50}\\bchallenges?\\b[^\\d.!?\\n]{0,50}\\bprojects?\\b[^\\d.!?\\n]{0,50}\\b(?:77|seventy[\\s-]+seven)\\b"
+        },
+        {
+         "re": "\\b(?:total|combined|altogether)\\b[^\\d.!?\\n]{0,60}\\b(?:77|seventy[\\s-]+seven)\\b"
+        },
+        {
+         "re": "\\b(?:77|seventy[\\s-]+seven)\\b[^\\d.!?\\n]{0,60}\\b(?:in total|combined|altogether|items|activities)\\b"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,42 @@
+{
+ "task_id": "vts-069-onlinemind2web-c8c1ff115879b3afd14280beb1559b13",
+ "task_name": "Find the latest Doraemon video in MP4 format that is over 20 minutes long and has a medium file size.",
+ "website": "https://www.4shared.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "c8c1ff115879b3afd14280beb1559b13",
+  "original_task_name": "Find the latest Doraemon video in MP4 format that is over 20 minutes long and has a medium file size.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "answer_names_latest_qualifying_video",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "all": [
+        {
+         "re": "Doraemon\\s+Aventura\\s+En\\s+El\\s+Tiempo"
+        },
+        {
+         "re": "El\\s+Misterio\\s+De\\s+La\\s+Figura\\s+De\\s+Nobita"
+        },
+        {
+         "re": "La\\s+Puerta\\s+Sin\\s+Casa(?:\\s*\\(360P\\))?\\.mp4"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

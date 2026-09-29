@@ -1,0 +1,37 @@
+{
+ "task_id": "vts-141-calcareers-sandiego-legal-4000",
+ "task_name": "On calcareers.ca.gov, browse full-time job postings in the Legal occupational category located in San Diego County with a minimum salary of at least $4,000 per month.",
+ "website": "https://www.calcareers.ca.gov/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "1aeca99e6a60b0e3aefb3ef212bdce79",
+  "original_task_name": "Find full-time legal occupation jobs in San Diego County with a minimum salary of $4,000+ per month.",
+  "original_website": "https://www.calcareers.ca.gov/",
+  "source_row_zero_based": 235,
+  "intent_modified": true,
+  "intent_modified_reason": "Added the site name. \"Find\" became browsing with the three filters, so the end state is the search results page rather than one posting. A .gov site has no regional redirects and no inventory-dependent results."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "job_search_results_with_all_four_filters",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "^https://(www\\.)?calcareers\\.ca\\.gov/CalHRPublic/Search/JobSearchResults\\.aspx([?#]|$)",
+      "[#&]socmajorcode=23-0000(&|$)",
+      "[#&]locid=481(&|$)",
+      "[#&]minsal=4000(&|$)",
+      "[#&]timid=1(&|$)"
+     ]
+    }
+   }
+  ]
+ }
+}

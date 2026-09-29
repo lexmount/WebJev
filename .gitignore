@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Node / frontend builds
+node_modules/
+apps/browser-agent/frontend/dist/
+*.tsbuildinfo
+
+# Secrets and local config
+.env
+.env.*
+!.env.example
+
+# Run outputs, downloads, third-party checkouts
+runs/
+logs/
+outputs/
+artifacts/
+third_party/
+evaluation/benchmarks/data/
+evaluation/benchmarks/predictions/
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/

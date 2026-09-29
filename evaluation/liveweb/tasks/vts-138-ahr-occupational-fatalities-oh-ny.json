@@ -1,0 +1,32 @@
+{
+ "task_id": "vts-138-ahr-occupational-fatalities-oh-ny",
+ "task_name": "On americashealthrankings.org, open the Occupational Fatalities measure and display the trend chart comparing Ohio with New York.",
+ "website": "https://www.americashealthrankings.org/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "d4fb78b7e74508cd3b33f01cf9200997",
+  "original_task_name": "Show the figure comparing Occupational Fatalities Trends between Ohio and New York.",
+  "original_website": "https://www.americashealthrankings.org/",
+  "intent_modified": true,
+  "intent_modified_reason": "Added the site name; \"show the figure\" became opening the Occupational Fatalities measure and showing the OH/NY trend comparison, whose state the site keeps in URL parameters."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "comparing_oh_and_ny_on_work_fatalities",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "^https://www\\.americashealthrankings\\.org/explore/measures/WorkFatalities/(OH/compare/NY|NY/compare/OH)([?#]|$)"
+     ]
+    }
+   }
+  ]
+ }
+}

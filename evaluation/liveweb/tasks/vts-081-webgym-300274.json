@@ -1,0 +1,107 @@
+{
+ "task_id": "vts-081-webgym-300274",
+ "task_name": "What is the current duration of copyright for a work created by an individual author, and what is the duration for a work created by employees of a corporation according to copyright.wsu.edu?",
+ "website": "https://www.copyright.wsu.edu",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300274",
+  "original_task_name": "What is the current duration of copyright for a work created by an individual author, and what is the duration for a work created by employees of a corporation according to copyright.wsu.edu?",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "individual_author_lifetime_plus_70_years",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "\\blife(?:time)?\\b[^.;\\d]{0,80}(?:\\bplus\\b|\\+|\\band\\b)[^.;\\d]{0,35}\\b(?:70|seventy)\\s*(?:years?|yrs?)\\b"
+        },
+        {
+         "re": "\\b(?:70|seventy)\\s*(?:years?|yrs?)\\b[^.;]{0,65}\\b(?:after|following|beyond|post)\\b[^.;]{0,65}\\b(?:death|dies|died)\\b"
+        },
+        {
+         "re": "(?:\u7ec8\u8eab|\u7ec8\u751f|\u6709\u751f\u4e4b\u5e74|\u4e00\u751f)[^\u3002\uff1b]{0,35}(?:\u52a0|\u5916\u52a0|\u518d\u52a0|\u53ca|\u4ee5\u53ca|\u548c|\u53e6\u52a0|\\+)[^\u3002\uff1b\\d]{0,15}(?:70|\u4e03\u5341)\\s*\u5e74"
+        },
+        {
+         "re": "(?:\u4f5c\u8005|\u4e2a\u4eba|\u81ea\u7136\u4eba|\u521b\u4f5c\u8005)[^\u3002\uff1b]{0,25}(?:\u53bb\u4e16|\u901d\u4e16|\u6b7b\u4ea1|\u6b7b\u540e)[^\u3002\uff1b]{0,15}(?:70|\u4e03\u5341)\\s*\u5e74"
+        }
+       ],
+       "not_re": "(?:70|seventy)\\s*(?:days?|months?|weeks?|hours?)\\b"
+      }
+     }
+    }
+   },
+   {
+    "name": "corporate_work_95_years_from_publication",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": [
+        "\\b(?:95|ninety[ -]?five)\\s*(?:years?|yrs?)\\b[^.;]{0,45}\\b(?:publication|publish(?:ed|ing)?)\\b",
+        "\\b(?:publication|publish(?:ed|ing)?)\\b[^.;\\d]{0,45}\\b(?:95|ninety[ -]?five)\\s*(?:years?|yrs?)\\b",
+        "(?:\u53d1\u8868|\u51fa\u7248|\u53d1\u5e03)[^\u3002\uff1b\\d]{0,20}(?:95|\u4e5d\u5341\u4e94)\\s*\u5e74",
+        "(?:95|\u4e5d\u5341\u4e94)\\s*\u5e74[^\u3002\uff1b]{0,20}(?:\u53d1\u8868|\u51fa\u7248|\u53d1\u5e03)"
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "corporate_work_120_years_from_creation",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": [
+        "\\b(?:120|one hundred(?: and)? twenty|a hundred(?: and)? twenty)\\s*(?:years?|yrs?)\\b[^.;]{0,45}\\b(?:creation|creat(?:ed|ing)|making|made)\\b",
+        "\\b(?:creation|creat(?:ed|ing)|making|made)\\b[^.;\\d]{0,45}\\b(?:120|one hundred(?: and)? twenty|a hundred(?: and)? twenty)\\s*(?:years?|yrs?)\\b",
+        "(?:\u521b\u4f5c|\u5b8c\u6210|\u521b\u5236)[^\u3002\uff1b\\d]{0,20}(?:120|\u4e00\u767e\u4e8c\u5341)\\s*\u5e74",
+        "(?:120|\u4e00\u767e\u4e8c\u5341)\\s*\u5e74[^\u3002\uff1b]{0,20}(?:\u521b\u4f5c|\u5b8c\u6210|\u521b\u5236)"
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "corporate_work_uses_the_shorter_term",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": [
+        "\\bwhichever\\b[^.;]{0,35}\\b(?:shorter|earlier|less|first)\\b",
+        "\\b(?:shorter|earlier|lesser|minimum)\\s+(?:of|period|duration|term|time|one)\\b",
+        "\\b(?:use|uses|apply|applies|take|takes|choose|chooses|select|selects)\\s+(?:the\\s+)?(?:shorter|earlier|lesser)\\b",
+        "(?:\u53d6|\u4ee5|\u9009\u62e9|\u91c7\u7528)[^\u3002\uff1b]{0,12}(?:\u8f83\u77ed|\u8f83\u65e9|\u66f4\u77ed|\u66f4\u65e9|\u6700\u77ed|\u6700\u65e9|\u5148\u5230|\u5148\u5c4a\u6ee1)",
+        "(?:\u4e24\u8005|\u4e8c\u8005)[^\u3002\uff1b]{0,12}(?:\u8f83\u77ed|\u8f83\u65e9|\u66f4\u77ed|\u66f4\u65e9|\u5148\u5230|\u5148\u5c4a\u6ee1)"
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

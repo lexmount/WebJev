@@ -1,0 +1,22 @@
+# Data-building environment (CPU only). Versions used to build the training mixture.
+# torch is needed only because the upstream data modules import it; the CPU build is enough.
+torch==2.10.0
+numpy==1.26.4
+pandas==2.3.3
+pyarrow==25.0.0
+datasets==4.8.4
+huggingface-hub==1.28.0
+transformers==5.15.1
+tokenizers==0.22.2
+scikit-learn==1.9.1
+requests==2.34.2
+httpx==0.28.1
+ijson==3.5.1
+imageio==2.37.4
+# game environments used by the upstream `games` and `mario` tasks
+gym==0.23.1
+gymnasium==1.3.0
+gym-super-mario-bros==7.4.0
+nes-py==8.2.1
+minigrid==3.1.0
+ale-py==0.12.1

@@ -1,0 +1,31 @@
+{
+ "task_id": "vts-014-mta-jamaica-bus-depot-feis",
+ "task_name": "Starting on new.mta.info, find and open the main report PDF of the Final Environmental Impact Statement for the reconstruction and expansion of Jamaica Bus Depot. Leave the report open, rather than an appendix or the draft statement.",
+ "website": "https://new.mta.info/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "48c73f3f53e2611c4a1052457c1033db",
+  "original_task_name": "Get the report from the final environmental impact statement for the Jamaica Bus Depot expansion on new.mta.info.",
+  "intent_modified": true,
+  "intent_modified_reason": "Made the site, the target page and the end state explicit, and named the answer fields so the result can be checked deterministically. \"Get\" the report means opening the official report in the browser (no download). The official redirect from new.mta.info to www.mta.info is accepted."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "feis_report_open",
+    "metric": "tabs_match",
+    "result": {
+     "type": "open_tabs"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "https://www.mta.info/document/10341"
+     ]
+    }
+   }
+  ]
+ }
+}

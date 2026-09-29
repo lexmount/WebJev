@@ -1,0 +1,8 @@
+# created by setup.sh, data/build_all.sh and train.sh
+third_party/
+.venv/
+.venv-data/
+work/
+runs/
+models/
+__pycache__/

@@ -1,0 +1,85 @@
+{
+ "task_id": "vts-075-webgym-300123",
+ "task_name": "What are the different admission prices for the Museum of Contemporary Art San Diego, and who qualifies for free admission?",
+ "website": "https://www.mcasd.org",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300123",
+  "original_task_name": "What are the different admission prices for the Museum of Contemporary Art San Diego, and who qualifies for free admission?",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "answer_contains_admission_prices_and_free_eligibility",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "admission_prices": {
+       "all": [
+        {
+         "re": "general.{0,30}\\$?\\s*25|\\$?\\s*25.{0,30}general"
+        },
+        {
+         "re": "(?:San Diego County.{0,24}Tijuana|Tijuana.{0,24}San Diego County).{0,36}\\$?\\s*20|\\$?\\s*20.{0,36}(?:San Diego County.{0,24}Tijuana|Tijuana.{0,24}San Diego County)"
+        },
+        {
+         "re": "students?"
+        },
+        {
+         "re": "educators?"
+        },
+        {
+         "re": "older adults?|adults?.{0,16}55\\+|55\\+.{0,16}adults?"
+        },
+        {
+         "re": "(?:students?|educators?|55\\+).{0,100}\\$?\\s*15|\\$?\\s*15.{0,100}(?:students?|educators?|55\\+)"
+        },
+        {
+         "re": "members?.{0,30}free|free.{0,30}members?"
+        }
+       ]
+      },
+      "free_admission_eligibility": {
+       "all": [
+        {
+         "re": "(?:age[sd]?\\s*)?25\\s*(?:and|&)\\s*under|under\\s*25"
+        },
+        {
+         "re": "SNAP.{0,12}EBT|EBT.{0,12}SNAP"
+        },
+        {
+         "re": "(?:visitors?|people|persons?|individuals?).{0,36}(?:with\\s+)?disabilit|disabilit.{0,36}(?:visitors?|people|persons?|individuals?)"
+        },
+        {
+         "re": "\\bmilitary\\b"
+        },
+        {
+         "re": "federal.{0,24}disability.{0,24}assistance|(?:SSDI|SSI|VA benefits).{0,80}(?:recipient|benefit|assistance)"
+        },
+        {
+         "re": "(?:one\\s+)?personal care attendant"
+        },
+        {
+         "re": "Bank of America"
+        },
+        {
+         "re": "first full weekend"
+        },
+        {
+         "re": "every.{0,16}month|each.{0,16}month|monthly"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "task_id": "vts-027-accuweather-florida-city-monthly",
+ "task_name": "On accuweather.com, display a monthly weather forecast for Florida City, Florida, and leave its monthly calendar open.",
+ "website": "https://www.accuweather.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "4e0f5561a76478da87995dee00b09572",
+  "original_task_name": "Show me the monthly weather forecast for Florida City.",
+  "intent_modified": true,
+  "intent_modified_reason": "Made the site, the target page and the end state explicit. The original task names no month, so any monthly calendar is accepted; hourly and daily views are rejected."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https?://(?:www\\.)?accuweather\\.com/en/us/florida-city(?:-fl)?/33034/(?:january|february|march|april|may|june|july|august|september|october|november|december|monthly)-weather/332389(?:[/?#]|$)"
+    }
+   },
+   {
+    "name": "target_content",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Florida City",
+       "Temperature Graph"
+      ]
+     }
+    },
+    "requires": [
+     "target_page"
+    ]
+   }
+  ]
+ }
+}

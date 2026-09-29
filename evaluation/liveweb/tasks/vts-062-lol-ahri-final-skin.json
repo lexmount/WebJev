@@ -1,0 +1,109 @@
+{
+ "task_id": "vts-062-lol-ahri-final-skin",
+ "task_name": "On the English leagueoflegends.com website, open the champion Ahri and browse the final skin in the Available Skins list. Select that final skin so its large preview is displayed, leave the page open, and return only a JSON object with a string field \"skin\" containing its displayed name.",
+ "website": "https://www.leagueoflegends.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "c39d6c245f8243993e707d54d2f4acec",
+  "original_task_name": "Browse the final skin in the list for the champion Ahri.",
+  "original_website": "https://www.leagueoflegends.com/",
+  "source_row_zero_based": 250,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept the last skin in Ahri's skin list; the English site, selecting the last thumbnail to show its large preview, and returning its name are explicit. The last item is read from the live page at evidence time; the number of skins and their names are not hard-coded."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "^https://www\\.leagueoflegends\\.com/en-[a-z]{2}/champions/ahri/?(?:[?#].*)?$"
+     ]
+    }
+   },
+   {
+    "name": "final_skin_selected",
+    "metric": "json_object_match",
+    "requires": [
+     "target_page"
+    ],
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "active": "#available-skins [data-testid=\"slides-container\"] > [data-testid=\"slide\"]:last-child"
+     },
+     "must_exist": [
+      "active"
+     ],
+     "attr": "data-slide-active"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "active": {
+       "eq": "true"
+      }
+     }
+    }
+   },
+   {
+    "name": "main_image_is_final_skin",
+    "metric": "json_object_match",
+    "requires": [
+     "target_page"
+    ],
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "image": "#available-skins [data-testid=\"current-media\"]"
+     },
+     "must_exist": [
+      "image"
+     ],
+     "attr": "src"
+    },
+    "expected": {
+     "type": "dom_extract",
+     "selectors": {
+      "image": "#available-skins [data-testid=\"slides-container\"] > [data-testid=\"slide\"]:last-child img"
+     },
+     "must_exist": [
+      "image"
+     ],
+     "attr": "src"
+    }
+   },
+   {
+    "name": "reported_final_skin_matches_list",
+    "metric": "answer_match",
+    "requires": [
+     "target_page",
+     "final_skin_selected",
+     "main_image_is_final_skin"
+    ],
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "dom_extract",
+     "selectors": {
+      "skin": "#available-skins [data-testid=\"slides-container\"] > [data-testid=\"slide\"]:last-child"
+     },
+     "must_exist": [
+      "skin"
+     ]
+    },
+    "options": {
+     "ignore_literal_whitespace": true
+    }
+   }
+  ]
+ }
+}

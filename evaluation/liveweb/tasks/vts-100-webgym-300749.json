@@ -1,0 +1,53 @@
+{
+ "task_id": "vts-100-webgym-300749",
+ "task_name": "Find the Uf-value (thermal transmittance coefficient) for the VEKA Softline 70 window system on the VEKA Deutschland website.",
+ "website": "https://www.veka.de",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300749",
+  "original_task_name": "Find the Uf-value (thermal transmittance coefficient) for the VEKA Softline 70 window system on the VEKA Deutschland website.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "softline_70_uf_value_and_unit",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "all": [
+        {
+         "re": "(?<![\\d.,])1[.,]30*(?!\\d)",
+         "flags": "I"
+        },
+        {
+         "re": "(?:\\bW\\s*(?:[/\uff0f]\\s*[(\\[]?\\s*m\\s*(?:²|\\^?\\s*2)\\s*(?:[·.*]\\s*)?K|[·.\\s]*m\\s*(?:⁻²|\\^\\s*-\\s*2|-\\s*2)\\s*[·.\\s]*K\\s*(?:⁻¹|\\^\\s*-\\s*1|-\\s*1))|watts?\\s*(?:per|/)\\s*square\\s*met(?:er|re)s?\\s*(?:(?:per|/)\\s*)?kelvin|\u74e6(?:\u7279)?\\s*[/\uff0f]\\s*[(\uff08]?\\s*\u5e73\u65b9\u7c73\\s*[·*]?\\s*\u5f00(?:\u5c14\u6587)?)",
+         "flags": "I"
+        },
+        {
+         "any": [
+          {
+           "not_re": "\\bU[\\s_]*w\\b[^\\d\\n]{0,80}1[.,]30*(?!\\d)",
+           "flags": "I"
+          },
+          {
+           "re": "\\bU[\\s_]*f\\b[^\\d\\n]{0,80}1[.,]30*(?!\\d)",
+           "flags": "I"
+          }
+         ]
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

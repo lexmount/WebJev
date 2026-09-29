@@ -1,0 +1,56 @@
+{
+ "task_id": "vts-047-iclr2016-first-best-paper-video",
+ "task_name": "Starting from iclr.cc, follow the conference's official video-recording link for ICLR 2016. Open the first individual video listed under Best Paper Awards in that video collection, and leave its talk page on videolectures.net open.",
+ "website": "https://iclr.cc/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "bb314cb80f0f8489135cbf59074d11e2",
+  "original_task_name": "Open the page for the first Best Paper Award video recording of talks from ICLR 2016.",
+  "original_website": "https://iclr.cc/",
+  "source_row_zero_based": 234,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept ICLR 2016, the first Best Paper video and the talk-recording page. \"First\" follows the order of the Best Paper Awards section in the officially linked video collection, not the conference schedule. Stopping at the ICLR list or at the arXiv paper does not count."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https?://(?:www\\.)?videolectures\\.net/(?!events/|iclr2016_san_juan/?(?:[?#]|$))[^?#]+"
+    }
+   },
+   {
+    "name": "individual_talk_title",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "page_title"
+    },
+    "expected": {
+     "type": "const",
+     "value": "Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding"
+    }
+   },
+   {
+    "name": "talk_is_han_iclr2016",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "Song Han",
+      "(?:ICLR\\s*2016|2016.*Learning Representations|Learning Representations.*2016)"
+     ]
+    }
+   }
+  ]
+ }
+}

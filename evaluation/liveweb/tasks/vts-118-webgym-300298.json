@@ -1,0 +1,72 @@
+{
+ "task_id": "vts-118-webgym-300298",
+ "task_name": "Find out what type of ship 'Sun Boat IV' is and how many guests it accommodates for the 'Egypt and the Nile with Exclusive VIP Experience' tour.",
+ "website": "https://www.abercrombiekent.co.uk",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300298",
+  "original_task_name": "Find out what type of ship 'Sun Boat IV' is and how many guests it accommodates for the 'Egypt and the Nile with Exclusive VIP Experience' tour.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "sun_boat_iv_ship_type",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "ship_type": {
+       "re": "\\b(?:river[\\s-]?boats?|(?:nile|river)[\\s-]+(?:cruise[\\s-]+)?(?:ships?|boats?|vessels?|cruisers?)|(?:luxury|deluxe|boutique)[\\s-]+(?:(?:nile|river)[\\s-]+)?(?:cruise[\\s-]+)?(?:ships?|boats?|vessels?|cruisers?))\\b|(?:\u8c6a\u534e|\u8c6a\u83ef)?(?:\u5c3c\u7f57\u6cb3|\u5c3c\u7f85\u6cb3)?(?:\u6cb3\u8f6e|\u6cb3\u8f2a|\u6e38\u8f6e|\u904a\u8f2a)",
+       "flags": "I"
+      }
+     }
+    }
+   },
+   {
+    "name": "sun_boat_iv_guest_capacity",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "guest_capacity": {
+       "all": [
+        {
+         "any": [
+          {
+           "eq": 76
+          },
+          {
+           "re": "\\bseventy[\\s-]+six\\b|\u4e03\u5341\u516d",
+           "flags": "I"
+          }
+         ]
+        },
+        {
+         "any": [
+          {
+           "re": "(?:\\b76\\b|\\bseventy[\\s-]+six\\b|\u4e03\u5341\u516d)[\\s*_]*(?:guests?|passengers?|people|persons?|\u4f4d?\u5ba2\u4eba|\u540d?\u4e58\u5ba2|\u4eba)",
+           "flags": "I"
+          },
+          {
+           "not_re": "(?:\\b76\\b|\\bseventy[\\s-]+six\\b|\u4e03\u5341\u516d)[\\s*_]*(?:cabins?|rooms?|suites?|crew(?:\\s+members)?|\u8239\u5458|\u8239\u54e1|\u5ba2\u623f|\u5ba2\u8231|\u5ba2\u8259|\u5957\u623f)|\\b(?:cabins?|rooms?|suites?|crew(?:\\s+members)?)\\b[\\s\"':*_=-]*(?:76\\b|seventy[\\s-]+six\\b)",
+           "flags": "I"
+          }
+         ]
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,125 @@
+{
+ "task_id": "vts-034-healthline-vivitrol-recommended-dose",
+ "task_name": "On healthline.com, find the usual recommended Vivitrol dosage and leave the supporting Vivitrol dosage article open. Return only a JSON object with numeric dose_mg (milligrams per injection), numeric interval_weeks (weeks between injections), and route (the medical administration route in English).",
+ "website": "https://www.healthline.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "5c00e9561eae94789443f405525a5869",
+  "original_task_name": "Find the recommended dosage for Vivitrol.",
+  "original_website": "https://www.healthline.com/",
+  "source_row_zero_based": 129,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept the question about the recommended dosage; the answer is now a JSON object with explicit fields and units so dose, interval and route can be checked deterministically. The question was not replaced by navigation alone."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://(?:www\\.)?healthline\\.com/health/drugs/vivitrol(?:-dosage)?/?(?:[?#]|$)"
+    }
+   },
+   {
+    "name": "target_content_loaded",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Vivitrol",
+       "380",
+       "4 weeks"
+      ]
+     }
+    }
+   },
+   {
+    "name": "usual_dose_milligrams",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "dose_mg": {
+       "all": [
+        {
+         "any": [
+          {
+           "eq": 380
+          },
+          {
+           "re": "380\\s*(?:mg|milligrams?)"
+          }
+         ]
+        },
+        {
+         "not_re": "380\\s*(?:weeks?|wks?|days?|months?)"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "injection_interval_weeks",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "interval_weeks": {
+       "all": [
+        {
+         "any": [
+          {
+           "eq": 4
+          },
+          {
+           "re": "(?:every\\s+)?(?:4|four)\\s*weeks?"
+          }
+         ]
+        },
+        {
+         "not_re": "(?:\\b4|\\bfour)\\s*(?:mg|milligrams?)"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "route_is_intramuscular",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "route": {
+       "in": [
+        "intramuscular",
+        "intramuscular injection",
+        "IM"
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

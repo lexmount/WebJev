@@ -1,0 +1,202 @@
+[
+ {
+  "label": "true end state (independent run): Sparta, size 4 applied",
+  "answer": "The nearest location offering size 4 P.O. Boxes near ZIP 54620 is the Sparta Post Office, 123 W Main St, Sparta, WI 54656, about 10.02 miles away.",
+  "expect": 1
+ },
+ {
+  "label": "answer is just the city name Sparta -- enough; content, not wrapping",
+  "answer": "Sparta",
+  "expect": 1
+ },
+ {
+  "label": "different case: SPARTA",
+  "answer": "the nearest one is SPARTA post office",
+  "expect": 1
+ },
+ {
+  "label": "stopped at the usps.com home page (never searched)",
+  "url": "https://www.usps.com/",
+  "answer": "Sparta",
+  "expect": 0
+ },
+ {
+  "label": "PO Box overview page, no search results",
+  "url": "https://www.usps.com/manage/po-boxes.htm",
+  "answer": "Sparta",
+  "expect": 0
+ },
+ {
+  "label": "searched another ZIP (54601)",
+  "url": "https://poboxes.usps.com/findBox.html?q=54601",
+  "answer": "Sparta",
+  "expect": 0
+ },
+ {
+  "label": "q is 546200, a superset of 54620 -- the boundary must hold",
+  "url": "https://poboxes.usps.com/findBox.html?q=546200",
+  "answer": "Sparta",
+  "expect": 0
+ },
+ {
+  "label": "findBox without q",
+  "url": "https://poboxes.usps.com/findBox.html",
+  "answer": "Sparta",
+  "expect": 0
+ },
+ {
+  "label": "size 4 not ticked: checked=false",
+  "getters": [
+   {
+    "match": {
+     "selectors": {
+      "size4": "#size4"
+     }
+    },
+    "value": {
+     "size4": {
+      "tag": "input",
+      "checked": false
+     }
+    }
+   }
+  ],
+  "answer": "Sparta",
+  "expect": 0
+ },
+ {
+  "label": "ticked but Apply Filters not clicked: the first result is still the unfiltered Cataract (sizes 1/2 only)",
+  "getters": [
+   {
+    "match": {
+     "selectors": {
+      "sizes": "#locationContainer_1 .listItemLocation .availableSizes"
+     }
+    },
+    "value": {
+     "sizes": "Size 1 Size 2"
+    }
+   },
+   {
+    "match": {
+     "selectors": {
+      "name": "#locationContainer_1 .listItemLocation h2.normal span.bold"
+     }
+    },
+    "value": {
+     "name": "Cataract"
+    }
+   }
+  ],
+  "answer": "Cataract",
+  "expect": 0
+ },
+ {
+  "label": "inventory changed: the first result is now Tomah and the answer follows -- the check adapts and must not reject it",
+  "getters": [
+   {
+    "match": {
+     "selectors": {
+      "name": "#locationContainer_1 .listItemLocation h2.normal span.bold"
+     }
+    },
+    "value": {
+     "name": "Tomah"
+    }
+   }
+  ],
+  "answer": "The nearest is the Tomah Post Office, 17.71 miles away.",
+  "expect": 1
+ },
+ {
+  "label": "inventory changed but the answer is still Sparta (a stale answer)",
+  "getters": [
+   {
+    "match": {
+     "selectors": {
+      "name": "#locationContainer_1 .listItemLocation h2.normal span.bold"
+     }
+    },
+    "value": {
+     "name": "Tomah"
+    }
+   }
+  ],
+  "answer": "Sparta Post Office, 10.02 miles",
+  "expect": 0
+ },
+ {
+  "label": "a hallucinated location that never appeared",
+  "answer": "The nearest one is the Madison Post Office.",
+  "expect": 0
+ },
+ {
+  "label": "empty answer",
+  "answer": "",
+  "expect": 0
+ },
+ {
+  "label": "vague answer that names nothing",
+  "answer": "I found several post offices nearby that offer size 4 boxes.",
+  "expect": 0
+ },
+ {
+  "label": "no results after filtering: container present, items MISSING -> 0 (the agent's failure), not judge_error",
+  "getters": [
+   {
+    "match": {
+     "selectors": {
+      "sizes": "#locationContainer_1 .listItemLocation .availableSizes"
+     }
+    },
+    "value": {
+     "sizes": {
+      "__missing__": true
+     }
+    }
+   },
+   {
+    "match": {
+     "selectors": {
+      "name": "#locationContainer_1 .listItemLocation h2.normal span.bold"
+     }
+    },
+    "value": {
+     "name": {
+      "__missing__": true
+     }
+    }
+   }
+  ],
+  "answer": "No location offers size 4 boxes.",
+  "expect": 0
+ },
+ {
+  "label": "the container selector rotted -> judge_error, reward None (we cannot say the agent was wrong)",
+  "getters": [
+   {
+    "match": {
+     "selectors": {
+      "container": "#locationContainer_1"
+     }
+    },
+    "error": "dom_extract: canary 'container' was not found -- the selector has most likely rotted"
+   }
+  ],
+  "answer": "Sparta"
+ },
+ {
+  "label": "the evidence channel died (CDP timeout) -> judge_error, not 0",
+  "getters": [
+   {
+    "match": {
+     "selectors": {
+      "size4": "#size4"
+     }
+    },
+    "error": "control_state: send failed: WebSocketConnectionClosedException"
+   }
+  ],
+  "answer": "Sparta"
+ }
+]

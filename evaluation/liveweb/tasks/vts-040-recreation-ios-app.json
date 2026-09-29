@@ -1,0 +1,60 @@
+{
+ "task_id": "vts-040-recreation-ios-app",
+ "task_name": "Starting from recreation.gov, find its iOS app and open the Recreation.gov listing on the Apple App Store (apps.apple.com). Leave that app listing open; no installation is required.",
+ "website": "https://www.recreation.gov/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "52efbab520734ef9bf7c09ba0f62cdc8",
+  "original_task_name": "Find the app for iOS.",
+  "original_website": "https://www.recreation.gov/",
+  "source_row_zero_based": 172,
+  "intent_modified": true,
+  "intent_modified_reason": "\"Find the app\" now ends on the iOS App Store listing. The official link leads to apps.apple.com, so the verifier accepts that cross-site end state instead of requiring the agent to stay on recreation.gov."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://apps\\.apple\\.com/[a-z-]+/app/(?:recreation-gov/)?id1440487780(?:/|[?#]|$)"
+    }
+   },
+   {
+    "name": "app_title_is_recreation",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_title"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "Recreation.gov"
+     ]
+    }
+   },
+   {
+    "name": "target_content_loaded",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Recreation.gov",
+       "iPhone"
+      ]
+     }
+    }
+   }
+  ]
+ }
+}

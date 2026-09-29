@@ -1,0 +1,49 @@
+{
+ "task_id": "vts-020-foxsports-mls-standings",
+ "task_name": "On foxsports.com, display the current MLS standings table and leave it open.",
+ "website": "https://www.foxsports.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "b6d10e9bd19b4009a02dea0e98f4e1ae",
+  "original_task_name": "Check the current standings for MLS on Fox Sports.",
+  "intent_modified": true,
+  "intent_modified_reason": "Made the site, the target page and the end state explicit. Positions and points change, so they are not hard-coded; the verifier checks that the current league table is shown with its statistics columns."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "target_page",
+    "metric": "url_matches",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "https://www.foxsports.com/soccer/mls/standings"
+    }
+   },
+   {
+    "name": "target_content",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "MLS",
+       "STANDINGS",
+       "PTS"
+      ]
+     }
+    },
+    "requires": [
+     "target_page"
+    ]
+   }
+  ]
+ }
+}

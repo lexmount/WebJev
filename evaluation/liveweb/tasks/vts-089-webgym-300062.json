@@ -1,0 +1,61 @@
+{
+ "task_id": "vts-089-webgym-300062",
+ "task_name": "Find the operating hours of the Cincinnati Zoo & Botanical Garden for a weekend day.",
+ "website": "https://www.cincinnatiusa.com",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300062",
+  "original_task_name": "Find the operating hours of the Cincinnati Zoo & Botanical Garden for a weekend day.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "weekend_opening_and_closing_hours",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "opening_time": {
+       "any": [
+        {
+         "re": "(?<![0-9A-Za-z])(?:10(?::00)?|ten)\\s*(?:a\\.?\\s*m\\.?|in\\s+the\\s+morning)(?![A-Za-z])"
+        },
+        {
+         "re": "(?<![0-9])10:00(?![0-9])"
+        },
+        {
+         "re": "(?<![0-9])10\\s*(?:-|–|—|to|until)\\s*5(?:\\s*p\\.?\\s*m\\.?)?(?![0-9])"
+        },
+        {
+         "re": "\u4e0a\u5348\\s*(?:10|\u5341)\\s*(?:\u70b9|\u6642|\u65f6)"
+        }
+       ]
+      },
+      "closing_time": {
+       "any": [
+        {
+         "re": "(?<![0-9A-Za-z])(?:5(?::00)?|five)\\s*(?:p\\.?\\s*m\\.?|in\\s+the\\s+(?:afternoon|evening))(?![A-Za-z])"
+        },
+        {
+         "re": "(?<![0-9])17:00(?![0-9])"
+        },
+        {
+         "re": "(?<![0-9])10\\s*(?:-|–|—|to|until)\\s*5(?:\\s*p\\.?\\s*m\\.?)?(?![0-9])"
+        },
+        {
+         "re": "\u4e0b\u5348\\s*(?:5|\u4e94)\\s*(?:\u70b9|\u6642|\u65f6)"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

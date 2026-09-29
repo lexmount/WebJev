@@ -1,0 +1,56 @@
+[
+ {
+  "label": "true end state OH/compare/NY",
+  "expect": 1
+ },
+ {
+  "label": "reversed NY/compare/OH (entering from New York is equally valid)",
+  "expect": 1,
+  "url": "https://www.americashealthrankings.org/explore/measures/WorkFatalities/NY/compare/OH"
+ },
+ {
+  "label": "with a query string",
+  "expect": 1,
+  "url": "https://www.americashealthrankings.org/explore/measures/WorkFatalities/OH/compare/NY?edition=2025"
+ },
+ {
+  "label": "half right (1): single-state trend chart (chart and legend, but no NY)",
+  "expect": 0,
+  "url": "https://www.americashealthrankings.org/explore/measures/WorkFatalities/OH"
+ },
+ {
+  "label": "half right (2): comparison page open but the second slot is still the default United States",
+  "expect": 0,
+  "url": "https://www.americashealthrankings.org/explore/measures/WorkFatalities/OH/compare"
+ },
+ {
+  "label": "compared the wrong state",
+  "expect": 0,
+  "url": "https://www.americashealthrankings.org/explore/measures/WorkFatalities/OH/compare/CA"
+ },
+ {
+  "label": "segment boundary: NYC is not NY",
+  "expect": 0,
+  "url": "https://www.americashealthrankings.org/explore/measures/WorkFatalities/OH/compare/NYC"
+ },
+ {
+  "label": "wrong measure (similar name)",
+  "expect": 0,
+  "url": "https://www.americashealthrankings.org/explore/measures/OccupationalFatalities/OH/compare/NY"
+ },
+ {
+  "label": "the whole-state summary comparison, not this measure's trend chart",
+  "expect": 0,
+  "url": "https://www.americashealthrankings.org/explore/states/OH/compare/NY"
+ },
+ {
+  "label": "stopped at the home page",
+  "expect": 0,
+  "url": "https://www.americashealthrankings.org/"
+ },
+ {
+  "label": "look-alike domain",
+  "expect": 0,
+  "url": "https://evil.example.com/www.americashealthrankings.org/explore/measures/WorkFatalities/OH/compare/NY"
+ }
+]

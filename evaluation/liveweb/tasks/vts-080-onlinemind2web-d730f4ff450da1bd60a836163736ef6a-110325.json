@@ -1,0 +1,41 @@
+{
+ "task_id": "vts-080-onlinemind2web-d730f4ff450da1bd60a836163736ef6a-110325",
+ "task_name": "Find the GORE-TEX men's hiking shoe with the highest percentage discount, priced between $100.00 and $199.99, with a rating of 4 stars or higher.",
+ "website": "https://www.backcountry.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "d730f4ff450da1bd60a836163736ef6a_110325",
+  "original_task_name": "Find the GORE-TEX men's hiking shoe with the highest percentage discount, priced between $100.00 and $199.99, with a rating of 4 stars or higher.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "identifies_highest_discount_qualifying_shoe",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "\\bspeed[\\s-]*arc[\\s-]+matis[\\s-]+mid(?:[\\s-]+(?:gtx|gore[\\s-]*tex))?\\b",
+         "flags": "I"
+        },
+        {
+         "re": "\\bMERZ30A(?:-[A-Z0-9]+)*\\b",
+         "flags": "I"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

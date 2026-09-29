@@ -1,0 +1,58 @@
+{
+ "task_id": "vts-085-webgym-300390",
+ "task_name": "Find an 'Advanced' level outdoor activity that is a 'Full day' duration and takes place in 'Flåm'. What is the name of this activity and its price?",
+ "website": "https://www.norwaynutshell.com",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300390",
+  "original_task_name": "Find an 'Advanced' level outdoor activity that is a 'Full day' duration and takes place in 'Flåm'. What is the name of this activity and its price?",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "activity_name",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "activity": {
+       "any": [
+        {
+         "re": "\\b(?:UNESCO\\s+)?N(?:æ|ae|a)r(?:ø|o)yfjord\\s+(?:mountain\\s+)?hik(?:e|ing)\\b",
+         "flags": "I"
+        },
+        {
+         "re": "\\b(?:guided\\s+)?Rimstigen\\s+(?:mountain\\s+)?hik(?:e|ing)\\b",
+         "flags": "I"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "published_price",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "price": 3350,
+      "currency": {
+       "re": "\\bNOK\\b|\\bNorwegian\\s+kron(?:e|er)\\b|\\bkr(?:one|oner)?\\b|\u632a\u5a01\u514b\u6717",
+       "flags": "I"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,30 @@
+{
+ "task_id": "vts-067-webgym-300512",
+ "task_name": "What is the release year of the album 'Love at First Sting' according to the Scorpions' official discography?",
+ "website": "https://www.the-scorpions.com",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300512",
+  "original_task_name": "What is the release year of the album 'Love at First Sting' according to the Scorpions' official discography?",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "release_year_is_1984",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": 1984
+     }
+    }
+   }
+  ]
+ }
+}

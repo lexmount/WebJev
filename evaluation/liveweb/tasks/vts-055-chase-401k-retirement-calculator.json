@@ -1,0 +1,150 @@
+{
+ "task_id": "vts-055-chase-401k-retirement-calculator",
+ "task_name": "On the Chase official calculator hosted at static.chasecdn.com (the supplied starting page), determine the projected 401(k)/403(b) value at retirement using current age 22, retirement age 65, annual return 3%, annual employee contributions $8,000, and annual employer contributions $8,000. Use the calculator’s default assumptions, including its fixed 12% retirement tax rate, and report the displayed after-tax estimate. Return only a JSON object with a numeric dollar amount: {\"after_tax_value\": number}. Leave the calculator open with these inputs and its calculated result displayed.",
+ "website": "https://static.chasecdn.com/web/library/uswmdreui/retirement-calculators-iframes/2.0.6/index.html#/dashboard/retirementCalculators/esaCalculator",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "442a450e696a96085257db6297891a4d",
+  "original_task_name": "Using a calculator to determine how much I can have in my 401(k) account at retirement, if I work from age 22 to 65, with an annual rate of return of 3%, annual employee contributions of $8,000, and annual employer contributions of $8,000.",
+  "original_website": "https://www.chase.com/",
+  "source_row_zero_based": 207,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept all five inputs and the retirement-value calculation. The task starts on the official calculator page that chase.com embeds, because on the chase.com page the calculator sits in a cross-origin iframe that the verifier's top-level-document evidence cannot read; finding the calculator is not a hidden condition. The calculator's fixed 12% retirement tax rate and its after-tax result are stated to remove the pre-tax / after-tax ambiguity. The answer is a JSON object with a numeric after_tax_value, and the result page must stay open."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_official_401k_calculator",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://static\\.chasecdn\\.com/web/library/uswmdreui/retirement\\-calculators\\-iframes/2\\.0\\.6/index\\.html\\#/dashboard/retirementCalculators/esaCalculator$"
+    }
+   },
+   {
+    "name": "current_age",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "age": "#esa-age-range"
+     },
+     "attr": "leading-selected-value",
+     "must_exist": [
+      "age"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "age": {
+       "eq": "22"
+      }
+     }
+    },
+    "requires": [
+     "on_official_401k_calculator"
+    ]
+   },
+   {
+    "name": "retirement_age",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "age": "#esa-age-range"
+     },
+     "attr": "trailing-selected-value",
+     "must_exist": [
+      "age"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "age": {
+       "eq": "65"
+      }
+     }
+    },
+    "requires": [
+     "on_official_401k_calculator"
+    ]
+   },
+   {
+    "name": "return_and_contributions",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "rate": "#esa-rate-of-return",
+      "employee": "#esa-employee-contributions",
+      "employer": "#esa-employer-contributions"
+     },
+     "attr": "selected-value",
+     "must_exist": [
+      "rate",
+      "employee",
+      "employer"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "rate": {
+       "eq": "3"
+      },
+      "employee": {
+       "eq": "8000"
+      },
+      "employer": {
+       "eq": "8000"
+      }
+     }
+    },
+    "requires": [
+     "on_official_401k_calculator"
+    ]
+   },
+   {
+    "name": "computed_result_displayed",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "At age 65 my 401(k)/403(b) is estimated to be worth",
+       "$1,239,722"
+      ]
+     }
+    },
+    "requires": [
+     "on_official_401k_calculator"
+    ]
+   },
+   {
+    "name": "reported_after_tax_value",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "after_tax_value": {
+       "eq": 1239722
+      }
+     }
+    }
+   }
+  ]
+ }
+}

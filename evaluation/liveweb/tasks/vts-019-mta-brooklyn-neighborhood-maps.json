@@ -1,0 +1,48 @@
+{
+ "task_id": "vts-019-mta-brooklyn-neighborhood-maps",
+ "task_name": "On new.mta.info, find the list of Brooklyn neighborhood maps. Leave the Brooklyn neighborhood-map listing open, with the Brooklyn map links displayed.",
+ "website": "https://new.mta.info/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "4091bdd3fa64a5b0d912bc08eaf9c824",
+  "original_task_name": "Find the list of neighborhood maps for Brooklyn on new.mta.info.",
+  "intent_modified": true,
+  "intent_modified_reason": "Made the site, the target page and the end state explicit. A single map PDF or the citywide subway map does not count as the Brooklyn neighborhood-map listing."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https?://(?:new|www)\\.mta\\.info/maps/neighborhood-maps/brooklyn/?(?:[?#]|$)"
+    }
+   },
+   {
+    "name": "target_content",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Brooklyn",
+       "Neighborhood"
+      ]
+     }
+    },
+    "requires": [
+     "target_page"
+    ]
+   }
+  ]
+ }
+}

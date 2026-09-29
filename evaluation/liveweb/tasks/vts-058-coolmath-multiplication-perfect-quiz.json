@@ -1,0 +1,131 @@
+{
+ "task_id": "vts-058-coolmath-multiplication-perfect-quiz",
+ "task_name": "Complete the multiplication quiz on www.coolmath4kids.com using the supplied official practice-tool page. Select multiplication facts for 11–12, exactly 10 questions, and Unlimited time per question. Answer all ten correctly to achieve 10 out of 10, then open and leave the results screen displayed.",
+ "website": "https://www.coolmath4kids.com/sites/default/files/practice-tool/multiply.html",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "1223b07536a87e0170ff87cbbebd1d3c",
+  "original_task_name": "Complete a multiplication quiz on https://www.coolmath4kids.com/, covering multiplication facts for 11-12. The quiz should consist of 10 questions, with unlimited time allowed for each. The goal is to achieve a perfect score of 10 out of 10.",
+  "original_website": "https://www.coolmath4kids.com/",
+  "source_row_zero_based": 299,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept every original condition (multiplication 11-12, 10 questions, no time limit, 10/10). The start page is the same-domain practice tool that the site embeds on /quizzes/multiplication, because the embedding iframe is not readable from the top-level document. The score page must stay open."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_official_multiplication_tool",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://www\\.coolmath4kids\\.com/sites/default/files/practice\\-tool/multiply\\.html$"
+    }
+   },
+   {
+    "name": "quiz_settings",
+    "metric": "json_object_match",
+    "result": {
+     "type": "control_state",
+     "selectors": {
+      "range": "#range",
+      "questions": "#questions",
+      "time": "#timePerQuestion"
+     },
+     "must_exist": [
+      "range",
+      "questions",
+      "time"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "range.value": {
+       "eq": "11-12"
+      },
+      "questions.value": {
+       "eq": "10"
+      },
+      "time.value": {
+       "eq": "unlimited"
+      }
+     }
+    },
+    "requires": [
+     "on_official_multiplication_tool"
+    ]
+   },
+   {
+    "name": "result_page_visible",
+    "metric": "include_exclude",
+    "result": {
+     "type": "visible_text",
+     "selector": "#results-container"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Multiplication: 11-12,",
+       "unlimited seconds"
+      ]
+     }
+    },
+    "requires": [
+     "on_official_multiplication_tool"
+    ]
+   },
+   {
+    "name": "perfect_score",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "score": "#results-container .user-score"
+     },
+     "must_exist": [
+      "score"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "score": {
+       "eq": "10 out of 10"
+      }
+     }
+    },
+    "requires": [
+     "on_official_multiplication_tool",
+     "result_page_visible"
+    ]
+   },
+   {
+    "name": "ten_correct_answers",
+    "metric": "count_in_range",
+    "result": {
+     "type": "dom_count",
+     "selector": "#resultsTable .user-correct-answer",
+     "must_exist": true
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "ge": 10,
+      "le": 10
+     }
+    },
+    "requires": [
+     "on_official_multiplication_tool",
+     "result_page_visible",
+     "perfect_score"
+    ]
+   }
+  ]
+ }
+}

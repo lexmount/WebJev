@@ -1,0 +1,97 @@
+{
+ "task_id": "vts-111-webvoyager-espn-15",
+ "task_name": "Check the scores of the NBA games played on December 25, 2024.",
+ "website": "https://www.espn.com/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "ESPN--15",
+  "original_task_name": "Check the scores of the NBA games played on December 25, 2024.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "knicks_spurs_final_score",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "(?:(?<!\\w)(?:(?:New\\s+York\\s+)?Knicks|New\\s+York|NYK?)(?!\\w)[^\\d;]{0,90}?(?<!\\d)117(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:San\\s+Antonio\\s+)?Spurs|San\\s+Antonio|SAS?)(?!\\w)[^\\d;]{0,90}?(?<!\\d)114(?!\\d)|(?<!\\d)117(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:New\\s+York\\s+)?Knicks|New\\s+York|NYK?)(?!\\w)[^\\d;]{0,90}?(?<!\\d)114(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:San\\s+Antonio\\s+)?Spurs|San\\s+Antonio|SAS?)(?!\\w)|(?<!\\w)(?:(?:New\\s+York\\s+)?Knicks|New\\s+York|NYK?)(?!\\w)[^\\d;]{0,90}?(?<!\\d)117(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)114(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:San\\s+Antonio\\s+)?Spurs|San\\s+Antonio|SAS?)(?!\\w)|(?<!\\w)(?:(?:New\\s+York\\s+)?Knicks|New\\s+York|NYK?)(?!\\w)[^\\d;]{0,90}?(?<!\\w)(?:(?:San\\s+Antonio\\s+)?Spurs|San\\s+Antonio|SAS?)(?!\\w)[^\\d;]{0,90}?(?<!\\d)117(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)114(?!\\d)|(?<!\\w)(?:(?:San\\s+Antonio\\s+)?Spurs|San\\s+Antonio|SAS?)(?!\\w)[^\\d;]{0,90}?(?<!\\d)114(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:New\\s+York\\s+)?Knicks|New\\s+York|NYK?)(?!\\w)[^\\d;]{0,90}?(?<!\\d)117(?!\\d)|(?<!\\d)114(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:San\\s+Antonio\\s+)?Spurs|San\\s+Antonio|SAS?)(?!\\w)[^\\d;]{0,90}?(?<!\\d)117(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:New\\s+York\\s+)?Knicks|New\\s+York|NYK?)(?!\\w)|(?<!\\w)(?:(?:San\\s+Antonio\\s+)?Spurs|San\\s+Antonio|SAS?)(?!\\w)[^\\d;]{0,90}?(?<!\\d)114(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)117(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:New\\s+York\\s+)?Knicks|New\\s+York|NYK?)(?!\\w)|(?<!\\w)(?:(?:San\\s+Antonio\\s+)?Spurs|San\\s+Antonio|SAS?)(?!\\w)[^\\d;]{0,90}?(?<!\\w)(?:(?:New\\s+York\\s+)?Knicks|New\\s+York|NYK?)(?!\\w)[^\\d;]{0,90}?(?<!\\d)114(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)117(?!\\d))",
+       "flags": "I"
+      }
+     }
+    }
+   },
+   {
+    "name": "timberwolves_mavericks_final_score",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "(?:(?<!\\w)(?:(?:Minnesota\\s+)?(?:Timberwolves|Wolves)|Minnesota|MIN)(?!\\w)[^\\d;]{0,90}?(?<!\\d)105(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Dallas\\s+)?(?:Mavericks|Mavs)|Dallas|DAL)(?!\\w)[^\\d;]{0,90}?(?<!\\d)99(?!\\d)|(?<!\\d)105(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Minnesota\\s+)?(?:Timberwolves|Wolves)|Minnesota|MIN)(?!\\w)[^\\d;]{0,90}?(?<!\\d)99(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Dallas\\s+)?(?:Mavericks|Mavs)|Dallas|DAL)(?!\\w)|(?<!\\w)(?:(?:Minnesota\\s+)?(?:Timberwolves|Wolves)|Minnesota|MIN)(?!\\w)[^\\d;]{0,90}?(?<!\\d)105(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)99(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Dallas\\s+)?(?:Mavericks|Mavs)|Dallas|DAL)(?!\\w)|(?<!\\w)(?:(?:Minnesota\\s+)?(?:Timberwolves|Wolves)|Minnesota|MIN)(?!\\w)[^\\d;]{0,90}?(?<!\\w)(?:(?:Dallas\\s+)?(?:Mavericks|Mavs)|Dallas|DAL)(?!\\w)[^\\d;]{0,90}?(?<!\\d)105(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)99(?!\\d)|(?<!\\w)(?:(?:Dallas\\s+)?(?:Mavericks|Mavs)|Dallas|DAL)(?!\\w)[^\\d;]{0,90}?(?<!\\d)99(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Minnesota\\s+)?(?:Timberwolves|Wolves)|Minnesota|MIN)(?!\\w)[^\\d;]{0,90}?(?<!\\d)105(?!\\d)|(?<!\\d)99(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Dallas\\s+)?(?:Mavericks|Mavs)|Dallas|DAL)(?!\\w)[^\\d;]{0,90}?(?<!\\d)105(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Minnesota\\s+)?(?:Timberwolves|Wolves)|Minnesota|MIN)(?!\\w)|(?<!\\w)(?:(?:Dallas\\s+)?(?:Mavericks|Mavs)|Dallas|DAL)(?!\\w)[^\\d;]{0,90}?(?<!\\d)99(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)105(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Minnesota\\s+)?(?:Timberwolves|Wolves)|Minnesota|MIN)(?!\\w)|(?<!\\w)(?:(?:Dallas\\s+)?(?:Mavericks|Mavs)|Dallas|DAL)(?!\\w)[^\\d;]{0,90}?(?<!\\w)(?:(?:Minnesota\\s+)?(?:Timberwolves|Wolves)|Minnesota|MIN)(?!\\w)[^\\d;]{0,90}?(?<!\\d)99(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)105(?!\\d))",
+       "flags": "I"
+      }
+     }
+    }
+   },
+   {
+    "name": "76ers_celtics_final_score",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "(?:(?<!\\w)(?:(?:Philadelphia\\s+)?(?:76ers|Sixers|Seventy[ -]sixers)|Philadelphia|PHI)(?!\\w)[^\\d;]{0,90}?(?<!\\d)118(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Boston\\s+)?Celtics|Boston|BOS)(?!\\w)[^\\d;]{0,90}?(?<!\\d)114(?!\\d)|(?<!\\d)118(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Philadelphia\\s+)?(?:76ers|Sixers|Seventy[ -]sixers)|Philadelphia|PHI)(?!\\w)[^\\d;]{0,90}?(?<!\\d)114(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Boston\\s+)?Celtics|Boston|BOS)(?!\\w)|(?<!\\w)(?:(?:Philadelphia\\s+)?(?:76ers|Sixers|Seventy[ -]sixers)|Philadelphia|PHI)(?!\\w)[^\\d;]{0,90}?(?<!\\d)118(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)114(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Boston\\s+)?Celtics|Boston|BOS)(?!\\w)|(?<!\\w)(?:(?:Philadelphia\\s+)?(?:76ers|Sixers|Seventy[ -]sixers)|Philadelphia|PHI)(?!\\w)[^\\d;]{0,90}?(?<!\\w)(?:(?:Boston\\s+)?Celtics|Boston|BOS)(?!\\w)[^\\d;]{0,90}?(?<!\\d)118(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)114(?!\\d)|(?<!\\w)(?:(?:Boston\\s+)?Celtics|Boston|BOS)(?!\\w)[^\\d;]{0,90}?(?<!\\d)114(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Philadelphia\\s+)?(?:76ers|Sixers|Seventy[ -]sixers)|Philadelphia|PHI)(?!\\w)[^\\d;]{0,90}?(?<!\\d)118(?!\\d)|(?<!\\d)114(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Boston\\s+)?Celtics|Boston|BOS)(?!\\w)[^\\d;]{0,90}?(?<!\\d)118(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Philadelphia\\s+)?(?:76ers|Sixers|Seventy[ -]sixers)|Philadelphia|PHI)(?!\\w)|(?<!\\w)(?:(?:Boston\\s+)?Celtics|Boston|BOS)(?!\\w)[^\\d;]{0,90}?(?<!\\d)114(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)118(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Philadelphia\\s+)?(?:76ers|Sixers|Seventy[ -]sixers)|Philadelphia|PHI)(?!\\w)|(?<!\\w)(?:(?:Boston\\s+)?Celtics|Boston|BOS)(?!\\w)[^\\d;]{0,90}?(?<!\\w)(?:(?:Philadelphia\\s+)?(?:76ers|Sixers|Seventy[ -]sixers)|Philadelphia|PHI)(?!\\w)[^\\d;]{0,90}?(?<!\\d)114(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)118(?!\\d))",
+       "flags": "I"
+      }
+     }
+    }
+   },
+   {
+    "name": "lakers_warriors_final_score",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "(?:(?<!\\w)(?:(?:(?:Los\\s+Angeles|L\\.?\\s*A\\.?)\\s+)?Lakers|LAL)(?!\\w)[^\\d;]{0,90}?(?<!\\d)115(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Golden\\s+State\\s+)?Warriors|Golden\\s+State|GSW?)(?!\\w)[^\\d;]{0,90}?(?<!\\d)113(?!\\d)|(?<!\\d)115(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:(?:Los\\s+Angeles|L\\.?\\s*A\\.?)\\s+)?Lakers|LAL)(?!\\w)[^\\d;]{0,90}?(?<!\\d)113(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Golden\\s+State\\s+)?Warriors|Golden\\s+State|GSW?)(?!\\w)|(?<!\\w)(?:(?:(?:Los\\s+Angeles|L\\.?\\s*A\\.?)\\s+)?Lakers|LAL)(?!\\w)[^\\d;]{0,90}?(?<!\\d)115(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)113(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Golden\\s+State\\s+)?Warriors|Golden\\s+State|GSW?)(?!\\w)|(?<!\\w)(?:(?:(?:Los\\s+Angeles|L\\.?\\s*A\\.?)\\s+)?Lakers|LAL)(?!\\w)[^\\d;]{0,90}?(?<!\\w)(?:(?:Golden\\s+State\\s+)?Warriors|Golden\\s+State|GSW?)(?!\\w)[^\\d;]{0,90}?(?<!\\d)115(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)113(?!\\d)|(?<!\\w)(?:(?:Golden\\s+State\\s+)?Warriors|Golden\\s+State|GSW?)(?!\\w)[^\\d;]{0,90}?(?<!\\d)113(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:(?:Los\\s+Angeles|L\\.?\\s*A\\.?)\\s+)?Lakers|LAL)(?!\\w)[^\\d;]{0,90}?(?<!\\d)115(?!\\d)|(?<!\\d)113(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Golden\\s+State\\s+)?Warriors|Golden\\s+State|GSW?)(?!\\w)[^\\d;]{0,90}?(?<!\\d)115(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:(?:Los\\s+Angeles|L\\.?\\s*A\\.?)\\s+)?Lakers|LAL)(?!\\w)|(?<!\\w)(?:(?:Golden\\s+State\\s+)?Warriors|Golden\\s+State|GSW?)(?!\\w)[^\\d;]{0,90}?(?<!\\d)113(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)115(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:(?:Los\\s+Angeles|L\\.?\\s*A\\.?)\\s+)?Lakers|LAL)(?!\\w)|(?<!\\w)(?:(?:Golden\\s+State\\s+)?Warriors|Golden\\s+State|GSW?)(?!\\w)[^\\d;]{0,90}?(?<!\\w)(?:(?:(?:Los\\s+Angeles|L\\.?\\s*A\\.?)\\s+)?Lakers|LAL)(?!\\w)[^\\d;]{0,90}?(?<!\\d)113(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)115(?!\\d))",
+       "flags": "I"
+      }
+     }
+    }
+   },
+   {
+    "name": "suns_nuggets_final_score",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "(?:(?<!\\w)(?:(?:Phoenix\\s+)?Suns|Phoenix|PHX|PHO)(?!\\w)[^\\d;]{0,90}?(?<!\\d)110(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Denver\\s+)?Nuggets|Denver|DEN)(?!\\w)[^\\d;]{0,90}?(?<!\\d)100(?!\\d)|(?<!\\d)110(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Phoenix\\s+)?Suns|Phoenix|PHX|PHO)(?!\\w)[^\\d;]{0,90}?(?<!\\d)100(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Denver\\s+)?Nuggets|Denver|DEN)(?!\\w)|(?<!\\w)(?:(?:Phoenix\\s+)?Suns|Phoenix|PHX|PHO)(?!\\w)[^\\d;]{0,90}?(?<!\\d)110(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)100(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Denver\\s+)?Nuggets|Denver|DEN)(?!\\w)|(?<!\\w)(?:(?:Phoenix\\s+)?Suns|Phoenix|PHX|PHO)(?!\\w)[^\\d;]{0,90}?(?<!\\w)(?:(?:Denver\\s+)?Nuggets|Denver|DEN)(?!\\w)[^\\d;]{0,90}?(?<!\\d)110(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)100(?!\\d)|(?<!\\w)(?:(?:Denver\\s+)?Nuggets|Denver|DEN)(?!\\w)[^\\d;]{0,90}?(?<!\\d)100(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Phoenix\\s+)?Suns|Phoenix|PHX|PHO)(?!\\w)[^\\d;]{0,90}?(?<!\\d)110(?!\\d)|(?<!\\d)100(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Denver\\s+)?Nuggets|Denver|DEN)(?!\\w)[^\\d;]{0,90}?(?<!\\d)110(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Phoenix\\s+)?Suns|Phoenix|PHX|PHO)(?!\\w)|(?<!\\w)(?:(?:Denver\\s+)?Nuggets|Denver|DEN)(?!\\w)[^\\d;]{0,90}?(?<!\\d)100(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)110(?!\\d)[^\\d;]{0,90}?(?<!\\w)(?:(?:Phoenix\\s+)?Suns|Phoenix|PHX|PHO)(?!\\w)|(?<!\\w)(?:(?:Denver\\s+)?Nuggets|Denver|DEN)(?!\\w)[^\\d;]{0,90}?(?<!\\w)(?:(?:Phoenix\\s+)?Suns|Phoenix|PHX|PHO)(?!\\w)[^\\d;]{0,90}?(?<!\\d)100(?!\\d)\\s*(?:[-–—:|/]|to|,)\\s*(?<!\\d)110(?!\\d))",
+       "flags": "I"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

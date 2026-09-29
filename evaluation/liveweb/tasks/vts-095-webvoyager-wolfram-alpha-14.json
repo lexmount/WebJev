@@ -1,0 +1,65 @@
+{
+ "task_id": "vts-095-webvoyager-wolfram-alpha-14",
+ "task_name": "Compare the total Calories: whopper vs baconator vs big mac. Assume that each serving of food is 300g.",
+ "website": "https://www.wolframalpha.com/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "Wolfram Alpha--14",
+  "original_task_name": "Compare the total Calories: whopper vs baconator vs big mac. Assume that each serving of food is 300g.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "whopper_calories_at_300g",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "(?:\\b(?:whopper)\\b(?:(?!\\b(?:baconator|big[\\s_-]*mac)\\b)[\\s\\S]){0,160}?(?<![\\d.])657(?:\\.0+)?(?![\\d.])|(?<![\\d.])657(?:\\.0+)?(?![\\d.])(?:(?!\\b(?:baconator|big[\\s_-]*mac)\\b)[^;,\\n]){0,80}?\\b(?:whopper)\\b)",
+       "flags": "I"
+      }
+     }
+    }
+   },
+   {
+    "name": "baconator_calories_at_300g",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "(?:\\b(?:baconator)\\b(?:(?!\\b(?:whopper|big[\\s_-]*mac)\\b)[\\s\\S]){0,160}?(?<![\\d.])902(?:\\.0+)?(?![\\d.])|(?<![\\d.])902(?:\\.0+)?(?![\\d.])(?:(?!\\b(?:whopper|big[\\s_-]*mac)\\b)[^;,\\n]){0,80}?\\b(?:baconator)\\b)",
+       "flags": "I"
+      }
+     }
+    }
+   },
+   {
+    "name": "big_mac_calories_at_300g",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "(?:\\b(?:big[\\s_-]*mac)\\b(?:(?!\\b(?:whopper|baconator)\\b)[\\s\\S]){0,160}?(?<![\\d.])730(?:\\.0+)?(?![\\d.])|(?<![\\d.])730(?:\\.0+)?(?![\\d.])(?:(?!\\b(?:whopper|baconator)\\b)[^;,\\n]){0,80}?\\b(?:big[\\s_-]*mac)\\b)",
+       "flags": "I"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,9 @@
+# Serving environment (tested: Python 3.12, vllm 0.30.0, torch 2.13.0+cu130, transformers 5.17.0, one A100 80GB).
+vllm==0.30.0
+fastapi
+uvicorn
+httpx
+# The prompt package comes from the upstream training framework and must be installed without its dependencies
+# (they would downgrade numpy and pull training-only packages into the vLLM environment):
+#   pip install --no-deps "decider @ git+https://github.com/Mapika/decider@c4daaac28af9fea95d627015cffa2dd5a5926ee6"
+# It is not needed when the model directory ships its own decider/ folder; adapter.py prefers that copy.

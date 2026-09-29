@@ -1,0 +1,82 @@
+{
+ "task_id": "vts-009-traderjoes-home-store-90028",
+ "task_name": "On traderjoes.com, find the location and hours of the closest Trader Joe's to zip code 90028 and set it as your home store.",
+ "website": "https://www.traderjoes.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "b7258ee05d75e6c50673a59914db412e_110325",
+  "intent_modified": true,
+  "intent_modified_reason": "Added the site. The original task names the retailer, not the website, while the verifier reads the home-store setting that www.traderjoes.com keeps in the browser. The verifier itself was not changed."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_traderjoes",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "^https://(www|locations)\\.traderjoes\\.com/"
+     ]
+    }
+   },
+   {
+    "name": "home_store_is_hollywood_206",
+    "metric": "json_object_match",
+    "requires": [
+     "on_traderjoes"
+    ],
+    "result": {
+     "type": "storage",
+     "kind": "local",
+     "origin": "https://www.traderjoes.com",
+     "keys": [
+      "selectedStore"
+     ],
+     "json_values": true
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "selectedStore[0].clientkey": {
+       "eq": "206"
+      },
+      "selectedStore[0].postalcode": {
+       "eq": "90028"
+      }
+     }
+    }
+   },
+   {
+    "name": "answer_reports_location_and_hours",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "all": [
+        {
+         "re": "1600\\s*N\\.?\\s*Vine\\s*St"
+        },
+        {
+         "re": "\\b9\\s*a\\.?\\s*m\\.?"
+        },
+        {
+         "re": "\\b9\\s*p\\.?\\s*m\\.?"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

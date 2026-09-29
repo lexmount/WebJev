@@ -1,0 +1,53 @@
+{
+ "task_id": "vts-076-webvoyager-amazon-34",
+ "task_name": "Find a beginner's acrylic paint set on Amazon, with at least 24 colors, suitable for canvas painting, and priced under $40.",
+ "website": "https://www.amazon.com/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "Amazon--34",
+  "original_task_name": "Find a beginner's acrylic paint set on Amazon, with at least 24 colors, suitable for canvas painting, and priced under $40.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "answer_identifies_verified_matching_paint_set",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "product": {
+       "re": "TMOL\\s+Acrylic\\s+Paint\\s+Set",
+       "flags": "I"
+      },
+      "color_count": {
+       "re": "(?:24\\s*(?:colou?rs?|vibrant paints)|pack\\s+of\\s+24)",
+       "flags": "I"
+      },
+      "paint_type": {
+       "re": "acrylic",
+       "flags": "I"
+      },
+      "canvas_use": {
+       "re": "canvas",
+       "flags": "I"
+      },
+      "beginner_suitability": {
+       "re": "beginner",
+       "flags": "I"
+      },
+      "verified_price_under_40_usd": {
+       "re": "(?:HKD\\s*156(?:\\.82)?|(?:US\\$|\\$)\\s*(?:19(?:\\.99)?|20(?:\\.\\d{1,2})?))",
+       "flags": "I"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "task_id": "vts-042-accuweather-boston-hourly",
+ "task_name": "On accuweather.com, check the hourly forecast for Boston, Massachusetts, and leave its hourly forecast page open.",
+ "website": "https://www.accuweather.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "f00e7accfb4a5e09680bdb326e6274ad",
+  "original_task_name": "Check the hourly forecast for Boston.",
+  "original_website": "https://www.accuweather.com/",
+  "source_row_zero_based": 185,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept the Boston hourly forecast; added the state so that same-name places are excluded; added the site and the end state."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://(?:www\\.)?accuweather\\.com/en/us/boston/\\d+/hourly-weather-forecast/348735(?:/|[?#]|$)"
+    }
+   },
+   {
+    "name": "title_identifies_boston_hourly",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "page_title"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "Boston,? MA",
+      "Hourly Weather"
+     ]
+    }
+   }
+  ]
+ }
+}

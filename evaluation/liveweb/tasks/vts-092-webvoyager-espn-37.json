@@ -1,0 +1,40 @@
+{
+ "task_id": "vts-092-webvoyager-espn-37",
+ "task_name": "Check out LeBron James' Stats to see how many games he has played in his career so far.",
+ "website": "https://www.espn.com/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "ESPN--37",
+  "original_task_name": "Check out LeBron James' Stats to see how many games he has played in his career so far.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "career_games_played_answer",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "career_games_played": {
+       "any": [
+        {
+         "eq": 1622
+        },
+        {
+         "re": "\\b(?:one thousand six hundred(?: and)? twenty[- ]two|sixteen hundred(?: and)? twenty[- ]two)\\b",
+         "flags": "I"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

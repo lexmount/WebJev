@@ -1,0 +1,49 @@
+{
+ "task_id": "vts-107-webgym-300054",
+ "task_name": "What are the key components of the smarter balanced summative assessments for English Language Arts (ELA)?",
+ "website": "https://www.caaspp.org",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300054",
+  "original_task_name": "What are the key components of the smarter balanced summative assessments for English Language Arts (ELA)?",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "identifies_computer_adaptive_component",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "\\bcomputer(?:ized|ised)?[\\s\\-–—]+adaptive\\b|\\bCAT\\b",
+       "flags": "I"
+      }
+     }
+    }
+   },
+   {
+    "name": "identifies_performance_task_component",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "\\bperformance[\\s\\-–—]+tasks?\\b|\\bPTs?\\b",
+       "flags": "I"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

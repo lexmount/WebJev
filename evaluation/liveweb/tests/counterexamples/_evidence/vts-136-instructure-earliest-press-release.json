@@ -1,0 +1,32 @@
+{
+  "spec_version": "1",
+  "collected_at": "2026-09-17T15:35:22",
+  "phase": "in_session",
+  "getters": {
+    "44fed9f40f84": {
+      "config": {
+        "type": "final_url"
+      },
+      "ok": true,
+      "value": "https://www.instructure.com/press-release/instructure-included-2020-shatter-list-helping-break-glass-ceiling-technology"
+    }
+  },
+  "health": {
+    "ok": true,
+    "http_status": null,
+    "blocked": false,
+    "empty": false,
+    "signals": [],
+    "chars": 4479
+  },
+  "target": {
+    "n_page_targets": 1,
+    "urls": [
+      "https://www.instructure.com/press-release/instructure-included-2020-shatter-list-helping-break-glass-ceiling-technology"
+    ],
+    "rule": "only_page",
+    "agent_target_id": "CE75C52813AE7E98EED0179E42D98A9B",
+    "agrees_with_agent": true
+  },
+  "error": null
+}

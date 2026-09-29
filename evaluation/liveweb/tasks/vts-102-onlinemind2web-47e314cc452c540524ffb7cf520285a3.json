@@ -1,0 +1,33 @@
+{
+ "task_id": "vts-102-onlinemind2web-47e314cc452c540524ffb7cf520285a3",
+ "task_name": "Find the park that offers the cheapest paddling permits.",
+ "website": "https://www.recreation.gov/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "47e314cc452c540524ffb7cf520285a3",
+  "original_task_name": "Find the park that offers the cheapest paddling permits.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "identifies_minimum_price_paddling_park",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "park": {
+       "re": "\\bCanyonlands\\b|\u5ce1\u8c37\u5730(?:\u56fd\u5bb6\u516c\u56ed)?",
+       "flags": "I"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

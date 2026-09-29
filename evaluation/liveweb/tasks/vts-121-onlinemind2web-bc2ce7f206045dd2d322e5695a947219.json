@@ -1,0 +1,48 @@
+{
+ "task_id": "vts-121-onlinemind2web-bc2ce7f206045dd2d322e5695a947219",
+ "task_name": "Estimate the federal income tax I would owe on $158,500 of taxable income in ZIP code 97007, filing as single.",
+ "website": "https://smartasset.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "bc2ce7f206045dd2d322e5695a947219",
+  "original_task_name": "Estimate the federal income tax I would owe on $158,500 of taxable income in ZIP code 97007, filing as single.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "federal_income_tax_estimate",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "federal_income_tax": {
+       "any": [
+        {
+         "eq": 30887
+        },
+        {
+         "eq": 30890
+        },
+        {
+         "eq": 30900
+        },
+        {
+         "re": "(?<![\\d.])30\\.887\\s*(?:k|thousand)(?![A-Za-z])"
+        },
+        {
+         "re": "(?<![\\d.])30\\.9\\s*(?:k|thousand)(?![A-Za-z])"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

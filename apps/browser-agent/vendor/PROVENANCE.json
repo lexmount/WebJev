@@ -1,0 +1,14 @@
+{
+  "upstream": "https://github.com/browser-use/jev-ultrafast",
+  "upstream_commit": "1231850a0bf1a0c0341fe408ef1668dbbfdfac46",
+  "adaptation": "Adapted runtime, not an unmodified upstream checkout. browser_cdp.py replaces upstream's Browser Harness transport (browser.py, not included): it drives Chrome over one CDP websocket with pipelined calls and in-page freshness checks, and gets the browser from a provider, either a Lexmount Browser cloud session (optionally adopted once from a warm pool) or a local Chrome started with remote debugging, where every run uses a browser context of its own. agent.py always uses this transport. model.py sends typed decisions to TypeSafe's API or OpenRouter's decision route (the web app can point it at any Jev-compatible endpoint, such as a self-hosted WebJev); an OpenAI-compatible text model writes field values. The agent keeps traces of observed and executed actions. snapshot.js reads open shadow roots, does not treat transparent overlays as hiding text, and counts image alt text as page text. The app's browser_adapter.py patches the runtime further at load time (Back, Enter and Escape controls, popup tabs, extra element context).",
+  "files": {
+    "__init__.py": "863b1df5cf011278f4edefddcc7ea05eff8b53c54d086c5ecc5acdb374559a00",
+    "agent.py": "ee06e0d1f8f7d6f2be9f3282bbd3d95dbcdce1ef6a79f9e23513b6e544d47d59",
+    "model.py": "0b1f25ed2e29d6144ec44dea1d0b71ac4e90d145c01f3f7a5807d78e5544804e",
+    "questions.py": "66a7054b85040b949e1757311257ea0c5a843c635f9a40c99f6d15ad660fb422",
+    "browser_cdp.py": "ba420832d6645167cbda6bedd6baf1a480e32c8960a5779c5cb26be39816b86b",
+    "cdp.py": "02a13fb9dccab37592ad9edba11185197a4385e7bc9c50869e40705efbb7932b",
+    "snapshot.js": "c72e23c30d5421be44af9b560ecea649cffd8f69b8a83fd2a96d0bd04d18a7d1"
+  }
+}

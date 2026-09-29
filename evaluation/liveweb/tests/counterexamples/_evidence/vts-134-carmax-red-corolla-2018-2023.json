@@ -1,0 +1,56 @@
+{
+  "spec_version": "1",
+  "collected_at": "2026-09-17T16:06:08",
+  "phase": "in_session",
+  "getters": {
+    "44fed9f40f84": {
+      "config": {
+        "type": "final_url"
+      },
+      "ok": true,
+      "value": "https://www.carmax.com/cars/toyota/corolla/red?year=2018-2023"
+    },
+    "c52ceff15203": {
+      "config": {
+        "type": "url_path_parse"
+      },
+      "ok": true,
+      "value": [
+        "cars",
+        "toyota",
+        "corolla",
+        "red"
+      ]
+    },
+    "677e22a73c66": {
+      "config": {
+        "type": "url_parse",
+        "parse_keys": [
+          "year"
+        ]
+      },
+      "ok": true,
+      "value": {
+        "year": "2018-2023"
+      }
+    }
+  },
+  "health": {
+    "ok": true,
+    "http_status": null,
+    "blocked": false,
+    "empty": false,
+    "signals": [],
+    "chars": 7661
+  },
+  "target": {
+    "n_page_targets": 1,
+    "urls": [
+      "https://www.carmax.com/cars/toyota/corolla/red?year=2018-2023"
+    ],
+    "rule": "only_page",
+    "agent_target_id": "48ED47182211AA9FBDCF739200BAFA67",
+    "agrees_with_agent": true
+  },
+  "error": null
+}

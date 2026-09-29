@@ -1,0 +1,69 @@
+{
+ "task_id": "vts-119-onlinemind2web-7680a920359cb1a508fbddb001b98167",
+ "task_name": "See the prediction about the girl child's height, whose current height at seven years is 4 feet and whose weight is 55 lbs, her mother is 5 feet 2, and her father is 5 feet 8.",
+ "website": "https://www.babycenter.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "7680a920359cb1a508fbddb001b98167",
+  "original_task_name": "See the prediction about the girl child's height, whose current height at seven years is 4 feet and whose weight is 55 lbs, her mother is 5 feet 2, and her father is 5 feet 8.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "or",
+  "checks": [
+   {
+    "name": "prediction_answer_content",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "(?<![\\d.])(?:5|five)\\s*(?:ft\\.?|feet|foot|[\\u0027\\u2019\\u2032])\\s*(?:and\\s*)?(?:4|four)\\s*(?:in\\.?|inch(?:es)?|[\\u0022\\u201d\\u2033])",
+         "flags": "I"
+        },
+        {
+         "re": "(?<![\\d.])5\\s*[\\u0027\\u2019\\u2032]\\s*4(?![\\d.])",
+         "flags": "I"
+        },
+        {
+         "re": "(?<![\\d.])(?:64|sixty[ -]four)\\s*(?:in\\.?|inch(?:es)?)(?![A-Za-z])",
+         "flags": "I"
+        },
+        {
+         "re": "(?<![\\d.])(?:162\\.56|162\\.6|163)\\s*(?:cm|centimet(?:er|re)s?|\u5398\u7c73)(?![A-Za-z])",
+         "flags": "I"
+        },
+        {
+         "re": "(?:5|\u4e94)\\s*\u82f1\u5c3a\\s*(?:4|\u56db)\\s*\u82f1\u5bf8"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "prediction_displayed_on_result_card",
+    "metric": "include_exclude",
+    "result": {
+     "type": "visible_text",
+     "selector": ".heightText"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "your girl",
+       "5 ft. 4 in."
+      ]
+     }
+    }
+   }
+  ]
+ }
+}

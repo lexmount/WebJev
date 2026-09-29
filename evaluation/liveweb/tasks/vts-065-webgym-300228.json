@@ -1,0 +1,47 @@
+{
+ "task_id": "vts-065-webgym-300228",
+ "task_name": "Who is Shawn Addison, and what is their role or expertise according to The Olive Oil Source website?",
+ "website": "https://www.oliveoilsource.com",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300228",
+  "original_task_name": "Who is Shawn Addison, and what is their role or expertise according to The Olive Oil Source website?",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "identifies_shawn_addison",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "\\bShawn\\s+Addison\\b"
+      }
+     }
+    }
+   },
+   {
+    "name": "states_role_or_expertise",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "\\b(?:president|(?:co[- ]?)?owner|owner/operator|food\\s+research|real[- ]world\\s+business|olive\\s+farm(?:er|ing)|olive\\s+mill(?:er|ing)|olive[- ]oil\\s+producer)\\b"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

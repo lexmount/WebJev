@@ -1,0 +1,30 @@
+# Harness + agent runtime + verifier, pinned to the package versions of the reported runs (Python 3.14).
+# The agent itself is apps/browser-agent of this repository; websocket-client is also the verifier's CDP channel.
+Pygments==2.21.0
+anyio==4.15.1
+browser-harness==0.1.13
+cdp-use==1.4.5
+certifi==2026.7.22
+charset-normalizer==3.5.1
+click==8.5.0
+fetch-use==0.4.0
+h11==0.16.0
+h2==4.4.1
+hpack==4.2.0
+httpcore==1.0.9
+httpx==0.28.1
+hyperframe==6.1.0
+idna==3.19
+iniconfig==2.3.0
+lexmount==0.5.18
+packaging==26.3
+pillow==12.3.0
+pluggy==1.6.0
+pychrome==0.2.4
+pytest==8.4.2
+python-dotenv==1.2.3
+requests==2.34.2
+typing_extensions==4.16.0
+urllib3==2.8.0
+websocket-client==1.9.2
+websockets==15.0.1

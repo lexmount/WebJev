@@ -1,0 +1,51 @@
+{
+  "spec_version": "1",
+  "collected_at": "2026-09-17T15:58:13",
+  "phase": "in_session",
+  "getters": {
+    "44fed9f40f84": {
+      "config": {
+        "type": "final_url"
+      },
+      "ok": true,
+      "value": "https://www.thumbtack.com/instant-results/?deprecate_spr=true&keyword_pk=102906937284094959&zip_code=10203&ir_referrer=HOME_PAGE_SEARCH&user_query_pk=590485667604307981&project_pk=590485674149158927&encoded_answers=eyJzZl9wayI6IjU3NDcwODYxNjY4NDk4NjM4MiIsImFucyI6e319"
+    },
+    "95eacc023c8d": {
+      "config": {
+        "type": "url_parse",
+        "parse_keys": [
+          "zip_code"
+        ]
+      },
+      "ok": true,
+      "value": {
+        "zip_code": "10203"
+      }
+    },
+    "88fdea11aa53": {
+      "config": {
+        "type": "page_title"
+      },
+      "ok": true,
+      "value": "Best Electricians near 10203 - Thumbtack"
+    }
+  },
+  "health": {
+    "ok": true,
+    "http_status": null,
+    "blocked": false,
+    "empty": false,
+    "signals": [],
+    "chars": 9169
+  },
+  "target": {
+    "n_page_targets": 1,
+    "urls": [
+      "https://www.thumbtack.com/instant-results/?deprecate_spr=true&keyword_pk=102906937284094959&zip_code=10203&ir_referrer=HOME_PAGE_SEARCH&user_query_pk=590485667604307981&project_pk=590485674149158927&e"
+    ],
+    "rule": "only_page",
+    "agent_target_id": "19380C2F38CF373A0A6F2A32045E1253",
+    "agrees_with_agent": true
+  },
+  "error": null
+}

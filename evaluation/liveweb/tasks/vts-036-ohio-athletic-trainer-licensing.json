@@ -1,0 +1,50 @@
+{
+ "task_id": "vts-036-ohio-athletic-trainer-licensing",
+ "task_name": "On ohio.gov or its official subdomains, find and open the instructions for obtaining an initial Athletic Trainer license in Ohio. Leave open the licensing instructions or the official initial-license application rule, with the application procedure visible.",
+ "website": "https://ohio.gov/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "15be05973fba714e490cd9c884e4f072",
+  "original_task_name": "Find the procedure to get the license for Athletic Trainer.",
+  "original_website": "https://ohio.gov/",
+  "source_row_zero_based": 145,
+  "intent_modified": true,
+  "intent_modified_reason": "\"Find the procedure\" became opening the instructions for an initial application in Ohio. Official licensing instructions and same-jurisdiction rules are accepted; nothing has to be submitted."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "^https://(?:otptat|codes)\\.ohio\\.gov/",
+      "(?:athletic-training/(?:license|licens)|ohio-administrative-code/(?:chapter-4755(?::|%3A)3-1|rule-4755(?::|%3A)3-1-01))"
+     ]
+    }
+   },
+   {
+    "name": "initial_application_procedure_loaded",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "athletic train(?:er|ing)",
+      "(?:initial|new|applicant)",
+      "(?:application|apply)",
+      "eLicense"
+     ]
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,44 @@
+{
+ "task_id": "vts-049-nvidia-learning-perception-leader-profile",
+ "task_name": "On nvidia.com or its official research.nvidia.com site, find the leader of the NVIDIA Learning and Perception Research group and open that person's profile page. The personal homepage linked by NVIDIA is also acceptable; leave the profile open.",
+ "website": "https://www.nvidia.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "3621b099326c7aebd2e2dac6be3b52d1",
+  "original_task_name": "Open the profile page of the leader of the Nvidia Learning and Perception Lab.",
+  "original_website": "https://www.nvidia.com/",
+  "source_row_zero_based": 253,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept finding the group leader and opening the personal profile. The site now calls it the Learning and Perception Research group; personal pages linked by NVIDIA are accepted instead of forcing the original domain."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://(?:(?:research\\.nvidia\\.com/(?:person/jan-kautz|labs/lpr/author/jan-kautz)/?)|(?:(?:www\\.)?jankautz\\.com/?))(?:[?#]|$)"
+    }
+   },
+   {
+    "name": "profile_names_current_group_leader",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_title"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "Jan Kautz"
+     ]
+    }
+   }
+  ]
+ }
+}

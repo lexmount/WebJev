@@ -1,0 +1,46 @@
+{
+ "task_id": "vts-110-webvoyager-wolfram-alpha-36",
+ "task_name": "Determine the convergence or divergence of the series Σ (n=1 to ∞) of 1/(n^3 + 1).",
+ "website": "https://www.wolframalpha.com/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "Wolfram Alpha--36",
+  "original_task_name": "Determine the convergence or divergence of the series Σ (n=1 to ∞) of 1/(n^3 + 1).",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "series_converges",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "\\bconverg(?:e|es|ent)\\b",
+         "not_re": "\\b(?:does\\s+not|do\\s+not|doesn['’]t|don['’]t|is\\s+not|isn['’]t|never|fails?\\s+to)\\s+(?:absolutely\\s+)?converg(?:e|es|ent)\\b|\\bnon[-\\s]*convergent\\b",
+         "flags": "I"
+        },
+        {
+         "re": "\\b(?:does\\s+not|doesn['’]t)\\s+diverge\\b|\\bis\\s+not\\s+divergent\\b",
+         "flags": "I"
+        },
+        {
+         "re": "\u6536\u655b",
+         "not_re": "(?:\u4e0d|\u672a|\u975e)\\s*(?:\u7edd\u5bf9)?\\s*\u6536\u655b"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

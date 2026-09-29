@@ -1,0 +1,52 @@
+{
+ "task_id": "vts-008-bestbuy-add-50-uber-gift-card-to-cart",
+ "task_name": "On bestbuy.com, add a $50 Uber gift card to the cart.",
+ "website": "https://www.bestbuy.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "f2097f92a10d42a842c14179f422311e",
+  "intent_modified": true,
+  "intent_modified_reason": "Added the site. The original task named no site; the verifier reads Best Buy's server-side cart, which stays empty if the gift card is added at another store. The verifier itself was not changed."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_bestbuy_origin",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "^https://www\\.bestbuy\\.com/"
+     ]
+    }
+   },
+   {
+    "name": "uber_50_giftcard_in_server_cart",
+    "metric": "json_object_match",
+    "requires": [
+     "on_bestbuy_origin"
+    ],
+    "result": {
+     "type": "api_state",
+     "url": "https://www.bestbuy.com/cart/json",
+     "method": "GET",
+     "credentials": "include",
+     "expect_json": true
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "cart.orderSkus[*]": {
+       "eq": "6165408"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

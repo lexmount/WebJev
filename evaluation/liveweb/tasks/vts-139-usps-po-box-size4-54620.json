@@ -1,0 +1,120 @@
+{
+ "task_id": "vts-139-usps-po-box-size4-54620",
+ "task_name": "On usps.com, search for P.O. Boxes near ZIP code 54620, apply the filter for size 4 boxes, and report which Post Office location is the nearest one offering them.",
+ "website": "https://www.usps.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "7562d9b4e4829a44245aafce2e1f62db",
+  "original_task_name": "Find the nearest location to zip code 54620 that offers size 4 P.O. Boxes.",
+  "original_website": "https://www.usps.com/",
+  "intent_modified": true,
+  "intent_modified_reason": "Added the site name (the verifier checks usps.com page state). \"Nearest\" needs a defined search, so the task says to apply the size-4 filter and report the nearest location. \"Report the location\" became reporting the location name only: on this site the location name is the city, while city and state are not separate elements in the address text."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_pobox_search_for_54620",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "^https://poboxes\\.usps\\.com/findBox\\.html([?#]|$)",
+      "[?&]q=54620(&|$)"
+     ]
+    }
+   },
+   {
+    "name": "results_list_present",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "attr": "id",
+     "must_exist": [
+      "container"
+     ],
+     "selectors": {
+      "container": "#locationContainer_1"
+     }
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "container": "locationContainer_1"
+     }
+    },
+    "requires": [
+     "on_pobox_search_for_54620"
+    ]
+   },
+   {
+    "name": "size4_filter_checked",
+    "metric": "json_object_match",
+    "result": {
+     "type": "control_state",
+     "must_exist": [
+      "size4"
+     ],
+     "selectors": {
+      "size4": "#size4"
+     }
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "size4.checked": true
+     }
+    },
+    "requires": [
+     "on_pobox_search_for_54620"
+    ]
+   },
+   {
+    "name": "nearest_result_offers_size4",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "must_exist": [],
+     "selectors": {
+      "sizes": "#locationContainer_1 .listItemLocation .availableSizes"
+     }
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "sizes": {
+       "re": "Size\\s*4"
+      }
+     }
+    },
+    "requires": [
+     "on_pobox_search_for_54620",
+     "results_list_present"
+    ]
+   },
+   {
+    "name": "answer_names_nearest_size4_office",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "dom_extract",
+     "must_exist": [],
+     "selectors": {
+      "name": "#locationContainer_1 .listItemLocation h2.normal span.bold"
+     }
+    },
+    "requires": [
+     "on_pobox_search_for_54620",
+     "results_list_present",
+     "nearest_result_offers_size4"
+    ]
+   }
+  ]
+ }
+}

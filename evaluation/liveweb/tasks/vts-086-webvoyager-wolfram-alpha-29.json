@@ -1,0 +1,104 @@
+{
+ "task_id": "vts-086-webvoyager-wolfram-alpha-29",
+ "task_name": "Create a plot of cat curve using wolfram alpha.",
+ "website": "https://www.wolframalpha.com/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "Wolfram Alpha--29",
+  "original_task_name": "Create a plot of cat curve using wolfram alpha.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "wolfram_alpha_site",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https?://(?:www\\.)?wolframalpha\\.com(?:[/?#]|$)"
+    }
+   },
+   {
+    "name": "page_shell_available",
+    "requires": [
+     "wolfram_alpha_site"
+    ],
+    "metric": "count_in_range",
+    "result": {
+     "type": "dom_count",
+     "selector": "main",
+     "must_exist": true
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "ge": 1
+     }
+    }
+   },
+   {
+    "name": "computed_cat_curve_plot_interpretation",
+    "requires": [
+     "wolfram_alpha_site",
+     "page_shell_available"
+    ],
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "interpretation": "main section[tabindex='0'] img[alt*='cat curve' i]"
+     },
+     "attr": "alt",
+     "all": true,
+     "must_exist": []
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "interpretation[*]": {
+       "all": [
+        {
+         "re": "\\bcat\\s+curve\\b"
+        },
+        {
+         "re": "\\bplot\\b"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "plot_image_generated_in_same_result_group",
+    "requires": [
+     "wolfram_alpha_site",
+     "page_shell_available",
+     "computed_cat_curve_plot_interpretation"
+    ],
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "plot": "main section:has(> section[tabindex='0'] img[alt*='cat curve' i][alt*='plot' i]) > section[tabindex='0'] img[alt='Result' i]"
+     },
+     "attr": "src",
+     "all": true,
+     "must_exist": []
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "plot[*]": {
+       "re": "^data:image/(?:gif|png|webp|jpeg);base64,[A-Za-z0-9+/]{1000,}={0,2}$"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

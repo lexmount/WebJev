@@ -1,0 +1,179 @@
+{
+ "task_id": "vts-056-chase-traditional-roth-ira-comparison",
+ "task_name": "On the Chase official IRA calculator hosted at static.chasecdn.com (the supplied starting page), display the Traditional versus Roth IRA comparison chart for current age 30, retirement age 65, monthly contribution $300, annual return 3%, current tax rate 13%, and retirement tax rate 24%. Keep the starting balance at $0. Leave the chart open with these inputs and the calculated comparison displayed.",
+ "website": "https://static.chasecdn.com/web/library/uswmdreui/retirement-calculators-iframes/2.0.6/index.html#/dashboard/retirementCalculators/iraCalculator",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "9ed3827266b3b804f485859c3d00401e",
+  "original_task_name": "If I'm 30, plan to retire at 65, and can save $300/month, with a 3% annual return, 13% current tax rate, and 24% retirement tax rate, show the comparison chart between Traditional and Roth IRA.",
+  "original_website": "https://www.chase.com/",
+  "source_row_zero_based": 208,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept all six inputs and the Traditional vs. Roth comparison chart. The task starts on the official calculator page that chase.com embeds (same reason as vts-055). The initial balance, which the original task does not give, stays at the default 0; the chart must stay on screen."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_official_ira_calculator",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://static\\.chasecdn\\.com/web/library/uswmdreui/retirement\\-calculators\\-iframes/2\\.0\\.6/index\\.html\\#/dashboard/retirementCalculators/iraCalculator$"
+    }
+   },
+   {
+    "name": "current_age",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "age": "#ira-age-range"
+     },
+     "attr": "leading-selected-value",
+     "must_exist": [
+      "age"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "age": {
+       "eq": "30"
+      }
+     }
+    },
+    "requires": [
+     "on_official_ira_calculator"
+    ]
+   },
+   {
+    "name": "retirement_age",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "age": "#ira-age-range"
+     },
+     "attr": "trailing-selected-value",
+     "must_exist": [
+      "age"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "age": {
+       "eq": "65"
+      }
+     }
+    },
+    "requires": [
+     "on_official_ira_calculator"
+    ]
+   },
+   {
+    "name": "contribution_return_taxes_and_balance",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "balance": "#ira-starting-balance",
+      "monthly": "#ira-monthly-contribution",
+      "rate": "#ira-rate-of-return",
+      "current_tax": "#ira-current-tax-rate",
+      "retirement_tax": "#ira-retirement-tax-rate"
+     },
+     "attr": "selected-value",
+     "must_exist": [
+      "balance",
+      "monthly",
+      "rate",
+      "current_tax",
+      "retirement_tax"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "balance": {
+       "eq": "0"
+      },
+      "monthly": {
+       "eq": "300"
+      },
+      "rate": {
+       "eq": "3"
+      },
+      "current_tax": {
+       "eq": "13"
+      },
+      "retirement_tax": {
+       "eq": "24"
+      }
+     }
+    },
+    "requires": [
+     "on_official_ira_calculator"
+    ]
+   },
+   {
+    "name": "calculated_comparison_series",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "chart": "#line-chart-ira"
+     },
+     "attr": "lines",
+     "must_exist": [
+      "chart"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "chart": {
+       "all": [
+        {
+         "re": "\"lineName\":\"Deductible\\ Traditional\\ IRA\",\"lineColor\":\"[^\"]+\",\"dataPoints\":\\[[^\\]]*\"y\":197323\\}\\]"
+        },
+        {
+         "re": "\"lineName\":\"Non\\-deductible\\ Traditional\\ IRA\",\"lineColor\":\"[^\"]+\",\"dataPoints\":\\[[^\\]]*\"y\":200626\\.98\\}\\]"
+        },
+        {
+         "re": "\"lineName\":\"Roth\\ IRA\",\"lineColor\":\"[^\"]+\",\"dataPoints\":\\[[^\\]]*\"y\":224193\\.4\\}\\]"
+        }
+       ]
+      }
+     }
+    },
+    "requires": [
+     "on_official_ira_calculator"
+    ]
+   },
+   {
+    "name": "comparison_chart_is_exposed",
+    "metric": "count_in_range",
+    "result": {
+     "type": "axtree_query",
+     "role": "image",
+     "name_pattern": "^Estimated account value$"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "ge": 1
+     }
+    },
+    "requires": [
+     "on_official_ira_calculator"
+    ]
+   }
+  ]
+ }
+}

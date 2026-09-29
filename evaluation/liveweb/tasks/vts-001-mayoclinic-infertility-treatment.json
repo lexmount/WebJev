@@ -1,0 +1,48 @@
+{
+ "task_id": "vts-001-mayoclinic-infertility-treatment",
+ "task_name": "On mayoclinic.org, open the Diagnosis & treatment section of the Female infertility article.",
+ "website": "https://www.mayoclinic.org/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "47b93b9e649eadeb8d96a6e3df715c2d",
+  "intent_modified": true,
+  "intent_modified_reason": "Added the site and the target page. The original task named no site, while the verifier checks a www.mayoclinic.org URL; the start URL alone does not keep the agent on the site. The task also names the Diagnosis & treatment tab, which is what the verifier checks (the original \"Show me ...\" did not say which page to open). The verifier itself was not changed."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_diagnosis_treatment_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "^https://www\\.mayoclinic\\.org/diseases-conditions/female-infertility/diagnosis-treatment(/|[?#]|$)"
+     ]
+    }
+   },
+   {
+    "name": "active_tab_is_diagnosis_treatment",
+    "metric": "count_in_range",
+    "requires": [
+     "on_diagnosis_treatment_page"
+    ],
+    "result": {
+     "type": "dom_count",
+     "selector": "li[data-active=\"true\"] a[aria-current=\"page\"][href*=\"/diagnosis-treatment/\"]",
+     "must_exist": true
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "ge": 1
+     }
+    }
+   }
+  ]
+ }
+}

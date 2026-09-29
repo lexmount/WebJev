@@ -1,0 +1,32 @@
+{
+  "spec_version": "1",
+  "collected_at": "2026-09-17T15:44:01",
+  "phase": "in_session",
+  "getters": {
+    "44fed9f40f84": {
+      "config": {
+        "type": "final_url"
+      },
+      "ok": true,
+      "value": "https://arxiv.org/abs/2011.05864"
+    }
+  },
+  "health": {
+    "ok": true,
+    "http_status": null,
+    "blocked": false,
+    "empty": false,
+    "signals": [],
+    "chars": 2792
+  },
+  "target": {
+    "n_page_targets": 1,
+    "urls": [
+      "https://arxiv.org/abs/2011.05864"
+    ],
+    "rule": "only_page",
+    "agent_target_id": "E178BE6CDCAEE9B38A18AF74E58571B6",
+    "agrees_with_agent": true
+  },
+  "error": null
+}

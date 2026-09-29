@@ -1,0 +1,102 @@
+{
+ "task_id": "vts-059-weathernetwork-calgary-current-wind",
+ "task_name": "On theweathernetwork.com, check the current wind speed in Calgary, Alberta. Leave its Current Weather page open and return only a JSON object with a string field \"wind\" containing the current wind speed, unit and direction exactly as shown in the Weather FAQ answer.",
+ "website": "https://www.theweathernetwork.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "2207bb4f21786690cfed20b37253fb8b",
+  "original_task_name": "Check the current wind speed in Calgary, Alberta.",
+  "original_website": "https://www.theweathernetwork.com/",
+  "source_row_zero_based": 80,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept the current wind speed in Calgary; the site, the Current page and a JSON answer with units are explicit (the direction is part of the site's wind reading). The verifier compares against the live value on the page at evidence time; no weather value is hard-coded."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "target_page",
+    "metric": "url_matches",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "https://www.theweathernetwork.com/en/city/ca/alberta/calgary/current"
+    }
+   },
+   {
+    "name": "wind_question_identity",
+    "metric": "json_object_match",
+    "requires": [
+     "target_page"
+    ],
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "question": "[data-testid=\"faq-item\"]:nth-child(6) > span"
+     },
+     "must_exist": [
+      "question"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "question": {
+       "eq": "What is the current wind speed and direction in Calgary?"
+      }
+     }
+    }
+   },
+   {
+    "name": "live_wind_value_present",
+    "metric": "json_object_match",
+    "requires": [
+     "target_page"
+    ],
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "wind": "[data-testid=\"faq-item\"]:nth-child(6) > div"
+     },
+     "must_exist": [
+      "wind"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "wind": {
+       "re": "^\\d+(?:\\.\\d+)?\\s+(?:km/h|mph)\\s+[A-Z]+$"
+      }
+     }
+    }
+   },
+   {
+    "name": "reported_wind_matches_current_page",
+    "metric": "answer_match",
+    "requires": [
+     "target_page",
+     "wind_question_identity"
+    ],
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "dom_extract",
+     "selectors": {
+      "wind": "[data-testid=\"faq-item\"]:nth-child(6) > div"
+     },
+     "must_exist": [
+      "wind"
+     ]
+    },
+    "options": {
+     "ignore_literal_whitespace": true
+    }
+   }
+  ]
+ }
+}

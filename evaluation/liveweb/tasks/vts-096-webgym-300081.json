@@ -1,0 +1,102 @@
+{
+ "task_id": "vts-096-webgym-300081",
+ "task_name": "What types of agricultural shows does AssistExpo software support?",
+ "website": "https://www.assistexpo.ca",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300081",
+  "original_task_name": "What types of agricultural shows does AssistExpo software support?",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "identifies_small_local_shows",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "\\b(?:small|local|community)\\b|\u5c0f\u578b|\u5730\u65b9|\u672c\u5730|\u793e\u533a|\u793e\u5340"
+      }
+     }
+    }
+   },
+   {
+    "name": "identifies_youth_shows",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "\\b(?:youth|junior)\\b|\u9752\u5e74|\u9752\u5c11\u5e74"
+      }
+     }
+    }
+   },
+   {
+    "name": "identifies_county_shows",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "\\bcounty\\b|\u90e1\u7ea7|\u90e1\u7d1a|\u53bf\u7ea7|\u7e23\u7d1a"
+      }
+     }
+    }
+   },
+   {
+    "name": "identifies_provincial_multi_species_shows",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "\\bprovinc(?:ial|e)\\b[^.!?;\\n]{0,80}\\bmulti[\\s-]*species\\b"
+        },
+        {
+         "re": "\\bmulti[\\s-]*species\\b[^.!?;\\n]{0,80}\\bprovinc(?:ial|e)\\b"
+        },
+        {
+         "re": "\u7701\u7ea7.{0,20}\u591a\u7269\u79cd|\u7701\u7d1a.{0,20}\u591a\u7269\u7a2e|\u591a\u7269\u79cd.{0,20}\u7701\u7ea7|\u591a\u7269\u7a2e.{0,20}\u7701\u7d1a"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "identifies_world_class_shows",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "\\bworld[\\s-]*class\\b|\u4e16\u754c\u7ea7|\u4e16\u754c\u7d1a"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

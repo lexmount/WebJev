@@ -1,0 +1,378 @@
+{
+ "about": "Side-by-side screen recordings for the README. Each case is a task from the 125-task real-website set on which WebJev-35B-A3B succeeded and Jev 1.13 failed in the benchmark run. Every task was re-recorded three times per model with the same browser agent (decision model alone), the same Lexmount cloud browser and the same text helper (deepseek-v4.1-flash); every take was graded by the task's deterministic verifier. Each GIF shows one take per model; take_outcomes lists all takes (S success, F failure, J not gradable).",
+ "recorded": "2026-09-29",
+ "playback": "real time (1x) while both agents run; a longer failing run is fast-forwarded after the other finishes, and the badge says so. Clocks start at each agent's first decision.",
+ "cases": [
+  {
+   "gif": "01-apple-macbook-air-specs.gif",
+   "task_id": "vts-021-apple-current-macbook-air-specs",
+   "site": "apple.com",
+   "source_benchmark": "Online-Mind2Web",
+   "task": "On apple.com, open the Tech Specs page for the currently offered MacBook Air and leave the specifications displayed.",
+   "title_shown": "On apple.com, open the Tech Specs page for the currently offered MacBook Air and leave the specifications displayed.",
+   "webjev": {
+    "model": "WebJev-35B-A3B",
+    "verdict": "success",
+    "steps": 5,
+    "seconds": 23.1,
+    "actions": [
+     "click: Mac",
+     "click: MacBook Air",
+     "scroll: Scroll down",
+     "scroll: Scroll down",
+     "click: Tech Specs"
+    ],
+    "failed_checks": [],
+    "take": 2,
+    "what_it_did": "Mac -> MacBook Air -> scrolled to the page menu -> Tech Specs."
+   },
+   "jev": {
+    "model": "Jev 1.13 (jev-1.13.0, TypeSafe API)",
+    "verdict": "failure",
+    "steps": 11,
+    "seconds": 40.0,
+    "actions": [
+     "click: Mac",
+     "click: MacBook Air",
+     "scroll: Scroll down",
+     "click: Buy, MacBook Air",
+     "click: Search apple.com",
+     "click: Search apple.com",
+     "click: Search apple.com",
+     "click: Search apple.com",
+     "click: Search apple.com",
+     "click: Search apple.com",
+     "click: Search apple.com"
+    ],
+    "failed_checks": [
+     "target_page"
+    ],
+    "take": 1,
+    "how_it_failed": "Opened the MacBook Air buy page instead of Tech Specs, then clicked the search icon over and over until the agent stopped it for repeating itself."
+   },
+   "takes_succeeded": {
+    "webjev": "3/3",
+    "jev": "0/3"
+   },
+   "take_outcomes": {
+    "webjev": [
+     "S",
+     "S",
+     "S"
+    ],
+    "jev": [
+     "F",
+     "F",
+     "F"
+    ]
+   }
+  },
+  {
+   "gif": "02-govuk-visa-checker.gif",
+   "task_id": "vts-051-govuk-usa-healthcare-visa",
+   "site": "gov.uk",
+   "source_benchmark": "Online-Mind2Web",
+   "task": "On gov.uk, use the Check if you need a UK visa service to check whether an American citizen with no dual British or Irish citizenship needs a visa to work in healthcare in the UK for longer than 6 months. Leave the completed checker result page open and return only a JSON object with the boolean field \"visa_required\".",
+   "title_shown": "On gov.uk, use the Check if you need a UK visa service to check whether an American citizen with no dual British or Irish citizenship needs a visa to work in healthcare in the UK for longer than 6 months.",
+   "webjev": {
+    "model": "WebJev-35B-A3B",
+    "verdict": "success",
+    "steps": 16,
+    "seconds": 28.5,
+    "actions": [
+     "fill: Search = 'Check if you need a UK visa'",
+     "click: check if you need a uk visa",
+     "click: Check if you need a UK visa",
+     "click: Reject additional cookies",
+     "click: Start now",
+     "select: United States of America",
+     "click: Continue",
+     "click: No",
+     "click: Continue",
+     "click: Work, academic visit or business",
+     "scroll: Scroll down",
+     "click: Continue",
+     "click: longer than 6 months",
+     "click: Continue",
+     "click: Health and care professional",
+     "click: Continue"
+    ],
+    "failed_checks": [],
+    "take": 1,
+    "what_it_did": "Found the checker, answered every question (nationality, purpose, duration, job type) and reached the result \"You need a visa to work in health and care\"."
+   },
+   "jev": {
+    "model": "Jev 1.13 (jev-1.13.0, TypeSafe API)",
+    "verdict": "failure",
+    "steps": 13,
+    "seconds": 22.1,
+    "actions": [
+     "fill: Search = 'Check if you need a UK visa'",
+     "click: check if you need a uk visa",
+     "click: Check if you need a UK visa",
+     "click: Reject additional cookies",
+     "click: Start now",
+     "select: United States of America",
+     "click: Continue",
+     "click: No",
+     "click: Continue",
+     "click: Work, academic visit or business",
+     "click: Work, academic visit or business",
+     "click: Work, academic visit or business",
+     "click: Work, academic visit or business"
+    ],
+    "failed_checks": [
+     "completed_checker_for_all_requested_conditions",
+     "official_result_loaded"
+    ],
+    "take": 1,
+    "how_it_failed": "Answered the first questions correctly, then kept re-selecting \"Work, academic visit or business\" without pressing Continue until the agent stopped it for repeating itself."
+   },
+   "takes_succeeded": {
+    "webjev": "2/3",
+    "jev": "0/3"
+   },
+   "take_outcomes": {
+    "webjev": [
+     "S",
+     "S",
+     "F"
+    ],
+    "jev": [
+     "F",
+     "F",
+     "F"
+    ]
+   },
+   "note": "WebJev's third take reached the same correct result page, but its final answer was a bare \"true\" instead of the requested JSON, so the verifier failed it."
+  },
+  {
+   "gif": "03-weathernetwork-current-temperature.gif",
+   "task_id": "vts-060-weathernetwork-10019-current-temperature",
+   "site": "theweathernetwork.com",
+   "source_benchmark": "Online-Mind2Web",
+   "task": "On theweathernetwork.com, look up the current temperature for ZIP code 10019. Leave the resulting Current Weather page open. Return only a JSON object with string fields \"temperature\" (the current temperature number, without the degree symbol) and \"unit\" (\"C\" or \"F\" as displayed).",
+   "title_shown": "On theweathernetwork.com, look up the current temperature for ZIP code 10019. Leave the resulting Current Weather page open.",
+   "webjev": {
+    "model": "WebJev-35B-A3B",
+    "verdict": "success",
+    "steps": 2,
+    "seconds": 10.6,
+    "actions": [
+     "fill: Enter location = '10019'",
+     "click: Manhattan, New York"
+    ],
+    "failed_checks": [],
+    "take": 2,
+    "what_it_did": "Typed 10019, picked the suggested \"Manhattan, New York\" and read the current temperature."
+   },
+   "jev": {
+    "model": "Jev 1.13 (jev-1.13.0, TypeSafe API)",
+    "verdict": "failure",
+    "steps": 4,
+    "seconds": 12.1,
+    "actions": [
+     "fill: Enter location = '10019'",
+     "click: Search",
+     "wait: Wait for the page to update",
+     "wait: Wait for the page to update"
+    ],
+    "failed_checks": [
+     "target_page",
+     "current_temperature_loaded",
+     "answer_matches_live_temperature_and_unit"
+    ],
+    "take": 1,
+    "how_it_failed": "Typed the ZIP code but pressed Search instead of choosing the suggested location, waited, then gave up (BLOCKED)."
+   },
+   "takes_succeeded": {
+    "webjev": "3/3",
+    "jev": "0/3"
+   },
+   "take_outcomes": {
+    "webjev": [
+     "S",
+     "S",
+     "S"
+    ],
+    "jev": [
+     "F",
+     "F",
+     "F"
+    ]
+   }
+  },
+  {
+   "gif": "04-mayoclinic-diagnosis-treatment.gif",
+   "task_id": "vts-001-mayoclinic-infertility-treatment",
+   "site": "mayoclinic.org",
+   "source_benchmark": "Online-Mind2Web",
+   "task": "On mayoclinic.org, open the Diagnosis & treatment section of the Female infertility article.",
+   "title_shown": "On mayoclinic.org, open the Diagnosis & treatment section of the Female infertility article.",
+   "webjev": {
+    "model": "WebJev-35B-A3B",
+    "verdict": "success",
+    "steps": 5,
+    "seconds": 19.6,
+    "actions": [
+     "click: Reject additional cookies",
+     "fill: Search diseases & conditions . Type 3 or more letters to display suggested search options. = 'Female infertility'",
+     "click: Search",
+     "click: Female infertility",
+     "click: Diagnosis & treatment"
+    ],
+    "failed_checks": [],
+    "take": 2,
+    "what_it_did": "Rejected the optional cookies, searched \"Female infertility\", opened the article and its Diagnosis & treatment tab."
+   },
+   "jev": {
+    "model": "Jev 1.13 (jev-1.13.0, TypeSafe API)",
+    "verdict": "failure",
+    "steps": 0,
+    "seconds": 0.9,
+    "actions": [],
+    "failed_checks": [
+     "on_diagnosis_treatment_page",
+     "active_tab_is_diagnosis_treatment"
+    ],
+    "take": 1,
+    "how_it_failed": "Gave up (BLOCKED) at the cookie-consent dialog without taking any action."
+   },
+   "takes_succeeded": {
+    "webjev": "2/3",
+    "jev": "0/3"
+   },
+   "take_outcomes": {
+    "webjev": [
+     "S",
+     "S",
+     "J"
+    ],
+    "jev": [
+     "F",
+     "F",
+     "F"
+    ]
+   },
+   "note": "WebJev's third take hit a browser timeout on the search results page and could not be graded."
+  },
+  {
+   "gif": "05-wolframalpha-calorie-comparison.gif",
+   "task_id": "vts-095-webvoyager-wolfram-alpha-14",
+   "site": "wolframalpha.com",
+   "source_benchmark": "WebVoyager",
+   "task": "Compare the total Calories: whopper vs baconator vs big mac. Assume that each serving of food is 300g.",
+   "title_shown": "Compare the total Calories: whopper vs baconator vs big mac. Assume that each serving of food is 300g.",
+   "webjev": {
+    "model": "WebJev-35B-A3B",
+    "verdict": "success",
+    "steps": 4,
+    "seconds": 14.3,
+    "actions": [
+     "click: Science & Technology",
+     "fill: What would you like to compute? = 'total calories in 300g whopper vs 300g baconator vs 300g big mac'",
+     "click: Compute",
+     "scroll: Scroll down"
+    ],
+    "failed_checks": [],
+    "take": 3,
+    "what_it_did": "Entered the comparison as one query, computed it and read the three calorie totals."
+   },
+   "jev": {
+    "model": "Jev 1.13 (jev-1.13.0, TypeSafe API)",
+    "verdict": "failure",
+    "steps": 0,
+    "seconds": 4.3,
+    "actions": [],
+    "failed_checks": [
+     "whopper_calories_at_300g",
+     "baconator_calories_at_300g",
+     "big_mac_calories_at_300g"
+    ],
+    "take": 2,
+    "how_it_failed": "Gave up (BLOCKED) on the Wolfram|Alpha home page without entering a query."
+   },
+   "takes_succeeded": {
+    "webjev": "3/3",
+    "jev": "0/3"
+   },
+   "take_outcomes": {
+    "webjev": [
+     "S",
+     "S",
+     "S"
+    ],
+    "jev": [
+     "F",
+     "F",
+     "F"
+    ]
+   }
+  },
+  {
+   "gif": "06-amtrak-passenger-id.gif",
+   "task_id": "vts-016-amtrak-passenger-identification",
+   "site": "amtrak.com",
+   "source_benchmark": "Online-Mind2Web",
+   "task": "On amtrak.com, find the Passenger Identification requirements and leave that page open. Summarize the two accepted ID combinations for passengers age 18 and over by returning only JSON with photo_id_option (fields count, government_issued, photo_required) and two_id_option (fields count, minimum_government_issued). Use numbers for counts and booleans for yes/no.",
+   "title_shown": "On amtrak.com, find the Passenger Identification requirements and leave that page open. Summarize the two accepted ID combinations for passengers age 18 and over.",
+   "webjev": {
+    "model": "WebJev-35B-A3B",
+    "verdict": "success",
+    "steps": 4,
+    "seconds": 21.3,
+    "actions": [
+     "click: Disable All",
+     "click: PLAN",
+     "click: Passenger ID, Safety & Security",
+     "click: Passenger Identification"
+    ],
+    "failed_checks": [],
+    "take": 1,
+    "what_it_did": "Dismissed the cookie banner, then PLAN -> Passenger ID, Safety & Security -> Passenger Identification."
+   },
+   "jev": {
+    "model": "Jev 1.13 (jev-1.13.0, TypeSafe API)",
+    "verdict": "failure",
+    "steps": 11,
+    "seconds": 31.5,
+    "actions": [
+     "click: Close",
+     "click: Need Help?",
+     "fill: What can I help you with? = 'Passenger Identification requirements'",
+     "click: search",
+     "wait: Wait for the page to update",
+     "wait: Wait for the page to update",
+     "wait: Wait for the page to update",
+     "click: search",
+     "click: search",
+     "click: search",
+     "click: search"
+    ],
+    "failed_checks": [
+     "target_page",
+     "target_content",
+     "id_combinations"
+    ],
+    "take": 2,
+    "how_it_failed": "Opened the site's help assistant, searched there, and kept clicking its search button until the agent stopped it for repeating itself."
+   },
+   "takes_succeeded": {
+    "webjev": "3/3",
+    "jev": "0/3"
+   },
+   "take_outcomes": {
+    "webjev": [
+     "S",
+     "S",
+     "S"
+    ],
+    "jev": [
+     "F",
+     "F",
+     "F"
+    ]
+   }
+  }
+ ]
+}

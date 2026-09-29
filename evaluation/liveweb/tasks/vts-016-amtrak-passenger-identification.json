@@ -1,0 +1,95 @@
+{
+ "task_id": "vts-016-amtrak-passenger-identification",
+ "task_name": "On amtrak.com, find the Passenger Identification requirements and leave that page open. Summarize the two accepted ID combinations for passengers age 18 and over by returning only JSON with photo_id_option (fields count, government_issued, photo_required) and two_id_option (fields count, minimum_government_issued). Use numbers for counts and booleans for yes/no.",
+ "website": "https://www.amtrak.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "323bd85e3559655d89e5496b951a25e8",
+  "original_task_name": "Tell me information about what identification I need to bring on my trip on Amtrak.",
+  "intent_modified": true,
+  "intent_modified_reason": "Made the site, the target page and the end state explicit. The broad \"tell me the ID information\" was narrowed to the two accepted ID combinations on the official page; the task still requires extracting and reporting them, not only opening the page."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "target_page",
+    "metric": "url_matches",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "https://www.amtrak.com/passenger-identification",
+      "https://www.amtrak.com/planning-booking/tickets-id-safety-security/passenger-identification"
+     ]
+    }
+   },
+   {
+    "name": "target_content",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Valid Photo ID Required",
+       "What is a Valid ID?"
+      ]
+     }
+    },
+    "requires": [
+     "target_page"
+    ]
+   },
+   {
+    "name": "id_combinations",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "photo_id_option.count": 1,
+      "photo_id_option.government_issued": {
+       "any": [
+        {
+         "eq": true
+        },
+        {
+         "re": "government[\\s-]?issued"
+        }
+       ]
+      },
+      "photo_id_option.photo_required": {
+       "any": [
+        {
+         "eq": true
+        },
+        {
+         "re": "photo"
+        }
+       ]
+      },
+      "two_id_option.count": 2,
+      "two_id_option.minimum_government_issued": {
+       "any": [
+        {
+         "eq": 1
+        },
+        {
+         "re": "at\\s+least\\s+one|one\\s+of\\s+(?:which|them|these)|one\\s+must\\s+be"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

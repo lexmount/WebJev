@@ -1,0 +1,73 @@
+{
+ "task_id": "vts-116-webgym-300284",
+ "task_name": "Determine the current status of Neverware's CloudReady product and identify its successor or equivalent offering for personal use, providing the name of the new product.",
+ "website": "https://www.neverware.com",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300284",
+  "original_task_name": "Determine the current status of Neverware's CloudReady product and identify its successor or equivalent offering for personal use, providing the name of the new product.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "cloudready_current_status_reported",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "\\bcloud\\s*ready\\b[\\s\\S]{0,160}\\b(?:discontinued|retired|superseded|replaced|rebranded|renamed|phased[\\s-]*out)\\b",
+         "flags": "I"
+        },
+        {
+         "re": "\\bcloud\\s*ready\\b[\\s\\S]{0,160}\\b(?:now|became|become|transitioned\\s+(?:to|into)|migrated\\s+to|merged\\s+into|integrated\\s+into|evolved\\s+into)\\b[\\s\\S]{0,80}\\bchrome\\s*os\\s+flex\\b",
+         "flags": "I"
+        },
+        {
+         "re": "\\bcloud\\s*ready\\b[\\s\\S]{0,100}\\bno\\s+longer\\s+(?:(?:separately|actively)\\s+)?(?:offered|available|maintained|supported|developed|a\\s+(?:separate|standalone)\\s+(?:current\\s+)?product)\\b",
+         "flags": "I"
+        },
+        {
+         "re": "\\bchrome\\s*os\\s+flex\\b[\\s\\S]{0,80}\\b(?:replaces|replaced|supersedes|superseded|succeeds|succeeded|successor\\s+to|replacement\\s+for)\\b[\\s\\S]{0,60}\\bcloud\\s*ready\\b",
+         "flags": "I"
+        },
+        {
+         "re": "\\bcloud\\s*ready\\b[\\s\\S]{0,80}(?:\u5df2\u88ab\u53d6\u4ee3|\u5df2\u88ab\u66ff\u4ee3|\u5df2\u505c\u6b62\u63d0\u4f9b|\u5df2\u505c\u6b62\u5f00\u53d1|\u5df2\u505c\u6b62\u7ef4\u62a4|\u5df2\u505c\u7528|\u5df2\u505c\u4ea7|\u5df2\u66f4\u540d|\u66f4\u540d\u4e3a|\u6574\u5408\u8fdb|\u6574\u5408\u5230|\u8fc1\u79fb\u5230|\u5408\u5e76\u5230|\u5347\u7ea7\u4e3a|\u73b0\u5df2\u6210\u4e3a)[\\s\\S]{0,80}",
+         "flags": "I"
+        },
+        {
+         "re": "\\bchrome\\s*os\\s+flex\\b[\\s\\S]{0,40}(?:\u53d6\u4ee3|\u66ff\u4ee3|\u63a5\u66ff)\\s*(?:\u4e86\\s*)?\\bcloud\\s*ready\\b",
+         "flags": "I"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "personal_use_successor_named",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "\\bchrome\\s*os\\s+flex\\b",
+       "flags": "I"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

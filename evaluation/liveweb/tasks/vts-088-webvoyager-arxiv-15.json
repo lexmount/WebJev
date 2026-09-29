@@ -1,0 +1,40 @@
+{
+ "task_id": "vts-088-webvoyager-arxiv-15",
+ "task_name": "Searching Chinese Benchmark on ArXiv, how many papers announced in December 2024 mention being accepted for AAAI 2024?",
+ "website": "https://arxiv.org/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "ArXiv--15",
+  "original_task_name": "Searching Chinese Benchmark on ArXiv, how many papers announced in December 2024 mention being accepted for AAAI 2024?",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "number_of_matching_aaai_2024_papers",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "eq": 0
+        },
+        {
+         "re": "\\bnone\\b|\\bno(?:\\s+(?:such|matching|qualifying|accepted))?\\s+(?:papers?|articles?|results?|matches)\\b|(?:\u6ca1\u6709|\u65e0)(?:\u4efb\u4f55|\u7b26\u5408\u6761\u4ef6\u7684|\u5339\u914d\u7684)?(?:\u8bba\u6587|\u6587\u7ae0|\u7ed3\u679c)|\u96f6\\s*(?:\u7bc7|\u9879)?",
+         "flags": "I"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

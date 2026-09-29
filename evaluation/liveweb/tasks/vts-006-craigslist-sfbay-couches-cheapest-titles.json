@@ -1,0 +1,83 @@
+{
+ "task_id": "vts-006-craigslist-sfbay-couches-cheapest-titles",
+ "task_name": "On the SF Bay Area craigslist (sfbay.craigslist.org), browse couches for sale, sort by cheapest, and search in titles only.",
+ "website": "https://sfbay.craigslist.org/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "330cd04c773ac498f51afa4665461ec8",
+  "intent_modified": true,
+  "intent_modified_reason": "As in vts-005, only the city is pinned (San Francisco Bay Area); the three operations (search for couches, sort by lowest price, titles only) are unchanged."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_sfbay_craigslist_search",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://(?:sfbay\\.craigslist\\.org/search/|(?:www\\.)?craigslist\\.org/search/area/sfbay(?:[/?#]|$))"
+    }
+   },
+   {
+    "name": "category_is_for_sale",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "(?:[?&]cat=(?:sss|ppa|ara|sna|pta|ava|baa|bar|haa|bip|bia|bpa|boo|boa|bka|bfa|cta|ema|moa|cla|cba|syp|sya|ela|gra|hva|jwa|maa|mpa|mca|msa|pha|rva|sga|tia|tla|taa|tra|vga|wta|fua|hsa|ata|foa|zip|gms|fuo|fud|hso|hsd|ato|atd|foo|fod|sso|ssd)(?:[&#]|$)|/search/(?:[a-z]{3}/)?(?:sss|ppa|ara|sna|pta|ava|baa|bar|haa|bip|bia|bpa|boo|boa|bka|bfa|cta|ema|moa|cla|cba|syp|sya|ela|gra|hva|jwa|maa|mpa|mca|msa|pha|rva|sga|tia|tla|taa|tra|vga|wta|fua|hsa|ata|foa|zip|gms|fuo|fud|hso|hsd|ato|atd|foo|fod|sso|ssd)(?:[/?#]|$))"
+    }
+   },
+   {
+    "name": "query_sort_and_titles_only",
+    "metric": "json_object_match",
+    "result": {
+     "type": "url_parse",
+     "parse_keys": [
+      "query",
+      "sort",
+      "srchType"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "query": {
+       "re": "^\\s*couch(es)?\\s*$"
+      },
+      "sort": {
+       "eq": "priceasc"
+      },
+      "srchType": {
+       "eq": "T"
+      }
+     }
+    }
+   },
+   {
+    "name": "listing_has_results",
+    "metric": "count_in_range",
+    "requires": [
+     "on_sfbay_craigslist_search"
+    ],
+    "result": {
+     "type": "dom_count",
+     "selector": ".cl-search-result",
+     "must_exist": true
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "ge": 1
+     }
+    }
+   }
+  ]
+ }
+}

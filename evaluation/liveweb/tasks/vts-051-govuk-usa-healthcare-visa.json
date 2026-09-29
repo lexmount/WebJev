@@ -1,0 +1,84 @@
+{
+ "task_id": "vts-051-govuk-usa-healthcare-visa",
+ "task_name": "On gov.uk, use the Check if you need a UK visa service to check whether an American citizen with no dual British or Irish citizenship needs a visa to work in healthcare in the UK for longer than 6 months. Leave the completed checker result page open and return only a JSON object with the boolean field \"visa_required\".",
+ "website": "https://www.gov.uk/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "0170ca95038b05fa58d463fe627ac605",
+  "original_task_name": "Check if a visa is required to work in the UK for longer than 6 months in Healthcare as an American citizen.",
+  "original_website": "https://www.gov.uk/",
+  "source_row_zero_based": 97,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept all four original conditions (US citizen, work, more than 6 months, healthcare). The questionnaire now also asks about dual nationality, answered as no British or Irish dual citizenship. The task requires the official checker's result page and a boolean JSON answer, so the original yes/no question can be scored deterministically."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "completed_checker_for_all_requested_conditions",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://www\\.gov\\.uk/check-uk-visa/y/usa/no/work/longer_than_six_months/health/?(?:[?#]|$)"
+    }
+   },
+   {
+    "name": "official_result_loaded",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "result": "main h2"
+     },
+     "must_exist": [
+      "result"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "result": {
+       "re": "^You need a visa to work in health and care$"
+      }
+     }
+    },
+    "requires": [
+     "completed_checker_for_all_requested_conditions"
+    ]
+   },
+   {
+    "name": "correct_boolean_answer",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "visa_required": {
+       "any": [
+        {
+         "eq": true
+        },
+        {
+         "all": [
+          {
+           "re": "visa[_\\s]?required\\\"?\\s*[:=]\\s*(?:true|yes)|\\bvisas?\\s+(?:is|are)\\s+required|\\b(?:needs?|need|will\\s+need|requires?|must\\s+(?:get|obtain|apply))\\s+(?:a\\s+|an\\s+)?[a-z\\s]{0,24}?visa|\\byes\\b"
+          },
+          {
+           "not_re": "visa[_\\s]?required\\\"?\\s*[:=]\\s*(?:false|no)|\\bno\\s+visa\\s+(?:is\\s+)?(?:required|needed)|\\b(?:does\\s+not|do\\s+not|doesn'?t|don'?t|will\\s+not|won'?t)\\s+(?:need|require)"
+          }
+         ]
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,71 @@
+{
+ "task_id": "vts-035-mayo-florida-internship-programs",
+ "task_name": "Starting from mayoclinic.org, use the Mayo Clinic College of Medicine and Science Programs A-Z page on college.mayo.edu. In the table headed \"Clinical rotations and internships\" (before the separate \"Affiliated clinical rotations and internships\" table), find every internship program whose Location is Florida. That table also lists externships, practicums and clinical rotations; those are not internships and are out of scope. Leave that page open and return only a JSON object with programs containing an array of the exact program names from that table.",
+ "website": "https://www.mayoclinic.org/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "783ce6a3499fa7cf25bc12f8f0ecbbbb",
+  "original_task_name": "Find Florida internship programs in the Mayo Clinic College of Medicine and Science.",
+  "original_website": "https://www.mayoclinic.org/",
+  "source_row_zero_based": 132,
+  "intent_modified": true,
+  "intent_modified_reason": "The original task did not say which catalog to use. The task now uses the Programs A-Z \"Clinical rotations and internships\" table, keeps both conditions (Florida, internship) and asks for the complete set, so opening the school's home page does not pass; the education site has moved to college.mayo.edu. A later revision added that externships, practicums and clinical rotations do not count as internships, because the table mixes all three. The verifier was not changed."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_target_page",
+    "metric": "url_matches",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "https://college.mayo.edu/academics/health-sciences-education/programs-a-z/"
+    }
+   },
+   {
+    "name": "target_content_loaded",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Clinical rotations and internships",
+       "Florida",
+       "Dietetic Internship",
+       "Genetic Counseling Internship"
+      ]
+     }
+    }
+   },
+   {
+    "name": "all_florida_internships_in_requested_table",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "programs": [
+       "Clinical Research Internship Study Program",
+       "Dietetic Internship",
+       "Genetic Counseling Internship",
+       "Magnetic Resonance Imaging (MRI) Internship",
+       "Vascular Interventional Radiologic Technology Internship"
+      ]
+     }
+    },
+    "options": {
+     "ignore_literal_whitespace": true
+    }
+   }
+  ]
+ }
+}
