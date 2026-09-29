@@ -1,0 +1,63 @@
+{
+ "task_id": "vts-104-webgym-300515",
+ "task_name": "Navigate to the official website for The Celestine Hotel Tokyo and find the starting price for a Standard Double Room for a single night.",
+ "website": "https://www.celestinehotels.jp",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300515",
+  "original_task_name": "Navigate to the official website for The Celestine Hotel Tokyo and find the starting price for a Standard Double Room for a single night.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "standard_double_advertised_starting_price",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "eq": 14800
+        },
+        {
+         "all": [
+          {
+           "eq": 14060
+          },
+          {
+           "re": "\\bmember(?:s|ship)?\\b|\u4f1a\u5458|\u6703\u54e1|\u4f1a\u54e1",
+           "flags": "I"
+          }
+         ]
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "price_is_in_japanese_yen",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "\\bJPY\\b|\\b(?:Japanese\\s+)?yen\\b|\u65e5[\u5143\u5706\u5713]|\u5186|[¥\uffe5]",
+       "flags": "I"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

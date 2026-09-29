@@ -1,0 +1,48 @@
+{
+ "task_id": "vts-017-imdb-prometheus-crazy-credits",
+ "task_name": "On imdb.com, open the Crazy credits page for Prometheus (2012) and leave its credits text displayed.",
+ "website": "https://www.imdb.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "56f8890a837c49f7df766b9c981646f3",
+  "original_task_name": "Show crazy credits for the movie \" Prometheus\" on IMDb.",
+  "intent_modified": true,
+  "intent_modified_reason": "Made the site, the target page and the end state explicit, and named the answer fields so the result can be checked deterministically."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https?://(?:www\\.)?imdb\\.com/title/tt1446714/crazycredits(?:[/?#]|$)"
+    }
+   },
+   {
+    "name": "target_content",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Crazy credits",
+       "Weyland"
+      ]
+     }
+    },
+    "requires": [
+     "target_page"
+    ]
+   }
+  ]
+ }
+}

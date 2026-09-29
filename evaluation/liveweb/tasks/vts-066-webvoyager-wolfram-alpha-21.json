@@ -1,0 +1,49 @@
+{
+ "task_id": "vts-066-webvoyager-wolfram-alpha-21",
+ "task_name": "Calculate (1+0.1*i)^8 + (1−0.2*i)^8  where i is a complex number.",
+ "website": "https://www.wolframalpha.com/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "Wolfram Alpha--21",
+  "original_task_name": "Calculate (1+0.1*i)^8 + (1−0.2*i)^8  where i is a complex number.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "complex_value_is_correct",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "all": [
+          {
+           "re": "(?:0\\.717182(?:57[0-9]*)?|0\\.717183)"
+          },
+          {
+           "re": "(?:-|−)\\s*0\\.425258(?:4[0-9]*)?\\s*(?:\\*\\s*)?[iI]\\b"
+          }
+         ]
+        },
+        {
+         "re": "0\\.833784\\s*(?:\\*\\s*)?\\(?\\s*(?:cos|Cos)\\s*\\(\\s*(?:-|−)0\\.535225\\s*\\)\\s*\\+\\s*[iI]\\s*(?:\\*\\s*)?(?:sin|Sin)\\s*\\(\\s*(?:-|−)0\\.535225\\s*\\)\\s*\\)?"
+        },
+        {
+         "re": "0\\.833784\\s*(?:\\*\\s*)?(?:e|exp)\\s*(?:\\^\\s*)?\\(?\\s*(?:-|−)0\\.535225\\s*(?:\\*\\s*)?[iI]\\s*\\)?"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

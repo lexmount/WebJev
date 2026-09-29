@@ -1,0 +1,13 @@
+services:
+  browser-agent:
+    build: .
+    # Local only. Publish "8787:8787" instead to share the page on your network.
+    ports:
+      - "127.0.0.1:8787:8787"
+    env_file: .env
+    volumes:
+      - browser-agent-runs:/srv/runs
+    restart: unless-stopped
+    stop_grace_period: 20s
+volumes:
+  browser-agent-runs:

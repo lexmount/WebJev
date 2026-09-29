@@ -1,0 +1,69 @@
+[
+ {
+  "label": "true end state + verbatim answer",
+  "expect": 1,
+  "answer": "EMNLP 2020"
+ },
+ {
+  "label": "abstract page with a version suffix (the alternative form under 'Cite as')",
+  "expect": 1,
+  "url": "https://arxiv.org/abs/2011.05864v1",
+  "answer": "EMNLP 2020"
+ },
+ {
+  "label": "answer written as a full sentence",
+  "expect": 1,
+  "answer": "The Comments field says this paper was published at EMNLP 2020."
+ },
+ {
+  "label": "right page but a hallucinated venue",
+  "expect": 0,
+  "answer": "ACL 2021"
+ },
+ {
+  "label": "right page but no answer",
+  "expect": 0,
+  "answer": ""
+ },
+ {
+  "label": "right page but answers the original question (figure/table counts)",
+  "expect": 0,
+  "answer": "4 figures and 6 tables"
+ },
+ {
+  "label": "stopped on the PDF page (the Comments field is not there)",
+  "expect": 0,
+  "url": "https://arxiv.org/pdf/2011.05864",
+  "answer": "EMNLP 2020"
+ },
+ {
+  "label": "stopped on the search results page",
+  "expect": 0,
+  "url": "https://arxiv.org/a/search?searchtype=all&query=sentence+embeddings",
+  "answer": "EMNLP 2020"
+ },
+ {
+  "label": "ended on another paper",
+  "expect": 0,
+  "url": "https://arxiv.org/abs/2011.05865",
+  "answer": "EMNLP 2020"
+ },
+ {
+  "label": "the id is a prefix (segment boundary)",
+  "expect": 0,
+  "url": "https://arxiv.org/abs/2011.058640",
+  "answer": "EMNLP 2020"
+ },
+ {
+  "label": "stopped at the arXiv home page",
+  "expect": 0,
+  "url": "https://arxiv.org/",
+  "answer": "EMNLP 2020"
+ },
+ {
+  "label": "look-alike domain",
+  "expect": 0,
+  "url": "https://evil.example.com/arxiv.org/abs/2011.05864",
+  "answer": "EMNLP 2020"
+ }
+]

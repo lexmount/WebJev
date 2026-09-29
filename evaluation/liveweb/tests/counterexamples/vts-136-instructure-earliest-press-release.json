@@ -1,0 +1,56 @@
+[
+ {
+  "label": "true end state",
+  "expect": 1
+ },
+ {
+  "label": "trailing slash",
+  "expect": 1,
+  "url": "https://www.instructure.com/press-release/instructure-included-2020-shatter-list-helping-break-glass-ceiling-technology/"
+ },
+ {
+  "label": "with tracking parameters",
+  "expect": 1,
+  "url": "https://www.instructure.com/press-release/instructure-included-2020-shatter-list-helping-break-glass-ceiling-technology?utm_source=x"
+ },
+ {
+  "label": "one page short: took March 11 as the earliest",
+  "expect": 0,
+  "url": "https://www.instructure.com/press-release/instructure-award-25000-through-national-student-scholarship-contest"
+ },
+ {
+  "label": "second to last item, March 10",
+  "expect": 0,
+  "url": "https://www.instructure.com/press-release/adobe-creative-cloud-integrates-canvas-deliver-creativity-imagination-opportunities"
+ },
+ {
+  "label": "stopped on the last list page without opening the item",
+  "expect": 0,
+  "url": "https://www.instructure.com/news/public-relations?page=17"
+ },
+ {
+  "label": "stopped on the first list page (the newest item's page)",
+  "expect": 0,
+  "url": "https://www.instructure.com/news/public-relations"
+ },
+ {
+  "label": "went into the Newsroom coverage (third-party media, not a press release)",
+  "expect": 0,
+  "url": "https://www.instructure.com/news"
+ },
+ {
+  "label": "guessed a URL and hit a 404",
+  "expect": 0,
+  "url": "https://www.instructure.com/newsroom"
+ },
+ {
+  "label": "stopped at the home page",
+  "expect": 0,
+  "url": "https://www.instructure.com/"
+ },
+ {
+  "label": "look-alike domain",
+  "expect": 0,
+  "url": "https://evil.example.com/www.instructure.com/press-release/instructure-included-2020-shatter-list-helping-break-glass-ceiling-technology"
+ }
+]

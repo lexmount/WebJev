@@ -1,0 +1,51 @@
+[
+ {
+  "label": "true end state (bare URL)",
+  "expect": 1
+ },
+ {
+  "label": "clicked a table-of-contents anchor -- closer to the task, must pass",
+  "expect": 1,
+  "url": "https://info.arxiv.org/help/withdraw.html#submission-not-yet-announced"
+ },
+ {
+  "label": "with an unrelated query string",
+  "expect": 1,
+  "url": "https://info.arxiv.org/help/withdraw.html?utm_source=x"
+ },
+ {
+  "label": "stopped at the Help index (halfway)",
+  "expect": 0,
+  "url": "https://info.arxiv.org/help/index.html"
+ },
+ {
+  "label": "stopped at the arXiv home page (did nothing)",
+  "expect": 0,
+  "url": "https://arxiv.org/"
+ },
+ {
+  "label": "a nearby but different help page",
+  "expect": 0,
+  "url": "https://info.arxiv.org/help/withdrawal.html"
+ },
+ {
+  "label": "regex boundary: .html must not match as a prefix",
+  "expect": 0,
+  "url": "https://info.arxiv.org/help/withdraw.html.bak"
+ },
+ {
+  "label": "regex boundary: the ^ anchor stops a third-party site that copies the path",
+  "expect": 0,
+  "url": "https://evil.example.com/info.arxiv.org/help/withdraw.html"
+ },
+ {
+  "label": "same-name path under /policies (does not exist; must not be accepted)",
+  "expect": 0,
+  "url": "https://info.arxiv.org/help/policies/withdraw.html"
+ },
+ {
+  "label": "Google search results page (answered off-site)",
+  "expect": 0,
+  "url": "https://www.google.com/search?q=arxiv+withdraw+article"
+ }
+]

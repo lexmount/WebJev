@@ -1,0 +1,70 @@
+{
+ "task_id": "vts-041-mayo-fever-symptoms-causes",
+ "task_name": "On mayoclinic.org, show the Fever article's Symptoms & causes page, with both the Symptoms and Causes sections available for reading, and leave that page open.",
+ "website": "https://www.mayoclinic.org/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "23204728192da9f73197a613d9681c18",
+  "original_task_name": "What are the Symptoms and causes of fever?",
+  "original_website": "https://www.mayoclinic.org/",
+  "source_row_zero_based": 174,
+  "intent_modified": true,
+  "intent_modified_reason": "The question became displaying two named sections (symptoms, causes) of the same official article. This gives up a free-form summary but keeps both parts, instead of turning the question into home-page navigation."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://(?:www\\.)?mayoclinic\\.org/diseases-conditions/fever/symptoms-causes(?:/|[?#]|$)"
+    }
+   },
+   {
+    "name": "heading_identifies_target",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "heading": "h1"
+     },
+     "must_exist": [
+      "heading"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "heading": {
+       "re": "^\\s*Fever\\s*$",
+       "flags": "I"
+      }
+     }
+    },
+    "requires": [
+     "on_target_page"
+    ]
+   },
+   {
+    "name": "both_symptom_and_cause_content_loaded",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "Symptoms[\\s\\S]*Sweating[\\s\\S]*Chills and shivering",
+      "Causes[\\s\\S]*(?:infection|virus|bacteria)"
+     ]
+    }
+   }
+  ]
+ }
+}

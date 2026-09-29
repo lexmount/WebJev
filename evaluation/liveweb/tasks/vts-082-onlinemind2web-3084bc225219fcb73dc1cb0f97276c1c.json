@@ -1,0 +1,120 @@
+{
+ "task_id": "vts-082-onlinemind2web-3084bc225219fcb73dc1cb0f97276c1c",
+ "task_name": "Get quotes for a package weighing 10 lbs with dimensions of 2 inches in length, width, and height, being shipped from Long Beach, 90802 to Portland, 97201.",
+ "website": "https://www.ups.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "3084bc225219fcb73dc1cb0f97276c1c",
+  "original_task_name": "Get quotes for a package weighing 10 lbs with dimensions of 2 inches in length, width, and height, being shipped from Long Beach, 90802 to Portland, 97201.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "calculated_quote_rows_present",
+    "metric": "count_in_range",
+    "result": {
+     "type": "dom_count",
+     "selector": "#results tr[id^='servicerow'] strong[id^='grandTotalRow']",
+     "must_exist": false
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "min": 2
+     }
+    }
+   },
+   {
+    "name": "calculated_shipment_matches_request",
+    "requires": [
+     "calculated_quote_rows_present"
+    ],
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "attr": "value",
+     "selectors": {
+      "origin_city": "#results input[name='origCity']",
+      "origin_postal": "#results input[name='origPostal']",
+      "origin_country": "#results input[name='origCountry']",
+      "destination_city": "#results input[name='destCity']",
+      "destination_postal": "#results input[name='destPostal']",
+      "destination_country": "#results input[name='destCountry']",
+      "weight": "#results input[name='totalweight']",
+      "weight_unit": "#results input[name='weightUnit']",
+      "length": "#results input[name='_length1']",
+      "width": "#results input[name='_width1']",
+      "height": "#results input[name='_height1']",
+      "dimension_unit": "#results input[name='metricUnit']",
+      "package_count": "#results input[name='_packages']"
+     },
+     "must_exist": [
+      "origin_city",
+      "origin_postal",
+      "origin_country",
+      "destination_city",
+      "destination_postal",
+      "destination_country",
+      "weight",
+      "weight_unit",
+      "length",
+      "width",
+      "height",
+      "dimension_unit",
+      "package_count"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "origin_city": "Long Beach",
+      "origin_postal": "90802",
+      "origin_country": "US",
+      "destination_city": "Portland",
+      "destination_postal": "97201",
+      "destination_country": "US",
+      "weight": {
+       "eq": 10
+      },
+      "weight_unit": "LBS",
+      "length": {
+       "eq": 2
+      },
+      "width": {
+       "eq": 2
+      },
+      "height": {
+       "eq": 2
+      },
+      "dimension_unit": "IN",
+      "package_count": {
+       "eq": 1
+      }
+     }
+    }
+   },
+   {
+    "name": "answer_contains_retrieved_quote_amounts",
+    "requires": [
+     "calculated_quote_rows_present",
+     "calculated_shipment_matches_request"
+    ],
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "dom_extract",
+     "selectors": {
+      "quoted_prices": "#results tr[id^='servicerow'] strong[id^='grandTotalRow']"
+     },
+     "all": true,
+     "must_exist": []
+    }
+   }
+  ]
+ }
+}

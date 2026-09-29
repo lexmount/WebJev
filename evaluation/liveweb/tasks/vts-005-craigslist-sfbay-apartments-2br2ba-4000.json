@@ -1,0 +1,85 @@
+{
+ "task_id": "vts-005-craigslist-sfbay-apartments-2br2ba-4000",
+ "task_name": "On the SF Bay Area craigslist (sfbay.craigslist.org), browse apartments/housing for rent with at least 2 bedrooms and at least 2 bathrooms and a max price of $4000 per month.",
+ "website": "https://sfbay.craigslist.org/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "4c572a627b53b0f9a734ab37f21819b8",
+  "intent_modified": true,
+  "intent_modified_reason": "Pinned the city to the San Francisco Bay Area. craigslist.org redirects by the visitor's IP and the cloud browser's exit location made the landing city unpredictable, so the end state could not be verified. With the city fixed, the URL query parameters determine the result. The filters are unchanged."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_sfbay_craigslist_search",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://(?:sfbay\\.craigslist\\.org/search/|(?:www\\.)?craigslist\\.org/search/area/sfbay(?:[/?#]|$))"
+    }
+   },
+   {
+    "name": "category_is_apartments_for_rent",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "(?:[?&]cat=apa(?:[&#]|$)|/search/(?:[a-z]{3}/)?apa(?:[/?#]|$))"
+     ]
+    }
+   },
+   {
+    "name": "filters_applied",
+    "metric": "json_object_match",
+    "result": {
+     "type": "url_parse",
+     "parse_keys": [
+      "max_price",
+      "min_bedrooms",
+      "min_bathrooms"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "max_price": {
+       "eq": 4000
+      },
+      "min_bedrooms": {
+       "eq": 2
+      },
+      "min_bathrooms": {
+       "eq": 2
+      }
+     }
+    }
+   },
+   {
+    "name": "listing_has_results",
+    "metric": "count_in_range",
+    "requires": [
+     "on_sfbay_craigslist_search"
+    ],
+    "result": {
+     "type": "dom_count",
+     "selector": ".cl-search-result",
+     "must_exist": true
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "ge": 1
+     }
+    }
+   }
+  ]
+ }
+}

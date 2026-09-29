@@ -1,0 +1,47 @@
+{
+ "task_id": "vts-025-weathernetwork-climate-news",
+ "task_name": "On theweathernetwork.com, find the latest climate news by opening the Climate News listing. Leave the listing open with its current headlines displayed.",
+ "website": "https://www.theweathernetwork.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "f389398d2eeb29e5571e00439c57eb76",
+  "original_task_name": "Find the latest climate news.",
+  "intent_modified": true,
+  "intent_modified_reason": "Made the site, the target page and the end state explicit. \"Latest climate news\" means the current climate-news section list, not one top-ranked article; the verifier does not claim to check the ordering."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "target_page",
+    "metric": "url_matches",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "https://www.theweathernetwork.com/en/news/climate"
+    }
+   },
+   {
+    "name": "target_content",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Climate"
+      ]
+     }
+    },
+    "requires": [
+     "target_page"
+    ]
+   }
+  ]
+ }
+}

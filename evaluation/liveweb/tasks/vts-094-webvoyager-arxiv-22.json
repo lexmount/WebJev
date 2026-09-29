@@ -1,0 +1,125 @@
+{
+ "task_id": "vts-094-webvoyager-arxiv-22",
+ "task_name": "Locate the ArXiv Help section and find instructions on how to subscribe to daily listing emails for new submissions in a specific category.",
+ "website": "https://arxiv.org/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "ArXiv--22",
+  "original_task_name": "Locate the ArXiv Help section and find instructions on how to subscribe to daily listing emails for new submissions in a specific category.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "email_the_relevant_archive",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "all": [
+        {
+         "re": "e-?mail|\u90ae\u4ef6|\u90ae\u7bb1",
+         "flags": "I"
+        },
+        {
+         "any": [
+          {
+           "re": "(?:archive|categor(?:y|ies)|subject)[^\\n]{0,120}(?:e-?mail\\s+address|address|\u90ae\u7bb1|\u90ae\u4ef6\u5730\u5740)",
+           "flags": "I"
+          },
+          {
+           "re": "(?:e-?mail\\s+address|address|\u90ae\u7bb1|\u90ae\u4ef6\u5730\u5740)[^\\n]{0,120}(?:archive|categor(?:y|ies)|subject|\u5206\u7c7b)",
+           "flags": "I"
+          },
+          {
+           "re": "(?:math|physics|cs|q-bio|q-fin|quant-ph|arch-ive|archive)[>\\]}]*@arxiv\\.org",
+           "flags": "I"
+          }
+         ]
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "subscription_subject_includes_name",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "all": [
+        {
+         "re": "(?:subject|\u4e3b\u9898)[^\\n]{0,120}\\bsubscribe\\b|\\bsubscribe\\b[^\\n]{0,120}(?:subject|\u4e3b\u9898)",
+         "flags": "I"
+        },
+        {
+         "re": "\\bsubscribe\\b[^\\n]{0,120}(?:\\b(?:full\\s+|your\\s+)?name\\b|John\\s+Smith|\u59d3\u540d|\u5168\u540d)|(?:\\bfull\\s+name\\b|\u59d3\u540d|\u5168\u540d)[^\\n]{0,120}\\bsubscribe\\b",
+         "flags": "I"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "category_add_command_in_message_body",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "all": [
+        {
+         "re": "(?:body|message\\s+text|\u6b63\u6587)[^\\n]{0,160}\\badd\\b|\\badd\\b[^\\n]{0,160}(?:body|message\\s+text|\u6b63\u6587)",
+         "flags": "I"
+        },
+        {
+         "re": "\\badd\\b[^\\n]{0,120}(?:categor(?:y|ies)|subject|class|code|\u5206\u7c7b|\u7c7b\u522b|\u4ee3\u7801|\\bRM\\b|Biophysics|Superconductivity)|(?:categor(?:y|ies)|subject\\s+class|\u5206\u7c7b|\u7c7b\u522b|\u4ee3\u7801)[^\\n]{0,120}\\badd\\b",
+         "flags": "I"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "plain_text_email_format",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "\\bASCII\\b",
+         "flags": "I"
+        },
+        {
+         "re": "\\bplain[ -]*(?:text|txt)\\b|\u7eaf\u6587\u672c",
+         "flags": "I"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

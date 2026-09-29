@@ -1,0 +1,46 @@
+{
+ "task_id": "vts-133-arxiv-sentence-embeddings-figures-tables",
+ "task_name": "On arxiv.org, open the abstract page of the paper \"On the Sentence Embeddings from Pre-trained Language Models\" and report the publication venue given in that page's Comments field.",
+ "website": "https://arxiv.org/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "ArXiv--6",
+  "original_task_name": "How many figures and tables are in the paper \"On the Sentence Embeddings from Pre-trained Language Models\"?",
+  "original_website": "https://arxiv.org/",
+  "intent_modified": true,
+  "intent_modified_reason": "The original asked for the number of figures and tables in the paper. That number is not on the site: the abstract page's Comments field only says \"EMNLP 2020\", and counting figures would mean reading the PDF, which is neither web operation nor checkable from page state. The rewrite keeps the web work (find the paper's abstract page on arxiv.org by title and read its metadata) and asks for the venue in the Comments field, which is on the page and checkable verbatim; the paper has a single version, so the value is fixed. The site name and the end state (abstract page open) were added."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_paper_abstract_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "^https://arxiv\\.org/abs/2011\\.05864(v\\d+)?([?#]|$)"
+     ]
+    }
+   },
+   {
+    "name": "reported_venue_from_comments",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": "EMNLP 2020"
+    },
+    "requires": [
+     "on_paper_abstract_page"
+    ]
+   }
+  ]
+ }
+}

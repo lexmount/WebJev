@@ -1,0 +1,179 @@
+{
+ "task_id": "vts-099-onlinemind2web-4e801ba102dfaf22c7cf7a126b107609",
+ "task_name": "Find Linux platform software developers in 10080 who master the Python language and Java language with web interface project type.",
+ "website": "https://www.thumbtack.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "4e801ba102dfaf22c7cf7a126b107609",
+  "original_task_name": "Find Linux platform software developers in 10080 who master the Python language and Java language with web interface project type.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "thumbtack_search_context",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://(?:www\\.)?thumbtack\\.com(?:/|$)"
+    }
+   },
+   {
+    "name": "software_development_in_10080",
+    "metric": "json_object_match",
+    "requires": [
+     "thumbtack_search_context"
+    ],
+    "result": {
+     "type": "url_parse",
+     "parse_keys": [
+      "keyword_pk",
+      "zip_code"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "keyword_pk": "367799059341688833",
+      "zip_code": "10080"
+     }
+    }
+   },
+   {
+    "name": "search_controls_confirm_context",
+    "metric": "json_object_match",
+    "requires": [
+     "thumbtack_search_context",
+     "software_development_in_10080"
+    ],
+    "result": {
+     "type": "control_state",
+     "selectors": {
+      "service": "input[data-test=\"search-input\"]",
+      "zip": "input[name=\"zip_code\"]"
+     },
+     "must_exist": [
+      "service",
+      "zip"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "service.value": {
+       "re": "^Software\\s+(?:Development|Developers?)$"
+      },
+      "zip.value": "10080"
+     }
+    }
+   },
+   {
+    "name": "filter_groups_available",
+    "metric": "json_object_match",
+    "requires": [
+     "software_development_in_10080",
+     "search_controls_confirm_context"
+    ],
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "languages": "[data-testid=\"468968844175998984\"]",
+      "platform": "[data-testid=\"462401157691621386\"]",
+      "project_type": "[data-testid=\"462850589758414855\"]"
+     },
+     "must_exist": [
+      "languages",
+      "platform",
+      "project_type"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "languages": {
+       "contains": [
+        "Language",
+        "Python",
+        "Java"
+       ]
+      },
+      "platform": {
+       "contains": [
+        "Platform",
+        "Linux"
+       ]
+      },
+      "project_type": {
+       "contains": [
+        "Project type",
+        "Web interface"
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "requested_filters_selected_together",
+    "metric": "json_object_match",
+    "requires": [
+     "filter_groups_available"
+    ],
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "languages": "[data-testid=\"468968844175998984\"] label:has(input:checked)",
+      "platform": "[data-testid=\"462401157691621386\"] label:has(input:checked)",
+      "project_type": "[data-testid=\"462850589758414855\"] label:has(input:checked)"
+     },
+     "all": true,
+     "must_exist": []
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "languages": {
+       "contains": [
+        "Python",
+        "Java"
+       ]
+      },
+      "platform": {
+       "contains": [
+        "Linux"
+       ]
+      },
+      "project_type": {
+       "contains": [
+        "Web interface"
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "matching_software_developers_found",
+    "metric": "count_in_range",
+    "requires": [
+     "software_development_in_10080",
+     "requested_filters_selected_together"
+    ],
+    "result": {
+     "type": "dom_count",
+     "selector": "a[data-testid=\"pro-list-result\"][href*=\"zip_code=10080\"][href*=\"keyword_pk=367799059341688833\"]",
+     "must_exist": false
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "min": 1
+     }
+    }
+   }
+  ]
+ }
+}

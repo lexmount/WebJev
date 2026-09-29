@@ -1,0 +1,30 @@
+{
+ "task_id": "vts-003-irs-form-8843-2022",
+ "task_name": "On irs.gov, open the PDF of Form 8843 for tax year 2022.",
+ "website": "https://www.irs.gov/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "2c20d87a046fadcb6ff07ee877bfbf37",
+  "intent_modified": true,
+  "intent_modified_reason": "Added the site. The original task named no site, while the verifier checks a www.irs.gov URL; in an early trial an agent searched on Google first and only landed back on irs.gov by chance. The verifier itself was not changed."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "form_8843_2022_pdf_open",
+    "metric": "tabs_match",
+    "result": {
+     "type": "open_tabs"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "https://www.irs.gov/pub/irs-prior/f8843--2022.pdf"
+     ]
+    }
+   }
+  ]
+ }
+}

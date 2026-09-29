@@ -1,0 +1,32 @@
+{
+ "task_id": "vts-135-landwatch-maryland-houses-60000",
+ "task_name": "On landwatch.com, browse houses for sale in Maryland with a maximum price of $60,000.",
+ "website": "https://www.landwatch.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "2dd41b1d0e8f389d0683f4a4627abfe6",
+  "original_task_name": "Show houses for sale in Maryland with a maximum price of $60,000.",
+  "original_website": "https://www.landwatch.com/",
+  "intent_modified": true,
+  "intent_modified_reason": "Added the site name (the verifier checks a landwatch.com URL). The filters are unchanged."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_maryland_homes_under_60000",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "^https://www\\.landwatch\\.com/maryland-land-for-sale/homes/price-under-60000([?#]|$)"
+     ]
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,70 @@
+{
+ "task_id": "vts-108-onlinemind2web-1df24ec81137386d6476bcf343a79012",
+ "task_name": "Search for NordicTrack with the lowest price.",
+ "website": "https://www.bestbuy.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "1df24ec81137386d6476bcf343a79012",
+  "original_task_name": "Search for NordicTrack with the lowest price.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "or",
+  "checks": [
+   {
+    "name": "lowest_price_product_identified",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "product": {
+       "any": [
+        {
+         "re": "\\b6563023\\b"
+        },
+        {
+         "re": "\\btreadmill[\\s-]+mat\\b",
+         "flags": "I"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "lowest_price_search_result_presented",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "search_title": "title",
+      "sort": "#sort-by-select-button",
+      "first_product": "a.product-list-item-link"
+     },
+     "must_exist": []
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "search_title": {
+       "re": "^\\s*NordicTrack\\s*[-–—]\\s*Best Buy\\s*$",
+       "flags": "I"
+      },
+      "sort": {
+       "re": "^\\s*Price Low to High\\s*$",
+       "flags": "I"
+      },
+      "first_product": {
+       "re": "^\\s*NordicTrack\\s*[-–—]\\s*Treadmill Mat\\s*[-–—]\\s*Black\\s*$",
+       "flags": "I"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

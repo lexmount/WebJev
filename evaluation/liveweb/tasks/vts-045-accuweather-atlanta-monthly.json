@@ -1,0 +1,62 @@
+{
+ "task_id": "vts-045-accuweather-atlanta-monthly",
+ "task_name": "On accuweather.com, display the monthly weather calendar for Atlanta, GA and leave the monthly view open. Any month available in the monthly calendar is acceptable.",
+ "website": "https://www.accuweather.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "c521933dad9c0ef9f1dfa2f38b8e4405",
+  "original_task_name": "See the monthly forecast for Atlanta, GA.",
+  "original_website": "https://www.accuweather.com/",
+  "source_row_zero_based": 197,
+  "intent_modified": true,
+  "intent_modified_reason": "The original task names no month, so any selectable month is accepted (the task does not freeze the month it was written in). Atlanta, GA and the monthly calendar are kept."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://(?:www\\.)?accuweather\\.com/en/us/atlanta(?:-ga)?/\\d+/(?:january|february|march|april|may|june|july|august|september|october|november|december)-weather/348181(?:/|[?#]|$)"
+    }
+   },
+   {
+    "name": "title_identifies_atlanta_monthly",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "page_title"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "Atlanta,? GA",
+      "Monthly Weather"
+     ]
+    }
+   },
+   {
+    "name": "target_content_loaded",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Temperature Graph",
+       "Forecast Hi",
+       "Forecast Lo"
+      ]
+     }
+    }
+   }
+  ]
+ }
+}

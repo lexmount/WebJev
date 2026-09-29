@@ -1,0 +1,32 @@
+{
+ "task_id": "vts-136-instructure-earliest-press-release",
+ "task_name": "On instructure.com, go to the newsroom's press release listing and open the earliest press release in it.",
+ "website": "https://www.instructure.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "da8f3823a827c7d3a492f383808e7912",
+  "original_task_name": "Find and open the earliest press release.",
+  "original_website": "https://www.instructure.com/",
+  "intent_modified": true,
+  "intent_modified_reason": "The original named no site (the verifier checks an instructure.com URL) and no list; the site has separate news, press-release and blog lists, so the answer was not unique. The task now asks to open the earliest item in the newsroom's press-release list; \"earliest\" is unchanged."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "opened_earliest_press_release",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "^https://www\\.instructure\\.com/press-release/instructure-included-2020-shatter-list-helping-break-glass-ceiling-technology([/?#]|$)"
+     ]
+    }
+   }
+  ]
+ }
+}

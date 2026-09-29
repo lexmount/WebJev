@@ -1,0 +1,69 @@
+{
+ "task_id": "vts-137-thumbtack-electricians-10203",
+ "task_name": "On thumbtack.com, find electricians near ZIP code 10203 and open the list of matching pros.",
+ "website": "https://www.thumbtack.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "2532fd402d3c741b79894e6ff2269f53",
+  "original_task_name": "find electricians near 10203.",
+  "original_website": "https://www.thumbtack.com/",
+  "intent_modified": true,
+  "intent_modified_reason": "Added the site name and the end state (the results list open); the original had neither."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_instant_results_list",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "^https://www\\.thumbtack\\.com/instant-results/([?#]|$)"
+     ]
+    }
+   },
+   {
+    "name": "searched_zip_10203",
+    "metric": "json_object_match",
+    "result": {
+     "type": "url_parse",
+     "parse_keys": [
+      "zip_code"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "zip_code": "10203"
+     }
+    },
+    "requires": [
+     "on_instant_results_list"
+    ]
+   },
+   {
+    "name": "electrician_category",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_title"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "electric"
+      ]
+     }
+    },
+    "requires": [
+     "on_instant_results_list"
+    ]
+   }
+  ]
+ }
+}

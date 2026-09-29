@@ -1,0 +1,50 @@
+{
+ "task_id": "vts-024-weathernetwork-vancouver-seven-days",
+ "task_name": "On theweathernetwork.com, display the next seven days weather forecast for Vancouver, British Columbia, and leave the 7 Days forecast open.",
+ "website": "https://www.theweathernetwork.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "871e7771cecb989972f138ecc373107b",
+  "original_task_name": "Find the weather for Vancouver, British Columbia for the next seven days.",
+  "intent_modified": true,
+  "intent_modified_reason": "Made the site, the target page and the end state explicit. The verifier checks the city and the 7-day view; no weather values are hard-coded."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "target_page",
+    "metric": "url_matches",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "https://www.theweathernetwork.com/en/city/ca/british-columbia/vancouver/7-days"
+    }
+   },
+   {
+    "name": "target_content",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Vancouver",
+       "7 Days",
+       "Morning",
+       "Afternoon"
+      ]
+     }
+    },
+    "requires": [
+     "target_page"
+    ]
+   }
+  ]
+ }
+}

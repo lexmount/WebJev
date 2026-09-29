@@ -1,0 +1,265 @@
+{
+ "task_id": "vts-018-marriott-bonvoy-credit-cards",
+ "task_name": "On marriott.com, browse the Marriott Bonvoy credit card options. Leave the main credit card overview or comparison page open with multiple card options displayed.",
+ "website": "https://www.marriott.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "561693d6eec7bbfba3fefe9e4b26decb",
+  "original_task_name": "Browse Marriott Bonvoy credit cards on Marriott.",
+  "intent_modified": true,
+  "intent_modified_reason": "Made the site, the target page and an end state with several cards visible explicit. The verifier accepts the US and Canada card overview and comparison pages."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https?://(?:www\\.)?marriott\\.com/(?:[a-z]{2}-[a-z]{2}/)?credit-cards(?:\\.mi)?(?:/(?:card-comparison|canada-credit-cards)(?:\\.mi)?)?(?:[~?#]|/?$)"
+    }
+   },
+   {
+    "name": "multiple_named_cards_and_offer_details",
+    "metric": "json_object_match",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "": {
+       "all": [
+        {
+         "any": [
+          {
+           "all": [
+            {
+             "re": "\\bBoundless\\b"
+            },
+            {
+             "re": "\\bBold\\b"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "\\bBoundless\\b"
+            },
+            {
+             "re": "\\bBountiful\\b"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "\\bBoundless\\b"
+            },
+            {
+             "re": "\\bBevy\\b"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "\\bBoundless\\b"
+            },
+            {
+             "re": "\\bBrilliant\\b"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "\\bBoundless\\b"
+            },
+            {
+             "re": "Bonvoy[®\\s]*(?:Business|American Express[®\\s]*Business)"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "\\bBoundless\\b"
+            },
+            {
+             "re": "Bonvoy[®\\s]*American Express[®\\s]*(?:Credit\\s+)?Card"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "\\bBold\\b"
+            },
+            {
+             "re": "\\bBountiful\\b"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "\\bBold\\b"
+            },
+            {
+             "re": "\\bBevy\\b"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "\\bBold\\b"
+            },
+            {
+             "re": "\\bBrilliant\\b"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "\\bBold\\b"
+            },
+            {
+             "re": "Bonvoy[®\\s]*(?:Business|American Express[®\\s]*Business)"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "\\bBold\\b"
+            },
+            {
+             "re": "Bonvoy[®\\s]*American Express[®\\s]*(?:Credit\\s+)?Card"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "\\bBountiful\\b"
+            },
+            {
+             "re": "\\bBevy\\b"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "\\bBountiful\\b"
+            },
+            {
+             "re": "\\bBrilliant\\b"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "\\bBountiful\\b"
+            },
+            {
+             "re": "Bonvoy[®\\s]*(?:Business|American Express[®\\s]*Business)"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "\\bBountiful\\b"
+            },
+            {
+             "re": "Bonvoy[®\\s]*American Express[®\\s]*(?:Credit\\s+)?Card"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "\\bBevy\\b"
+            },
+            {
+             "re": "\\bBrilliant\\b"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "\\bBevy\\b"
+            },
+            {
+             "re": "Bonvoy[®\\s]*(?:Business|American Express[®\\s]*Business)"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "\\bBevy\\b"
+            },
+            {
+             "re": "Bonvoy[®\\s]*American Express[®\\s]*(?:Credit\\s+)?Card"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "\\bBrilliant\\b"
+            },
+            {
+             "re": "Bonvoy[®\\s]*(?:Business|American Express[®\\s]*Business)"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "\\bBrilliant\\b"
+            },
+            {
+             "re": "Bonvoy[®\\s]*American Express[®\\s]*(?:Credit\\s+)?Card"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "re": "Bonvoy[®\\s]*(?:Business|American Express[®\\s]*Business)"
+            },
+            {
+             "re": "Bonvoy[®\\s]*American Express[®\\s]*(?:Credit\\s+)?Card"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "re": "Annual Fee|Annual Card Fee|Earn\\s+(?:up\\s+to\\s+)?\\d|\\d[\\d,]*\\s+(?:Bonus )?Points"
+        }
+       ]
+      }
+     }
+    },
+    "requires": [
+     "target_page"
+    ]
+   }
+  ]
+ }
+}

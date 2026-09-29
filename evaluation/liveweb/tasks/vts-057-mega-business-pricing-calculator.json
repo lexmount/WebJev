@@ -1,0 +1,144 @@
+{
+ "task_id": "vts-057-mega-business-pricing-calculator",
+ "task_name": "On mega.io, view the Business pricing plan and set its estimated price calculator to 100 users, 1 PB (1,000 TB) storage, and 50 TB transfer. Leave the Business tab open with these three values and its calculated monthly estimate displayed. Do not buy or register for a plan.",
+ "website": "https://mega.io/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "a96fca87a17d792644e736d1d10d3cbe",
+  "original_task_name": "View the pricing plan for 'Business'. Specifically, we have 100 users. We need a 1PB storage quota and a 50 TB transfer quota.",
+  "original_website": "https://mega.io/",
+  "source_row_zero_based": 258,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept every condition (Business, 100 users, 1 PB storage, 50 TB transfer). The task only adds that the page shows 1 PB as 1000 TB, and that it ends on the configured Business estimate. Nothing is purchased."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_pricing_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://mega\\.io/pricing/?(?:[?#]|$)"
+    }
+   },
+   {
+    "name": "business_tab_selected",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "business": "button.tab-button[data-tab-id=\"4\"]"
+     },
+     "attr": "class",
+     "must_exist": [
+      "business"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "business": {
+       "re": "(^|\\s)active(\\s|$)"
+      }
+     }
+    },
+    "requires": [
+     "on_pricing_page"
+    ]
+   },
+   {
+    "name": "business_calculator_inputs",
+    "metric": "json_object_match",
+    "result": {
+     "type": "control_state",
+     "selectors": {
+      "users": "section[data-plan-number=\"100\"] #number-of-users-number",
+      "storage_tb": "section[data-plan-number=\"100\"] #storage-number",
+      "transfer_tb": "section[data-plan-number=\"100\"] #transfer-number"
+     },
+     "must_exist": [
+      "users",
+      "storage_tb",
+      "transfer_tb"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "users.value": {
+       "eq": "100"
+      },
+      "storage_tb.value": {
+       "eq": "1000"
+      },
+      "transfer_tb.value": {
+       "eq": "50"
+      }
+     }
+    },
+    "requires": [
+     "on_pricing_page"
+    ]
+   },
+   {
+    "name": "business_estimate_populated",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "quote": "section[data-plan-number=\"100\"] .monthly-estimate"
+     },
+     "must_exist": [
+      "quote"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "quote": {
+       "all": [
+        {
+         "re": "Total monthly estimate"
+        },
+        {
+         "re": "[1-9][0-9,.]*"
+        },
+        {
+         "re": "per month"
+        }
+       ]
+      }
+     }
+    },
+    "requires": [
+     "on_pricing_page"
+    ]
+   },
+   {
+    "name": "business_estimate_visible",
+    "metric": "include_exclude",
+    "result": {
+     "type": "visible_text",
+     "selector": "section[data-plan-number=\"100\"] .monthly-estimate"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Total monthly estimate",
+       "per month"
+      ]
+     }
+    },
+    "requires": [
+     "on_pricing_page"
+    ]
+   }
+  ]
+ }
+}

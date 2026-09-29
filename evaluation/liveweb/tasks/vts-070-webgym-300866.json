@@ -1,0 +1,323 @@
+{
+ "task_id": "vts-070-webgym-300866",
+ "task_name": "Identify three key partners of the National Space Science and Technology Center (NSSTC) listed on their website.",
+ "website": "https://www.nsstc.uah.edu",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300866",
+  "original_task_name": "Identify three key partners of the National Space Science and Technology Center (NSSTC) listed on their website.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "answer_names_three_listed_nsstc_partners",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "all": [
+          "NASA Earth Science",
+          "Universities Space Research Association",
+          "NASA Astrophysics"
+         ]
+        },
+        {
+         "all": [
+          "NASA Earth Science",
+          "Universities Space Research Association",
+          {
+           "re": "NASA\\s+Heliophysics\\s+and\\s+Plan(?:a|e)tary\\s+Science",
+           "flags": "I"
+          }
+         ]
+        },
+        {
+         "all": [
+          "NASA Earth Science",
+          "Universities Space Research Association",
+          "National Weather Service"
+         ]
+        },
+        {
+         "all": [
+          "NASA Earth Science",
+          "Universities Space Research Association",
+          "Short-term Prediction Research and Transition Center"
+         ]
+        },
+        {
+         "all": [
+          "NASA Earth Science",
+          "Universities Space Research Association",
+          "Global Hydrology Resource Center"
+         ]
+        },
+        {
+         "all": [
+          "NASA Earth Science",
+          "NASA Astrophysics",
+          {
+           "re": "NASA\\s+Heliophysics\\s+and\\s+Plan(?:a|e)tary\\s+Science",
+           "flags": "I"
+          }
+         ]
+        },
+        {
+         "all": [
+          "NASA Earth Science",
+          "NASA Astrophysics",
+          "National Weather Service"
+         ]
+        },
+        {
+         "all": [
+          "NASA Earth Science",
+          "NASA Astrophysics",
+          "Short-term Prediction Research and Transition Center"
+         ]
+        },
+        {
+         "all": [
+          "NASA Earth Science",
+          "NASA Astrophysics",
+          "Global Hydrology Resource Center"
+         ]
+        },
+        {
+         "all": [
+          "NASA Earth Science",
+          {
+           "re": "NASA\\s+Heliophysics\\s+and\\s+Plan(?:a|e)tary\\s+Science",
+           "flags": "I"
+          },
+          "National Weather Service"
+         ]
+        },
+        {
+         "all": [
+          "NASA Earth Science",
+          {
+           "re": "NASA\\s+Heliophysics\\s+and\\s+Plan(?:a|e)tary\\s+Science",
+           "flags": "I"
+          },
+          "Short-term Prediction Research and Transition Center"
+         ]
+        },
+        {
+         "all": [
+          "NASA Earth Science",
+          {
+           "re": "NASA\\s+Heliophysics\\s+and\\s+Plan(?:a|e)tary\\s+Science",
+           "flags": "I"
+          },
+          "Global Hydrology Resource Center"
+         ]
+        },
+        {
+         "all": [
+          "NASA Earth Science",
+          "National Weather Service",
+          "Short-term Prediction Research and Transition Center"
+         ]
+        },
+        {
+         "all": [
+          "NASA Earth Science",
+          "National Weather Service",
+          "Global Hydrology Resource Center"
+         ]
+        },
+        {
+         "all": [
+          "NASA Earth Science",
+          "Short-term Prediction Research and Transition Center",
+          "Global Hydrology Resource Center"
+         ]
+        },
+        {
+         "all": [
+          "Universities Space Research Association",
+          "NASA Astrophysics",
+          {
+           "re": "NASA\\s+Heliophysics\\s+and\\s+Plan(?:a|e)tary\\s+Science",
+           "flags": "I"
+          }
+         ]
+        },
+        {
+         "all": [
+          "Universities Space Research Association",
+          "NASA Astrophysics",
+          "National Weather Service"
+         ]
+        },
+        {
+         "all": [
+          "Universities Space Research Association",
+          "NASA Astrophysics",
+          "Short-term Prediction Research and Transition Center"
+         ]
+        },
+        {
+         "all": [
+          "Universities Space Research Association",
+          "NASA Astrophysics",
+          "Global Hydrology Resource Center"
+         ]
+        },
+        {
+         "all": [
+          "Universities Space Research Association",
+          {
+           "re": "NASA\\s+Heliophysics\\s+and\\s+Plan(?:a|e)tary\\s+Science",
+           "flags": "I"
+          },
+          "National Weather Service"
+         ]
+        },
+        {
+         "all": [
+          "Universities Space Research Association",
+          {
+           "re": "NASA\\s+Heliophysics\\s+and\\s+Plan(?:a|e)tary\\s+Science",
+           "flags": "I"
+          },
+          "Short-term Prediction Research and Transition Center"
+         ]
+        },
+        {
+         "all": [
+          "Universities Space Research Association",
+          {
+           "re": "NASA\\s+Heliophysics\\s+and\\s+Plan(?:a|e)tary\\s+Science",
+           "flags": "I"
+          },
+          "Global Hydrology Resource Center"
+         ]
+        },
+        {
+         "all": [
+          "Universities Space Research Association",
+          "National Weather Service",
+          "Short-term Prediction Research and Transition Center"
+         ]
+        },
+        {
+         "all": [
+          "Universities Space Research Association",
+          "National Weather Service",
+          "Global Hydrology Resource Center"
+         ]
+        },
+        {
+         "all": [
+          "Universities Space Research Association",
+          "Short-term Prediction Research and Transition Center",
+          "Global Hydrology Resource Center"
+         ]
+        },
+        {
+         "all": [
+          "NASA Astrophysics",
+          {
+           "re": "NASA\\s+Heliophysics\\s+and\\s+Plan(?:a|e)tary\\s+Science",
+           "flags": "I"
+          },
+          "National Weather Service"
+         ]
+        },
+        {
+         "all": [
+          "NASA Astrophysics",
+          {
+           "re": "NASA\\s+Heliophysics\\s+and\\s+Plan(?:a|e)tary\\s+Science",
+           "flags": "I"
+          },
+          "Short-term Prediction Research and Transition Center"
+         ]
+        },
+        {
+         "all": [
+          "NASA Astrophysics",
+          {
+           "re": "NASA\\s+Heliophysics\\s+and\\s+Plan(?:a|e)tary\\s+Science",
+           "flags": "I"
+          },
+          "Global Hydrology Resource Center"
+         ]
+        },
+        {
+         "all": [
+          "NASA Astrophysics",
+          "National Weather Service",
+          "Short-term Prediction Research and Transition Center"
+         ]
+        },
+        {
+         "all": [
+          "NASA Astrophysics",
+          "National Weather Service",
+          "Global Hydrology Resource Center"
+         ]
+        },
+        {
+         "all": [
+          "NASA Astrophysics",
+          "Short-term Prediction Research and Transition Center",
+          "Global Hydrology Resource Center"
+         ]
+        },
+        {
+         "all": [
+          {
+           "re": "NASA\\s+Heliophysics\\s+and\\s+Plan(?:a|e)tary\\s+Science",
+           "flags": "I"
+          },
+          "National Weather Service",
+          "Short-term Prediction Research and Transition Center"
+         ]
+        },
+        {
+         "all": [
+          {
+           "re": "NASA\\s+Heliophysics\\s+and\\s+Plan(?:a|e)tary\\s+Science",
+           "flags": "I"
+          },
+          "National Weather Service",
+          "Global Hydrology Resource Center"
+         ]
+        },
+        {
+         "all": [
+          {
+           "re": "NASA\\s+Heliophysics\\s+and\\s+Plan(?:a|e)tary\\s+Science",
+           "flags": "I"
+          },
+          "Short-term Prediction Research and Transition Center",
+          "Global Hydrology Resource Center"
+         ]
+        },
+        {
+         "all": [
+          "National Weather Service",
+          "Short-term Prediction Research and Transition Center",
+          "Global Hydrology Resource Center"
+         ]
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

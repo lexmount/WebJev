@@ -1,0 +1,145 @@
+{
+ "task_id": "vts-125-webgym-300286",
+ "task_name": "Find out if the LG OLED evo M5-series TVs support wireless video and audio transmission, and if so, what technology enables it.",
+ "website": "https://www.av-magazin.de",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300286",
+  "original_task_name": "Find out if the LG OLED evo M5-series TVs support wireless video and audio transmission, and if so, what technology enables it.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "m5_not_replaced_by_m3_or_m4",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "\\bM\\s*5\\b"
+        },
+        {
+         "not_re": "\\bM\\s*[34]\\b"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "wireless_video_supported",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "all": [
+        {
+         "any": [
+          {
+           "re": "(?:^|[\\n.!?])\\s*(?:[\\s*#>-]*)(?:yes\\b|ja\\b|they\\s+do\\b|it\\s+does\\b|\u662f\u7684|\u652f\u6301|\u53ef\u4ee5)"
+          },
+          {
+           "re": "(?:wireless(?:ly)?|cable[-\\s]?free|cordless|kabellos\\w*|drahtlos\\w*|\u65e0\u7ebf|\u7121\u7dda)[^.!?\\n]{0,180}(?:\\bvideos?\\b|\\bpictures?\\b|\\bimages?\\b|\\bBild(?:er)?\\b|\u89c6\u9891|\u8996\u8a0a|\u5f71\u50cf|\u56fe\u50cf|\u756b\u9762)|(?:\\bvideos?\\b|\\bpictures?\\b|\\bimages?\\b|\\bBild(?:er)?\\b|\u89c6\u9891|\u8996\u8a0a|\u5f71\u50cf|\u56fe\u50cf|\u756b\u9762)[^.!?\\n]{0,180}(?:wireless(?:ly)?|cable[-\\s]?free|cordless|kabellos\\w*|drahtlos\\w*|\u65e0\u7ebf|\u7121\u7dda)"
+          },
+          {
+           "all": [
+            {
+             "re": "\\bboth\\b"
+            },
+            {
+             "re": "(?:wireless(?:ly)?|cable[-\\s]?free|cordless|kabellos\\w*|drahtlos\\w*|\u65e0\u7ebf|\u7121\u7dda)"
+            },
+            {
+             "re": "\\b(?:support|transmi|send|sent|receiv|enable)\\w*\\b"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "not_re": "(?:^|[\\n.!?])\\s*[*#>-]*\\s*(?:no|nein)\\b|\\b(?:does?\\s+not|doesn[\\x27’]t|cannot|can[\\x27’]t)\\s+support\\s+(?:(?:both|any|the)\\s+)?(?:wireless|video|audio)\\b|\\b(?:wireless\\s+)?(?:video|audio)\\s+(?:transmission\\s+)?(?:is\\s+not|isn[\\x27’]t|not)\\s+supported\\b|\u4e0d\u652f\u6301.{0,20}(?:\u65e0\u7ebf|\u7121\u7dda|\u89c6\u9891|\u97f3\u9891|\u97f3\u8a0a)"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "wireless_audio_supported",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "all": [
+        {
+         "any": [
+          {
+           "re": "(?:^|[\\n.!?])\\s*(?:[\\s*#>-]*)(?:yes\\b|ja\\b|they\\s+do\\b|it\\s+does\\b|\u662f\u7684|\u652f\u6301|\u53ef\u4ee5)"
+          },
+          {
+           "re": "(?:wireless(?:ly)?|cable[-\\s]?free|cordless|kabellos\\w*|drahtlos\\w*|\u65e0\u7ebf|\u7121\u7dda)[^.!?\\n]{0,180}(?:\\baudio\\b|\\bsound\\b|\\bTon(?:übertragung)?\\b|\u97f3\u9891|\u97f3\u983b|\u97f3\u8a0a|\u58f0\u97f3|\u8072\u97f3)|(?:\\baudio\\b|\\bsound\\b|\\bTon(?:übertragung)?\\b|\u97f3\u9891|\u97f3\u983b|\u97f3\u8a0a|\u58f0\u97f3|\u8072\u97f3)[^.!?\\n]{0,180}(?:wireless(?:ly)?|cable[-\\s]?free|cordless|kabellos\\w*|drahtlos\\w*|\u65e0\u7ebf|\u7121\u7dda)"
+          },
+          {
+           "all": [
+            {
+             "re": "\\bboth\\b"
+            },
+            {
+             "re": "(?:wireless(?:ly)?|cable[-\\s]?free|cordless|kabellos\\w*|drahtlos\\w*|\u65e0\u7ebf|\u7121\u7dda)"
+            },
+            {
+             "re": "\\b(?:support|transmi|send|sent|receiv|enable)\\w*\\b"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "not_re": "(?:^|[\\n.!?])\\s*[*#>-]*\\s*(?:no|nein)\\b|\\b(?:does?\\s+not|doesn[\\x27’]t|cannot|can[\\x27’]t)\\s+support\\s+(?:(?:both|any|the)\\s+)?(?:wireless|video|audio)\\b|\\b(?:wireless\\s+)?(?:video|audio)\\s+(?:transmission\\s+)?(?:is\\s+not|isn[\\x27’]t|not)\\s+supported\\b|\u4e0d\u652f\u6301.{0,20}(?:\u65e0\u7ebf|\u7121\u7dda|\u89c6\u9891|\u97f3\u9891|\u97f3\u8a0a)"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "zero_connect_enables_transmission",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "all": [
+        {
+         "re": "\\bzero[\\s-]*connect(?:[\\s-]*box)?\\b"
+        },
+        {
+         "not_re": "\\b(?:not|no|neither)\\s+(?:the\\s+)?zero[\\s-]*connect\\b"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

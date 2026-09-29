@@ -1,0 +1,46 @@
+{
+  "spec_version": "1",
+  "collected_at": "2026-09-17T15:47:57",
+  "phase": "in_session",
+  "getters": {
+    "44fed9f40f84": {
+      "config": {
+        "type": "final_url"
+      },
+      "ok": true,
+      "value": "https://jobs.ohiomeansjobs.applygovt.com/Search.aspx?pg=1&sid=68&rad=20&rad_units=miles&q=marketing&lv=5"
+    },
+    "f11080a4f74a": {
+      "config": {
+        "type": "url_parse",
+        "parse_keys": [
+          "q",
+          "lv"
+        ]
+      },
+      "ok": true,
+      "value": {
+        "q": "marketing",
+        "lv": "5"
+      }
+    }
+  },
+  "health": {
+    "ok": true,
+    "http_status": null,
+    "blocked": false,
+    "empty": false,
+    "signals": [],
+    "chars": 2462
+  },
+  "target": {
+    "n_page_targets": 1,
+    "urls": [
+      "https://jobs.ohiomeansjobs.applygovt.com/Search.aspx?pg=1&sid=68&rad=20&rad_units=miles&q=marketing&lv=5"
+    ],
+    "rule": "only_page",
+    "agent_target_id": "466C007429DB781974C323AE87175104",
+    "agrees_with_agent": true
+  },
+  "error": null
+}

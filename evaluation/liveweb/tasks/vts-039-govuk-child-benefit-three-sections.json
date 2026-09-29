@@ -1,0 +1,83 @@
+{
+ "task_id": "vts-039-govuk-child-benefit-three-sections",
+ "task_name": "On gov.uk, find the Child Benefit information covering how it works, who is eligible, and how to claim. Open the three official Child Benefit pages for these sections in separate tabs and leave all three tabs open.",
+ "website": "https://www.gov.uk/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "6ca20f1da01edeb49a7a42c816d8c6fe",
+  "original_task_name": "Find the Eligibility to get the child benefit and How it works and how to claim",
+  "original_website": "https://www.gov.uk/",
+  "source_row_zero_based": 164,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept the three pieces of information of the original task; the end state is all three official pages open. Reaching only the Child Benefit start page does not satisfy the full request."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "three_required_sections_are_open",
+    "metric": "tabs_match",
+    "result": {
+     "type": "open_tabs"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "https://www.gov.uk/child-benefit/how-it-works",
+      "https://www.gov.uk/child-benefit/eligibility",
+      "https://www.gov.uk/child-benefit/how-to-claim"
+     ]
+    }
+   },
+   {
+    "name": "section_title_how_it_works",
+    "metric": "json_object_match",
+    "result": {
+     "type": "open_tabs"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "*.title": {
+       "re": "Child Benefit:\\s*How it works",
+       "flags": "I"
+      }
+     }
+    }
+   },
+   {
+    "name": "section_title_eligibility",
+    "metric": "json_object_match",
+    "result": {
+     "type": "open_tabs"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "*.title": {
+       "re": "Child Benefit:\\s*(?:Who can get Child Benefit|Eligibility)",
+       "flags": "I"
+      }
+     }
+    }
+   },
+   {
+    "name": "section_title_claim",
+    "metric": "json_object_match",
+    "result": {
+     "type": "open_tabs"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "*.title": {
+       "re": "Child Benefit:\\s*(?:Make a claim|How to claim)",
+       "flags": "I"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

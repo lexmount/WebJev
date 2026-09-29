@@ -1,0 +1,149 @@
+{
+ "description": "Recorded results on the 8 public single-step benchmarks. accuracy = correct / questions; mean_of_8 = unweighted mean of the 8 accuracies. WebJev-35B-A3B: served with evaluation/serving on one A100 80GB, 1 client, 2026-09-29; its answers are in results/webjev-35b-a3b. Jev 1.13: OpenRouter Decisions API, typesafe/jev-1.13 (served as typesafe/jev-1.13-20260917), 2026-09-21. paired: questions only one model answered correctly, with a two-sided exact McNemar p-value.",
+ "benchmarks": {
+  "jevbench_public": {
+   "title": "JevBench (public items)",
+   "questions": 231,
+   "WebJev-35B-A3B": {
+    "correct": 203,
+    "accuracy": 0.878788
+   },
+   "Jev 1.13": {
+    "correct": 198,
+    "accuracy": 0.857143
+   },
+   "paired": {
+    "only_WebJev-35B-A3B": 11,
+    "only_Jev 1.13": 6,
+    "p_mcnemar": 0.332
+   }
+  },
+  "nimble_eval324": {
+   "title": "Nimble (eval split)",
+   "questions": 324,
+   "WebJev-35B-A3B": {
+    "correct": 301,
+    "accuracy": 0.929012
+   },
+   "Jev 1.13": {
+    "correct": 300,
+    "accuracy": 0.925926
+   },
+   "paired": {
+    "only_WebJev-35B-A3B": 11,
+    "only_Jev 1.13": 10,
+    "p_mcnemar": 1.0
+   }
+  },
+  "kev_ext_semif": {
+   "title": "SemIf (external items)",
+   "questions": 252,
+   "WebJev-35B-A3B": {
+    "correct": 247,
+    "accuracy": 0.980159
+   },
+   "Jev 1.13": {
+    "correct": 248,
+    "accuracy": 0.984127
+   },
+   "paired": {
+    "only_WebJev-35B-A3B": 3,
+    "only_Jev 1.13": 4,
+    "p_mcnemar": 1.0
+   }
+  },
+  "kev_ext_scienthoon": {
+   "title": "scienthoon support tickets",
+   "questions": 873,
+   "WebJev-35B-A3B": {
+    "correct": 666,
+    "accuracy": 0.762887
+   },
+   "Jev 1.13": {
+    "correct": 654,
+    "accuracy": 0.749141
+   },
+   "paired": {
+    "only_WebJev-35B-A3B": 58,
+    "only_Jev 1.13": 46,
+    "p_mcnemar": 0.281
+   }
+  },
+  "kev_transfer_v4_dev": {
+   "title": "kev transfer-v4 (dev)",
+   "questions": 764,
+   "WebJev-35B-A3B": {
+    "correct": 650,
+    "accuracy": 0.850785
+   },
+   "Jev 1.13": {
+    "correct": 651,
+    "accuracy": 0.852094
+   },
+   "paired": {
+    "only_WebJev-35B-A3B": 52,
+    "only_Jev 1.13": 53,
+    "p_mcnemar": 1.0
+   }
+  },
+  "kev_decision_v7_dev": {
+   "title": "kev decision-v7 (dev)",
+   "questions": 1468,
+   "WebJev-35B-A3B": {
+    "correct": 1267,
+    "accuracy": 0.863079
+   },
+   "Jev 1.13": {
+    "correct": 1223,
+    "accuracy": 0.833106
+   },
+   "paired": {
+    "only_WebJev-35B-A3B": 88,
+    "only_Jev 1.13": 44,
+    "p_mcnemar": 0.00016
+   }
+  },
+  "kev_ext_mmlupro": {
+   "title": "MMLU-Pro (10-way)",
+   "questions": 1000,
+   "WebJev-35B-A3B": {
+    "correct": 694,
+    "accuracy": 0.694
+   },
+   "Jev 1.13": {
+    "correct": 834,
+    "accuracy": 0.834
+   },
+   "paired": {
+    "only_WebJev-35B-A3B": 35,
+    "only_Jev 1.13": 175,
+    "p_mcnemar": 1.38e-23
+   }
+  },
+  "typed_decisions_test": {
+   "title": "typed-decisions (test)",
+   "questions": 2000,
+   "WebJev-35B-A3B": {
+    "correct": 1478,
+    "accuracy": 0.739
+   },
+   "Jev 1.13": {
+    "correct": 1481,
+    "accuracy": 0.7405
+   },
+   "paired": {
+    "only_WebJev-35B-A3B": 231,
+    "only_Jev 1.13": 234,
+    "p_mcnemar": 0.926
+   }
+  }
+ },
+ "mean_of_8": {
+  "WebJev-35B-A3B": 0.837214,
+  "Jev 1.13": 0.847005
+ },
+ "micro": {
+  "WebJev-35B-A3B": 0.796586,
+  "Jev 1.13": 0.808594
+ }
+}

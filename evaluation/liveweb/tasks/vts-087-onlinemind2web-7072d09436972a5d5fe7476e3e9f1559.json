@@ -1,0 +1,79 @@
+{
+ "task_id": "vts-087-onlinemind2web-7072d09436972a5d5fe7476e3e9f1559",
+ "task_name": "Show me the comparison of the first two personal credit cards that do not charge foreign transaction fees.",
+ "website": "https://www.americanexpress.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "7072d09436972a5d5fe7476e3e9f1559",
+  "original_task_name": "Show me the comparison of the first two personal credit cards that do not charge foreign transaction fees.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "comparison_is_displayed",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Compare Cards",
+       "Card Overview"
+      ]
+     }
+    }
+   },
+   {
+    "name": "comparison_table_available",
+    "metric": "count_in_range",
+    "requires": [
+     "comparison_is_displayed"
+    ],
+    "result": {
+     "type": "dom_count",
+     "selector": "table:has(tr[data-qe-id=\"compare-row-selected-cards\"])",
+     "must_exist": true
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "ge": 1
+     }
+    }
+   },
+   {
+    "name": "first_two_no_foreign_fee_personal_cards_compared",
+    "metric": "json_object_match",
+    "requires": [
+     "comparison_table_available"
+    ],
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "cards": "tr[data-qe-id=\"compare-row-selected-cards\"] > th[data-qe-id]"
+     },
+     "attr": "data-qe-id",
+     "all": true,
+     "must_exist": []
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "cards": {
+       "contains": [
+        "compare-platinum",
+        "compare-gold-card"
+       ],
+       "not_re": "compare-(?!(?:platinum|gold-card|empty-slot-[0-9]+)(?:['\\\"]|$))"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

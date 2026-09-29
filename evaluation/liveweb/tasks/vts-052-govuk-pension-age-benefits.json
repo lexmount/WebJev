@@ -1,0 +1,69 @@
+{
+ "task_id": "vts-052-govuk-pension-age-benefits",
+ "task_name": "On gov.uk, use Check benefits and financial support you can get for a single person living in England who is over State Pension age, is unemployed (not retired), has no disability or health condition, is not caring for someone, has no children living with them and is not expecting a child. They do not know whether they already receive the benefits listed by the checker and have some savings below £16,000. Leave the completed outcome page open. Return only JSON with a \"benefits\" array containing the titles of every recommended support item shown on that outcome page, copied as displayed; exclude general links and section headings. These are potentially available support options, not a determination that the person is eligible for every one.",
+ "website": "https://www.gov.uk/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "ec78d3a635e417bc2a80d03ca93d7165",
+  "original_task_name": "What are the benefits and financial support a single person living in England, over the state pension age, unemployed, with no health conditions, or caring for someone with one, can get?",
+  "original_website": "https://www.gov.uk/",
+  "source_row_zero_based": 86,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept England, single, over State Pension age, not working and no health conditions; the ambiguous \"no health conditions, or caring\" was clarified as no caring responsibilities. The questionnaire also asks about children, existing benefits and savings, so the task specifies no children, not knowing about existing benefits, and savings below 16,000 GBP. The answer is the list of all item titles on the official result page, instead of a fixed benefits list that could go out of date."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "completed_checker_for_requested_scenario",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://www\\.gov\\.uk/check-benefits-financial-support/y/england/yes/no/no/no/no/dont_know/under_16000/?(?:[?#]|$)"
+    }
+   },
+   {
+    "name": "outcome_page_loaded",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_title"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "Outcome",
+      "Check benefits and financial support"
+     ]
+    }
+   },
+   {
+    "name": "all_displayed_support_headings_returned",
+    "metric": "answer_match",
+    "requires": [
+     "completed_checker_for_requested_scenario",
+     "outcome_page_loaded"
+    ],
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "dom_extract",
+     "selectors": {
+      "benefits": "#result-info .app-c-result-card h2"
+     },
+     "all": true,
+     "must_exist": [
+      "benefits"
+     ]
+    },
+    "options": {
+     "ignore_literal_whitespace": true
+    }
+   }
+  ]
+ }
+}

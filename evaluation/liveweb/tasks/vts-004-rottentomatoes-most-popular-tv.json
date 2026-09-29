@@ -1,0 +1,48 @@
+{
+ "task_id": "vts-004-rottentomatoes-most-popular-tv",
+ "task_name": "On rottentomatoes.com, open the TV browse page and sort it by Most Popular.",
+ "website": "https://www.rottentomatoes.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "95cad96f2e43f3c0d8efad1331c77c8c",
+  "intent_modified": true,
+  "intent_modified_reason": "Added the site and the sorting step. The default TV list shows the same items as the popularity sort but does not declare the sort, while the verifier checks the sort state; the task now asks to sort by Most Popular so task and verifier agree. The verifier itself was not changed."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_popular_tv_sort",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "^https://www\\.rottentomatoes\\.com/browse/tv_series_browse/(.*~)?sort:popular([~?#]|$)"
+     ]
+    }
+   },
+   {
+    "name": "sort_control_reflects_popular",
+    "metric": "count_in_range",
+    "requires": [
+     "on_popular_tv_sort"
+    ],
+    "result": {
+     "type": "dom_count",
+     "selector": "select-radio-group[name=\"sort\"][value=\"popular\"]",
+     "must_exist": true
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "ge": 1
+     }
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,74 @@
+{
+ "task_id": "vts-130-webgym-300748",
+ "task_name": "Find out what types of synchronous and asynchronous courses are offered under the 'Writing' program at Girls Write Now.",
+ "website": "https://www.girlswritenow.org",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300748",
+  "original_task_name": "Find out what types of synchronous and asynchronous courses are offered under the 'Writing' program at Girls Write Now.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "writing_course_subject_types",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "writing_genres": {
+       "re": "\\b(?:genres?|creative\\s+writing|poetry|fiction|nonfiction|memoir|storytelling)\\b"
+      },
+      "media": {
+       "re": "\\b(?:(?:multi|digital|visual)[ -]?media|media|podcasts?|podcasting|video|graphic\\s+design|screenwriting|scriptwriting|songwriting)\\b"
+      },
+      "college": {
+       "re": "\\b(?:college|university|higher\\s+education|graduate\\s+school)\\b"
+      },
+      "career": {
+       "re": "\\b(?:careers?|professional\\s+(?:development|readiness|preparation)|job\\s+(?:preparation|readiness))\\b"
+      },
+      "leadership": {
+       "re": "\\b(?:leadership|activism|civic|civics|civil\\s+discourse|social[ -]action|public\\s+speaking)\\b"
+      }
+     }
+    }
+   },
+   {
+    "name": "synchronous_writing_course_format",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "\\b(?:synchronous|live|real[ -]time)\\b(?:(?!\\basynchronous\\b|\\bself[ -]paced\\b)[\\s\\S]){0,500}\\b(?:writing|workshops?|classes|courses?|sessions?|meetings?)\\b|\\b(?:writing\\s+(?:workshops?|classes|courses?)|workshops?|classes|courses?|sessions?|meetings?)\\b(?:(?!\\basynchronous\\b|\\bself[ -]paced\\b)[\\s\\S]){0,180}\\b(?:synchronous|live|real[ -]time)\\b"
+      }
+     }
+    }
+   },
+   {
+    "name": "asynchronous_writing_course_format",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "\\b(?:asynchronous|self[ -]paced|(?:your|their|one.s|own)\\s+own\\s+pace|at\\s+own\\s+pace)\\b(?:(?!\\bsynchronous\\b|\\blive\\s+(?:classes|courses|meetings)\\b)[\\s\\S]){0,500}\\b(?:courses?|modules?|lessons?|curriculum|course\\s*work|writing|activities|exercises?)\\b|\\b(?:courses?|modules?|lessons?|curriculum|course\\s*work)\\b(?:(?!\\bsynchronous\\b)[\\s\\S]){0,180}\\b(?:asynchronous|self[ -]paced|at\\s+(?:your|their|one.s)\\s+own\\s+pace)\\b"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

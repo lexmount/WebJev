@@ -1,0 +1,41 @@
+{
+ "task_id": "vts-131-webvoyager-wolfram-alpha-35",
+ "task_name": "Calculate the determinant of a 6x6 Hilbert matrix.",
+ "website": "https://www.wolframalpha.com/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "Wolfram Alpha--35",
+  "original_task_name": "Calculate the determinant of a 6x6 Hilbert matrix.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "hilbert_6_determinant_value",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": [
+        "(?<![\\w./−-])1\\s*(?:[/÷]|divided\\s+by|over)\\s*[({]?\\s*186[,\\s]*313[,\\s]*420[,\\s]*339[,\\s]*200[,\\s]*000\\s*[)}]?(?![\\d.])",
+        "(?<![-−])\\\\(?:dfrac|tfrac|frac)\\s*\\{\\s*1\\s*\\}\\s*\\{\\s*186[,\\s]*313[,\\s]*420[,\\s]*339[,\\s]*200[,\\s]*000\\s*\\}",
+        "(?<![\\w./−-])\\(?\\s*186[,\\s]*313[,\\s]*420[,\\s]*339[,\\s]*200[,\\s]*000\\s*\\)?\\s*(?:\\^\\s*[({]?\\s*[-−]\\s*1\\s*[)}]?|⁻¹)(?![\\d.])",
+        "(?<![\\w./−-])5\\.(?:40*|370*|3670*|367[23]\\d*)\\s*(?:[eE]\\s*[-−]\\s*0?18|(?:[×x*·]|\\\\(?:times|cdot))\\s*10\\s*(?:(?:\\^|\\*\\*)\\s*[({]?\\s*[-−]\\s*18\\s*[)}]?|⁻¹⁸))(?![\\d.])",
+        "(?<![\\w./−-])(?:54(?:\\.0*)?|53\\.70*|53\\.670*|53\\.67[23]\\d*)\\s*(?:[eE]\\s*[-−]\\s*0?19|(?:[×x*·]|\\\\(?:times|cdot))\\s*10\\s*(?:(?:\\^|\\*\\*)\\s*[({]?\\s*[-−]\\s*19\\s*[)}]?|⁻¹⁹))(?![\\d.])",
+        "(?<![\\w./−-])0\\.5(?:40*|370*|3670*|367[23]\\d*)\\s*(?:[eE]\\s*[-−]\\s*0?17|(?:[×x*·]|\\\\(?:times|cdot))\\s*10\\s*(?:(?:\\^|\\*\\*)\\s*[({]?\\s*[-−]\\s*17\\s*[)}]?|⁻¹⁷))(?![\\d.])",
+        "(?<![\\w./−-])0\\.0{17}5(?:40*|370*|3670*|367[23]\\d*)(?![\\d.])"
+       ],
+       "flags": "I"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

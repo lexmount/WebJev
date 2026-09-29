@@ -1,0 +1,61 @@
+[
+ {
+  "label": "true end state",
+  "expect": 1
+ },
+ {
+  "label": "paging (query) does not change the filter state",
+  "expect": 1,
+  "url": "https://www.landwatch.com/maryland-land-for-sale/homes/price-under-60000?page=2"
+ },
+ {
+  "label": "with a fragment",
+  "expect": 1,
+  "url": "https://www.landwatch.com/maryland-land-for-sale/homes/price-under-60000#results"
+ },
+ {
+  "label": "homesites (two letters off; another category in the same panel)",
+  "expect": 0,
+  "url": "https://www.landwatch.com/maryland-land-for-sale/homesites/price-under-60000"
+ },
+ {
+  "label": "price segment missing (state + category only)",
+  "expect": 0,
+  "url": "https://www.landwatch.com/maryland-land-for-sale/homes"
+ },
+ {
+  "label": "category segment missing (state + price only)",
+  "expect": 0,
+  "url": "https://www.landwatch.com/maryland-land-for-sale/price-under-60000"
+ },
+ {
+  "label": "took the preset bucket $0-$49,999 instead",
+  "expect": 0,
+  "url": "https://www.landwatch.com/maryland-land-for-sale/homes/price-under-50000"
+ },
+ {
+  "label": "one extra zero: 600000",
+  "expect": 0,
+  "url": "https://www.landwatch.com/maryland-land-for-sale/homes/price-under-600000"
+ },
+ {
+  "label": "wrong state",
+  "expect": 0,
+  "url": "https://www.landwatch.com/virginia-land-for-sale/homes/price-under-60000"
+ },
+ {
+  "label": "stopped at the home page",
+  "expect": 0,
+  "url": "https://www.landwatch.com/"
+ },
+ {
+  "label": "look-alike domain with the real path stuffed into its path",
+  "expect": 0,
+  "url": "https://evil.example.com/www.landwatch.com/maryland-land-for-sale/homes/price-under-60000"
+ },
+ {
+  "label": "stopped on a Google results page",
+  "expect": 0,
+  "url": "https://www.google.com/search?q=landwatch+maryland+homes+under+60000"
+ }
+]

@@ -1,0 +1,82 @@
+{
+ "task_id": "vts-053-virginia-dmv-richmond-center",
+ "task_name": "On dmv.virginia.gov, find a DMV center whose published street address is in Richmond, Virginia. Open its individual Location Information page and leave it open. Return only a JSON object with \"name\" and \"address\", copying the center name and full street address from that page.",
+ "website": "https://www.dmv.virginia.gov/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "d5c34bf39eb6096ae5d439325cde4d32",
+  "original_task_name": "Find a DMV center in Richmond.",
+  "original_website": "https://www.dmv.virginia.gov/",
+  "source_row_zero_based": 195,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept finding a DMV customer service center in Richmond; the task now opens one Location Information page and returns its name and full address as JSON. Any official center whose main address is in Richmond is accepted."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_individual_dmv_location",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://www\\.dmv\\.virginia\\.gov/locations/[^/?#]+/?(?:[?#]|$)"
+    }
+   },
+   {
+    "name": "location_address_is_richmond_virginia",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "name": "main h1",
+      "address": "main .l-section__address"
+     },
+     "must_exist": [
+      "name",
+      "address"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "address": {
+       "re": ",\\s*Richmond,\\s*(?:VA|Virginia)\\s+\\d{5}(?:-\\d{4})?\\s*$"
+      }
+     }
+    },
+    "requires": [
+     "on_individual_dmv_location"
+    ]
+   },
+   {
+    "name": "answer_names_the_open_center_and_address",
+    "metric": "answer_match",
+    "requires": [
+     "on_individual_dmv_location",
+     "location_address_is_richmond_virginia"
+    ],
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "dom_extract",
+     "selectors": {
+      "name": "main h1",
+      "address": "main .l-section__address"
+     },
+     "must_exist": [
+      "name",
+      "address"
+     ]
+    },
+    "options": {
+     "ignore_literal_whitespace": true
+    }
+   }
+  ]
+ }
+}

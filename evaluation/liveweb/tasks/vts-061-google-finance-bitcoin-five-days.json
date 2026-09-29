@@ -1,0 +1,103 @@
+{
+ "task_id": "vts-061-google-finance-bitcoin-five-days",
+ "task_name": "On google.com/finance, open the Bitcoin / United States Dollar (BTC / USD) price chart, select the 5D (five-day) range, and leave that chart open.",
+ "website": "https://www.google.com/finance/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "1fc28d91d25ccd1c6ba268101326a654",
+  "original_task_name": "Find the 5-day price chart for Bitcoin.",
+  "original_website": "https://www.google.com/finance/",
+  "source_row_zero_based": 134,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept the 5-day Bitcoin price chart; the site, USD pricing and the 5D control state are explicit. USD is the first quote the site shows for Bitcoin; naming it keeps charts in other currencies from counting as different answers."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "bitcoin_usd_quote",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "^https://www\\.google\\.com/finance/(?:beta/)?quote/BTC-USD(?:[/?#]|$)"
+     ]
+    }
+   },
+   {
+    "name": "five_day_url_range",
+    "metric": "json_object_match",
+    "result": {
+     "type": "url_parse",
+     "parse_keys": [
+      "window"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "window": {
+       "eq": "5D"
+      }
+     }
+    }
+   },
+   {
+    "name": "five_day_control_selected",
+    "metric": "json_object_match",
+    "requires": [
+     "bitcoin_usd_quote"
+    ],
+    "result": {
+     "type": "control_state",
+     "selectors": {
+      "range": "[role=\"tab\"][aria-label=\"5D\"]"
+     },
+     "must_exist": [
+      "range"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "range.aria.selected": {
+       "eq": "true"
+      },
+      "range.text": {
+       "eq": "5D"
+      }
+     }
+    }
+   },
+   {
+    "name": "price_chart_has_data_line",
+    "metric": "json_object_match",
+    "requires": [
+     "bitcoin_usd_quote"
+    ],
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "line": "svg:has(clipPath[id^=\"chart-clip-\"]) path.line"
+     },
+     "attr": "d",
+     "must_exist": [
+      "line"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "line": {
+       "re": "^M[-\\d.,]+L[-\\d.,]+L"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

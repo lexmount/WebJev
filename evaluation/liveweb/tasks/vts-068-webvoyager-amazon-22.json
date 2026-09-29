@@ -1,0 +1,66 @@
+{
+ "task_id": "vts-068-webvoyager-amazon-22",
+ "task_name": "Search for a set of non-stick, oven-safe cookware on Amazon. The set should include at least 10 pieces and be priced under $150.",
+ "website": "https://www.amazon.com/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "Amazon--22",
+  "original_task_name": "Search for a set of non-stick, oven-safe cookware on Amazon. The set should include at least 10 pieces and be priced under $150.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "finished_on_amazon",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https?://(?:www\\.)?amazon\\.com/"
+    }
+   },
+   {
+    "name": "answer_identifies_qualifying_cookware_set",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "all": [
+        {
+         "re": "(?:cookware|pots?\\s*(?:&|and)\\s*pans?).*set|set.*(?:cookware|pots?\\s*(?:&|and)\\s*pans?)"
+        },
+        {
+         "re": "\\bnon[\\s-]?stick\\b"
+        },
+        {
+         "re": "\\boven[\\s-]?safe\\b"
+        },
+        {
+         "re": "\\b(?:1[0-9]|[2-9][0-9]|[1-9][0-9]{2,})\\s*[- ]?(?:piece|pieces|pc|pcs)\\b"
+        },
+        {
+         "any": [
+          {
+           "re": "(?<![0-9])\\$(?:[0-9]{1,2}(?:\\.[0-9]{1,2})?|1[0-4][0-9](?:\\.[0-9]{1,2})?)(?![0-9])"
+          },
+          {
+           "re": "(?:under|below|less than)\\s*(?:US\\s*)?\\$\\s*150\\b"
+          }
+         ]
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

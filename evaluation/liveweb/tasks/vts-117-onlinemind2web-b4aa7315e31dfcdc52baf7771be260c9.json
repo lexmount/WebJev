@@ -1,0 +1,55 @@
+{
+ "task_id": "vts-117-onlinemind2web-b4aa7315e31dfcdc52baf7771be260c9",
+ "task_name": "Find the HGX H100 driver for Ubuntu 22.04 on AMD64 CPU.",
+ "website": "https://www.nvidia.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "b4aa7315e31dfcdc52baf7771be260c9",
+  "original_task_name": "Find the HGX H100 driver for Ubuntu 22.04 on AMD64 CPU.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "identifies_hgx_h100_ubuntu2204_amd64_driver",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "https?://(?:www\\.)?nvidia\\.cn/drivers/details/279292(?:/|\\b)"
+        },
+        {
+         "re": "https?://cn\\.download\\.nvidia\\.com/tesla/615\\.71\\.09/nvidia-driver-local-repo-ubuntu2204-615\\.71\\.09_1\\.0-1_amd64\\.deb\\b"
+        },
+        {
+         "all": [
+          {
+           "re": "\\bHGX[\\s_-]*H100\\b"
+          },
+          {
+           "re": "\\bUbuntu[\\s_-]*(?:22\\.04|2204)\\b"
+          },
+          {
+           "re": "\\b(?:AMD64|x86[_-]64|x64)\\b|\\bLinux\\s+64[\\s-]*bit\\s+Ubuntu\\s+22\\.04\\b"
+          },
+          {
+           "re": "\\b(?:NVIDIA\\s+)?Data\\s*Center(?:\\s+GPU)?\\s+Driver\\b|\\bTesla\\s+(?:GPU\\s+)?Driver\\b|\\bnvidia-driver-local-repo-ubuntu2204-[0-9][0-9.]*_[0-9A-Za-z.+_-]*amd64\\.deb\\b|(?:NVIDIA\\s*)?\u6570\u636e\u4e2d\u5fc3(?:\\s*GPU\\s*)?\u9a71\u52a8"
+          }
+         ]
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

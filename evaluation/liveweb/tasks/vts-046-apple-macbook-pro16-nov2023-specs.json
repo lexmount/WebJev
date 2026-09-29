@@ -1,0 +1,63 @@
+{
+ "task_id": "vts-046-apple-macbook-pro16-nov2023-specs",
+ "task_name": "On apple.com or support.apple.com, find and open the technical specifications for the 16-inch MacBook Pro introduced in November 2023. Leave that exact model's Tech Specs page open.",
+ "website": "https://www.apple.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "ab6ee3b83aab6cd283320f5e01003cff",
+  "original_task_name": "Find the tech specs of the MacBook Pro 16-inch introduced in November 2023.",
+  "original_website": "https://www.apple.com/",
+  "source_row_zero_based": 213,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept the model, the size and the release date; \"find\" became opening the Tech Specs page. Apple's support site is accepted."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://support\\.apple\\.com/(?:[a-z]{2}-[a-z]{2}/)?117737(?:/|[?#]|$)"
+    }
+   },
+   {
+    "name": "title_identifies_exact_model",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "page_title"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "MacBook Pro",
+      "16-inch",
+      "(?:Nov(?:ember)?\\.?\\s*2023)",
+      "Tech Specs"
+     ]
+    }
+   },
+   {
+    "name": "target_content_loaded",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "M3 Pro",
+       "M3 Max"
+      ]
+     }
+    }
+   }
+  ]
+ }
+}

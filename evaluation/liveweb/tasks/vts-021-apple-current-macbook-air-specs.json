@@ -1,0 +1,49 @@
+{
+ "task_id": "vts-021-apple-current-macbook-air-specs",
+ "task_name": "On apple.com, open the Tech Specs page for the currently offered MacBook Air and leave the specifications displayed.",
+ "website": "https://www.apple.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "d71be72aa25c3eab8eea47a0e60382e2",
+  "original_task_name": "Find technical specs for the latest Macbook Air on Apple.",
+  "intent_modified": true,
+  "intent_modified_reason": "Made the site, the target page and the end state explicit. The product generation changes over time, so the task uses the page of the currently offered model rather than a fixed chip; Apple's regional URL prefixes are accepted."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https?://(?:www\\.)?apple\\.com/(?:[a-z]{2}(?:-[a-z]{2})?/)?macbook-air/specs/?(?:[?#]|$)"
+    }
+   },
+   {
+    "name": "target_content",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "MacBook Air",
+       "Chip",
+       "Display"
+      ]
+     }
+    },
+    "requires": [
+     "target_page"
+    ]
+   }
+  ]
+ }
+}

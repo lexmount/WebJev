@@ -1,0 +1,161 @@
+{
+ "task_id": "vts-105-webvoyager-arxiv-28",
+ "task_name": "Search 'Poly encoder' by title on ArXiv and check whether the articles in the search results provide HTML access.",
+ "website": "https://arxiv.org/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "ArXiv--28",
+  "original_task_name": "Search 'Poly encoder' by title on ArXiv and check whether the articles in the search results provide HTML access.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "html_access_2608_26165",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "(?:2608\\.26165|Using\\s+Poly[ -]*Encoders\\s+for\\s+Computationally\\s+Efficient\\s+Automated\\s+Creativity\\s+Assessment)(?:(?!\\b(?:not|no|unavailable|unsupported|cannot)\\b|2506\\.00968|2309\\.16770|1905\\.01969)[\\s\\S]){0,240}(?:\\bHTML(?:\\s*\\(experimental\\))?(?:[ _-]+(?:full[ -]?text|access|availability|available|version|format))?[\\s\\x22|:=,–—-]*(?:is\\s+)?(?:available|yes|true|provided|accessible|supported)\\b|\\b(?:provides?|offers?|supports?|has|have)\\s+(?:an?\\s+)?(?:experimental\\s+)?(?:full[ -]?text\\s+)?HTML\\b|\\b(?:available|accessible|readable)\\s+(?:in|as)\\s+(?:full[ -]?text\\s+)?HTML\\b|\\b(?:yes|true)\\b[\\s\\x22|:=,–—-]{0,12}(?:full[ -]?text\\s+)?HTML\\b|(?:\u63d0\u4f9b|\u652f\u6301|\u53ef\u4ee5\u8bbf\u95ee|\u53ef\u9605\u8bfb|\u53ef\u7528)[^\\n.;]{0,25}HTML|HTML[^\\n.;]{0,25}(?:\u53ef\u7528|\u53ef\u8bbf\u95ee|\u53ef\u9605\u8bfb|\u5df2\u63d0\u4f9b|\u652f\u6301))",
+         "flags": "I"
+        },
+        {
+         "re": "(?:\\bHTML(?:\\s*\\(experimental\\))?(?:[ _-]+(?:full[ -]?text|access|availability|available|version|format))?[\\s\\x22|:=,–—-]*(?:is\\s+)?(?:available|yes|true|provided|accessible|supported)\\b|\\b(?:provides?|offers?|supports?|has|have)\\s+(?:an?\\s+)?(?:experimental\\s+)?(?:full[ -]?text\\s+)?HTML\\b|\\b(?:available|accessible|readable)\\s+(?:in|as)\\s+(?:full[ -]?text\\s+)?HTML\\b|\\b(?:yes|true)\\b[\\s\\x22|:=,–—-]{0,12}(?:full[ -]?text\\s+)?HTML\\b|(?:\u63d0\u4f9b|\u652f\u6301|\u53ef\u4ee5\u8bbf\u95ee|\u53ef\u9605\u8bfb|\u53ef\u7528)[^\\n.;]{0,25}HTML|HTML[^\\n.;]{0,25}(?:\u53ef\u7528|\u53ef\u8bbf\u95ee|\u53ef\u9605\u8bfb|\u5df2\u63d0\u4f9b|\u652f\u6301))[^\\n.;]{0,180}(?:2608\\.26165|Using\\s+Poly[ -]*Encoders\\s+for\\s+Computationally\\s+Efficient\\s+Automated\\s+Creativity\\s+Assessment)",
+         "flags": "I"
+        },
+        {
+         "re": "\\b(?:all\\s+(?:four|4)|(?:each|every)\\s+one\\s+of\\s+the\\s+(?:four|4))\\s+(?:(?:search|returned|matching)\\s+)?(?:articles|papers|results)\\b(?:(?!\\b(?:not|no|none|unavailable|unsupported|cannot)\\b)[\\s\\S]){0,100}\\b(?:provide|offer|support|have)\\b[^\\n.;]{0,60}\\bHTML\\b",
+         "flags": "I"
+        },
+        {
+         "re": "\\b(?:all\\s+(?:four|4)|(?:each|every)\\s+one\\s+of\\s+the\\s+(?:four|4))\\s+(?:(?:search|returned|matching)\\s+)?(?:articles|papers|results)\\b(?:(?!\\b(?:not|no|none|unavailable|unsupported|cannot)\\b)[\\s\\S]){0,100}\\b(?:available|accessible|readable)\\s+(?:in|as)\\s+(?:full[ -]?text\\s+)?HTML\\b",
+         "flags": "I"
+        },
+        {
+         "re": "\\b(?:full[ -]?text\\s+)?HTML\\s+(?:access|versions?|formats?)\\s+(?:is|are)\\s+(?:available|provided|accessible)\\s+(?:for|to)\\s+all\\s+(?:four|4)\\s+(?:(?:search|returned|matching)\\s+)?(?:articles|papers|results)\\b",
+         "flags": "I"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "html_access_2506_00968",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "(?:2506\\.00968|PolyBERT)(?:(?!\\b(?:not|no|unavailable|unsupported|cannot)\\b|2608\\.26165|2309\\.16770|1905\\.01969)[\\s\\S]){0,240}(?:\\bHTML(?:\\s*\\(experimental\\))?(?:[ _-]+(?:full[ -]?text|access|availability|available|version|format))?[\\s\\x22|:=,–—-]*(?:is\\s+)?(?:available|yes|true|provided|accessible|supported)\\b|\\b(?:provides?|offers?|supports?|has|have)\\s+(?:an?\\s+)?(?:experimental\\s+)?(?:full[ -]?text\\s+)?HTML\\b|\\b(?:available|accessible|readable)\\s+(?:in|as)\\s+(?:full[ -]?text\\s+)?HTML\\b|\\b(?:yes|true)\\b[\\s\\x22|:=,–—-]{0,12}(?:full[ -]?text\\s+)?HTML\\b|(?:\u63d0\u4f9b|\u652f\u6301|\u53ef\u4ee5\u8bbf\u95ee|\u53ef\u9605\u8bfb|\u53ef\u7528)[^\\n.;]{0,25}HTML|HTML[^\\n.;]{0,25}(?:\u53ef\u7528|\u53ef\u8bbf\u95ee|\u53ef\u9605\u8bfb|\u5df2\u63d0\u4f9b|\u652f\u6301))",
+         "flags": "I"
+        },
+        {
+         "re": "(?:\\bHTML(?:\\s*\\(experimental\\))?(?:[ _-]+(?:full[ -]?text|access|availability|available|version|format))?[\\s\\x22|:=,–—-]*(?:is\\s+)?(?:available|yes|true|provided|accessible|supported)\\b|\\b(?:provides?|offers?|supports?|has|have)\\s+(?:an?\\s+)?(?:experimental\\s+)?(?:full[ -]?text\\s+)?HTML\\b|\\b(?:available|accessible|readable)\\s+(?:in|as)\\s+(?:full[ -]?text\\s+)?HTML\\b|\\b(?:yes|true)\\b[\\s\\x22|:=,–—-]{0,12}(?:full[ -]?text\\s+)?HTML\\b|(?:\u63d0\u4f9b|\u652f\u6301|\u53ef\u4ee5\u8bbf\u95ee|\u53ef\u9605\u8bfb|\u53ef\u7528)[^\\n.;]{0,25}HTML|HTML[^\\n.;]{0,25}(?:\u53ef\u7528|\u53ef\u8bbf\u95ee|\u53ef\u9605\u8bfb|\u5df2\u63d0\u4f9b|\u652f\u6301))[^\\n.;]{0,180}(?:2506\\.00968|PolyBERT)",
+         "flags": "I"
+        },
+        {
+         "re": "\\b(?:all\\s+(?:four|4)|(?:each|every)\\s+one\\s+of\\s+the\\s+(?:four|4))\\s+(?:(?:search|returned|matching)\\s+)?(?:articles|papers|results)\\b(?:(?!\\b(?:not|no|none|unavailable|unsupported|cannot)\\b)[\\s\\S]){0,100}\\b(?:provide|offer|support|have)\\b[^\\n.;]{0,60}\\bHTML\\b",
+         "flags": "I"
+        },
+        {
+         "re": "\\b(?:all\\s+(?:four|4)|(?:each|every)\\s+one\\s+of\\s+the\\s+(?:four|4))\\s+(?:(?:search|returned|matching)\\s+)?(?:articles|papers|results)\\b(?:(?!\\b(?:not|no|none|unavailable|unsupported|cannot)\\b)[\\s\\S]){0,100}\\b(?:available|accessible|readable)\\s+(?:in|as)\\s+(?:full[ -]?text\\s+)?HTML\\b",
+         "flags": "I"
+        },
+        {
+         "re": "\\b(?:full[ -]?text\\s+)?HTML\\s+(?:access|versions?|formats?)\\s+(?:is|are)\\s+(?:available|provided|accessible)\\s+(?:for|to)\\s+all\\s+(?:four|4)\\s+(?:(?:search|returned|matching)\\s+)?(?:articles|papers|results)\\b",
+         "flags": "I"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "html_access_2309_16770",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "(?:2309\\.16770|Persona[ -]*Coded\\s+Poly[ -]*Encoder)(?:(?!\\b(?:not|no|unavailable|unsupported|cannot)\\b|2608\\.26165|2506\\.00968|1905\\.01969)[\\s\\S]){0,240}(?:\\bHTML(?:\\s*\\(experimental\\))?(?:[ _-]+(?:full[ -]?text|access|availability|available|version|format))?[\\s\\x22|:=,–—-]*(?:is\\s+)?(?:available|yes|true|provided|accessible|supported)\\b|\\b(?:provides?|offers?|supports?|has|have)\\s+(?:an?\\s+)?(?:experimental\\s+)?(?:full[ -]?text\\s+)?HTML\\b|\\b(?:available|accessible|readable)\\s+(?:in|as)\\s+(?:full[ -]?text\\s+)?HTML\\b|\\b(?:yes|true)\\b[\\s\\x22|:=,–—-]{0,12}(?:full[ -]?text\\s+)?HTML\\b|(?:\u63d0\u4f9b|\u652f\u6301|\u53ef\u4ee5\u8bbf\u95ee|\u53ef\u9605\u8bfb|\u53ef\u7528)[^\\n.;]{0,25}HTML|HTML[^\\n.;]{0,25}(?:\u53ef\u7528|\u53ef\u8bbf\u95ee|\u53ef\u9605\u8bfb|\u5df2\u63d0\u4f9b|\u652f\u6301))",
+         "flags": "I"
+        },
+        {
+         "re": "(?:\\bHTML(?:\\s*\\(experimental\\))?(?:[ _-]+(?:full[ -]?text|access|availability|available|version|format))?[\\s\\x22|:=,–—-]*(?:is\\s+)?(?:available|yes|true|provided|accessible|supported)\\b|\\b(?:provides?|offers?|supports?|has|have)\\s+(?:an?\\s+)?(?:experimental\\s+)?(?:full[ -]?text\\s+)?HTML\\b|\\b(?:available|accessible|readable)\\s+(?:in|as)\\s+(?:full[ -]?text\\s+)?HTML\\b|\\b(?:yes|true)\\b[\\s\\x22|:=,–—-]{0,12}(?:full[ -]?text\\s+)?HTML\\b|(?:\u63d0\u4f9b|\u652f\u6301|\u53ef\u4ee5\u8bbf\u95ee|\u53ef\u9605\u8bfb|\u53ef\u7528)[^\\n.;]{0,25}HTML|HTML[^\\n.;]{0,25}(?:\u53ef\u7528|\u53ef\u8bbf\u95ee|\u53ef\u9605\u8bfb|\u5df2\u63d0\u4f9b|\u652f\u6301))[^\\n.;]{0,180}(?:2309\\.16770|Persona[ -]*Coded\\s+Poly[ -]*Encoder)",
+         "flags": "I"
+        },
+        {
+         "re": "\\b(?:all\\s+(?:four|4)|(?:each|every)\\s+one\\s+of\\s+the\\s+(?:four|4))\\s+(?:(?:search|returned|matching)\\s+)?(?:articles|papers|results)\\b(?:(?!\\b(?:not|no|none|unavailable|unsupported|cannot)\\b)[\\s\\S]){0,100}\\b(?:provide|offer|support|have)\\b[^\\n.;]{0,60}\\bHTML\\b",
+         "flags": "I"
+        },
+        {
+         "re": "\\b(?:all\\s+(?:four|4)|(?:each|every)\\s+one\\s+of\\s+the\\s+(?:four|4))\\s+(?:(?:search|returned|matching)\\s+)?(?:articles|papers|results)\\b(?:(?!\\b(?:not|no|none|unavailable|unsupported|cannot)\\b)[\\s\\S]){0,100}\\b(?:available|accessible|readable)\\s+(?:in|as)\\s+(?:full[ -]?text\\s+)?HTML\\b",
+         "flags": "I"
+        },
+        {
+         "re": "\\b(?:full[ -]?text\\s+)?HTML\\s+(?:access|versions?|formats?)\\s+(?:is|are)\\s+(?:available|provided|accessible)\\s+(?:for|to)\\s+all\\s+(?:four|4)\\s+(?:(?:search|returned|matching)\\s+)?(?:articles|papers|results)\\b",
+         "flags": "I"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "html_access_1905_01969",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "(?:1905\\.01969|Poly[ -]*encoders\\s*:\\s*(?:Transformer\\s+)?Architectures\\s+and\\s+Pre[ -]*training\\s*Strategies)(?:(?!\\b(?:not|no|unavailable|unsupported|cannot)\\b|2608\\.26165|2506\\.00968|2309\\.16770)[\\s\\S]){0,240}(?:\\bHTML(?:\\s*\\(experimental\\))?(?:[ _-]+(?:full[ -]?text|access|availability|available|version|format))?[\\s\\x22|:=,–—-]*(?:is\\s+)?(?:available|yes|true|provided|accessible|supported)\\b|\\b(?:provides?|offers?|supports?|has|have)\\s+(?:an?\\s+)?(?:experimental\\s+)?(?:full[ -]?text\\s+)?HTML\\b|\\b(?:available|accessible|readable)\\s+(?:in|as)\\s+(?:full[ -]?text\\s+)?HTML\\b|\\b(?:yes|true)\\b[\\s\\x22|:=,–—-]{0,12}(?:full[ -]?text\\s+)?HTML\\b|(?:\u63d0\u4f9b|\u652f\u6301|\u53ef\u4ee5\u8bbf\u95ee|\u53ef\u9605\u8bfb|\u53ef\u7528)[^\\n.;]{0,25}HTML|HTML[^\\n.;]{0,25}(?:\u53ef\u7528|\u53ef\u8bbf\u95ee|\u53ef\u9605\u8bfb|\u5df2\u63d0\u4f9b|\u652f\u6301))",
+         "flags": "I"
+        },
+        {
+         "re": "(?:\\bHTML(?:\\s*\\(experimental\\))?(?:[ _-]+(?:full[ -]?text|access|availability|available|version|format))?[\\s\\x22|:=,–—-]*(?:is\\s+)?(?:available|yes|true|provided|accessible|supported)\\b|\\b(?:provides?|offers?|supports?|has|have)\\s+(?:an?\\s+)?(?:experimental\\s+)?(?:full[ -]?text\\s+)?HTML\\b|\\b(?:available|accessible|readable)\\s+(?:in|as)\\s+(?:full[ -]?text\\s+)?HTML\\b|\\b(?:yes|true)\\b[\\s\\x22|:=,–—-]{0,12}(?:full[ -]?text\\s+)?HTML\\b|(?:\u63d0\u4f9b|\u652f\u6301|\u53ef\u4ee5\u8bbf\u95ee|\u53ef\u9605\u8bfb|\u53ef\u7528)[^\\n.;]{0,25}HTML|HTML[^\\n.;]{0,25}(?:\u53ef\u7528|\u53ef\u8bbf\u95ee|\u53ef\u9605\u8bfb|\u5df2\u63d0\u4f9b|\u652f\u6301))[^\\n.;]{0,180}(?:1905\\.01969|Poly[ -]*encoders\\s*:\\s*(?:Transformer\\s+)?Architectures\\s+and\\s+Pre[ -]*training\\s*Strategies)",
+         "flags": "I"
+        },
+        {
+         "re": "\\b(?:all\\s+(?:four|4)|(?:each|every)\\s+one\\s+of\\s+the\\s+(?:four|4))\\s+(?:(?:search|returned|matching)\\s+)?(?:articles|papers|results)\\b(?:(?!\\b(?:not|no|none|unavailable|unsupported|cannot)\\b)[\\s\\S]){0,100}\\b(?:provide|offer|support|have)\\b[^\\n.;]{0,60}\\bHTML\\b",
+         "flags": "I"
+        },
+        {
+         "re": "\\b(?:all\\s+(?:four|4)|(?:each|every)\\s+one\\s+of\\s+the\\s+(?:four|4))\\s+(?:(?:search|returned|matching)\\s+)?(?:articles|papers|results)\\b(?:(?!\\b(?:not|no|none|unavailable|unsupported|cannot)\\b)[\\s\\S]){0,100}\\b(?:available|accessible|readable)\\s+(?:in|as)\\s+(?:full[ -]?text\\s+)?HTML\\b",
+         "flags": "I"
+        },
+        {
+         "re": "\\b(?:full[ -]?text\\s+)?HTML\\s+(?:access|versions?|formats?)\\s+(?:is|are)\\s+(?:available|provided|accessible)\\s+(?:for|to)\\s+all\\s+(?:four|4)\\s+(?:(?:search|returned|matching)\\s+)?(?:articles|papers|results)\\b",
+         "flags": "I"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

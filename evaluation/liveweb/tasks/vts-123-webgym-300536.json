@@ -1,0 +1,50 @@
+{
+ "task_id": "vts-123-webgym-300536",
+ "task_name": "Find the collection number for the 'ONE Subject Files Collection' and identify the primary bulk dates of its contents.",
+ "website": "https://www.onearchives.org",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300536",
+  "original_task_name": "Find the collection number for the 'ONE Subject Files Collection' and identify the primary bulk dates of its contents.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "one_subject_files_collection_number",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "collection_number": {
+       "re": "(?<![A-Za-z0-9])(?:Coll\\.?\\s*)?2012\\s*[.\\-–—]\\s*001(?![A-Za-z0-9])"
+      }
+     }
+    }
+   },
+   {
+    "name": "one_subject_files_primary_bulk_dates",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "bulk_start": {
+       "re": "(?<![0-9])1970(?![0-9A-Za-z])"
+      },
+      "bulk_end": {
+       "re": "(?<![0-9])1990(?![0-9A-Za-z])|(?<![0-9])1970\\s*[-–—]\\s*90(?![0-9A-Za-z])"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

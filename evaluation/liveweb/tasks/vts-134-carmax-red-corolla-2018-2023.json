@@ -1,0 +1,74 @@
+{
+ "task_id": "vts-134-carmax-red-corolla-2018-2023",
+ "task_name": "On carmax.com, use the search filters to browse Toyota Corolla cars in red with model years from 2018 to 2023.",
+ "website": "https://www.carmax.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "0b51b4fa0295ae80ccd176ebdad6fff6",
+  "original_task_name": "Search for a red Toyota Corolla from model years 2018 to 2023 on CarMax.",
+  "original_website": "https://www.carmax.com/",
+  "intent_modified": true,
+  "intent_modified_reason": "\"Search for\" could mean a text search or filtering; the verifier checks the filter parameters in the URL, so the task says to use the filters (same reason as vts-007)."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_carmax_car_search",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "^https://www\\.carmax\\.com/cars(/|[?#]|$)"
+     ]
+    }
+   },
+   {
+    "name": "path_segments_are_toyota_corolla_red",
+    "metric": "set_match",
+    "result": {
+     "type": "url_path_parse"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "cars",
+      "toyota",
+      "corolla",
+      "red"
+     ]
+    },
+    "options": {
+     "mode": "equal"
+    },
+    "requires": [
+     "on_carmax_car_search"
+    ]
+   },
+   {
+    "name": "year_range_2018_2023",
+    "metric": "json_object_match",
+    "result": {
+     "type": "url_parse",
+     "parse_keys": [
+      "year"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "year": "2018-2023"
+     }
+    },
+    "requires": [
+     "on_carmax_car_search",
+     "path_segments_are_toyota_corolla_red"
+    ]
+   }
+  ]
+ }
+}

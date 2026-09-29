@@ -1,0 +1,48 @@
+{
+ "task_id": "vts-015-ign-breath-of-the-wild-walkthrough",
+ "task_name": "On ign.com, open the main Walkthrough page of the guide for The Legend of Zelda: Breath of the Wild and leave it open.",
+ "website": "https://www.ign.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "b320c68bffc1f3c7f2a8dc9d5478fb27",
+  "original_task_name": "Find a walkthrough for the game \"The Legend of Zelda: Breath of the Wild\" on ign.",
+  "intent_modified": true,
+  "intent_modified_reason": "Made the site, the target page and the end state explicit, and named the answer fields so the result can be checked deterministically."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https?://(?:www\\.)?ign\\.com/wikis/the-legend-of-zelda-breath-of-the-wild/Walkthrough(?:[/?#]|$)"
+    }
+   },
+   {
+    "name": "target_content",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Walkthrough",
+       "Breath of the Wild"
+      ]
+     }
+    },
+    "requires": [
+     "target_page"
+    ]
+   }
+  ]
+ }
+}

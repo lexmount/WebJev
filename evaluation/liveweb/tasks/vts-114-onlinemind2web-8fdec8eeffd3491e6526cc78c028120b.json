@@ -1,0 +1,135 @@
+{
+ "task_id": "vts-114-onlinemind2web-8fdec8eeffd3491e6526cc78c028120b",
+ "task_name": "See Nissan and Honda cars for sale near Kentwood, MI 49512 on CarMax.",
+ "website": "https://www.carmax.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "8fdec8eeffd3491e6526cc78c028120b",
+  "original_task_name": "See Nissan and Honda cars for sale near Kentwood, MI 49512 on CarMax.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_carmax",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https?://(?:www\\.)?carmax\\.com(?:/|$)"
+    }
+   },
+   {
+    "name": "inventory_surface_present",
+    "metric": "count_in_range",
+    "result": {
+     "type": "dom_count",
+     "selector": "#listing #cars-listing",
+     "must_exist": true
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "ge": 1
+     }
+    },
+    "requires": [
+     "on_carmax"
+    ]
+   },
+   {
+    "name": "search_location_49512",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "search_zip": "[data-id=\"your-location-link\"]"
+     },
+     "must_exist": [
+      "search_zip"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "search_zip": {
+       "re": "^\\s*49512\\s*$"
+      }
+     }
+    },
+    "requires": [
+     "inventory_surface_present"
+    ]
+   },
+   {
+    "name": "honda_make_selected",
+    "metric": "count_in_range",
+    "result": {
+     "type": "dom_count",
+     "selector": "[data-id=\"selected-honda\"], [data-id=\"honda-checkbox\"] input:checked",
+     "must_exist": false
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "ge": 1
+     }
+    },
+    "requires": [
+     "inventory_surface_present"
+    ]
+   },
+   {
+    "name": "nissan_make_selected",
+    "metric": "count_in_range",
+    "result": {
+     "type": "dom_count",
+     "selector": "[data-id=\"selected-nissan\"], [data-id=\"nissan-checkbox\"] input:checked",
+     "must_exist": false
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "ge": 1
+     }
+    },
+    "requires": [
+     "inventory_surface_present"
+    ]
+   },
+   {
+    "name": "both_makes_have_kentwood_sale_results",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "honda_availability": "#listing article.kmx-car-tile[data-unavailable=\"false\"]:has(a.kmx-car-tile__make-model-link[href^=\"/car/\"] > .kmx-car-tile__year-make-model[title*=\" Honda \"]) .kmx-car-tile__availability",
+      "nissan_availability": "#listing article.kmx-car-tile[data-unavailable=\"false\"]:has(a.kmx-car-tile__make-model-link[href^=\"/car/\"] > .kmx-car-tile__year-make-model[title*=\" Nissan \"]) .kmx-car-tile__availability"
+     },
+     "all": true,
+     "must_exist": []
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "honda_availability[*]": {
+       "re": "\\bKentwood\\b",
+       "flags": "I"
+      },
+      "nissan_availability[*]": {
+       "re": "\\bKentwood\\b",
+       "flags": "I"
+      }
+     }
+    },
+    "requires": [
+     "inventory_surface_present"
+    ]
+   }
+  ]
+ }
+}

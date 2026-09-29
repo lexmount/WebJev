@@ -1,0 +1,76 @@
+[
+ {
+  "label": "true end state",
+  "expect": 1
+ },
+ {
+  "label": "www. prefix (the form before the redirect)",
+  "expect": 1,
+  "url": "https://www.calcareers.ca.gov/CalHRPublic/Search/JobSearchResults.aspx#locid=481&timid=1&minsal=4000&socmajorcode=23-0000"
+ },
+ {
+  "label": "hash parameters in a different order",
+  "expect": 1,
+  "url": "https://calcareers.ca.gov/CalHRPublic/Search/JobSearchResults.aspx#socmajorcode=23-0000&minsal=4000&timid=1&locid=481"
+ },
+ {
+  "label": "deep-link shortcut: navigating straight to this URL (accepted on purpose)",
+  "expect": 1,
+  "url": "https://calcareers.ca.gov/CalHRPublic/Search/JobSearchResults.aspx#minsal=4000&locid=481&socmajorcode=23-0000&timid=1"
+ },
+ {
+  "label": "top failure mode: all controls set but Update Results not clicked",
+  "expect": 0,
+  "url": "https://calcareers.ca.gov/CalHRPublic/Search/JobSearchResults.aspx#empty"
+ },
+ {
+  "label": "salary band too low ($2,000+)",
+  "expect": 0,
+  "url": "https://calcareers.ca.gov/CalHRPublic/Search/JobSearchResults.aspx#locid=481&timid=1&minsal=2000&socmajorcode=23-0000"
+ },
+ {
+  "label": "salary band too high ($10,000+)",
+  "expect": 0,
+  "url": "https://calcareers.ca.gov/CalHRPublic/Search/JobSearchResults.aspx#locid=481&timid=1&minsal=10000&socmajorcode=23-0000"
+ },
+ {
+  "label": "minsal=40000, one extra zero -- a substring match would pass it, the boundary anchor must block it",
+  "expect": 0,
+  "url": "https://calcareers.ca.gov/CalHRPublic/Search/JobSearchResults.aspx#locid=481&timid=1&minsal=40000&socmajorcode=23-0000"
+ },
+ {
+  "label": "wrong county",
+  "expect": 0,
+  "url": "https://calcareers.ca.gov/CalHRPublic/Search/JobSearchResults.aspx#locid=407&timid=1&minsal=4000&socmajorcode=23-0000"
+ },
+ {
+  "label": "category set to the adjacent distractor Life/Physical/Social Science",
+  "expect": 0,
+  "url": "https://calcareers.ca.gov/CalHRPublic/Search/JobSearchResults.aspx#locid=481&timid=1&minsal=4000&socmajorcode=19-0000"
+ },
+ {
+  "label": "full-time set under Work Type instead of Work Schedule; no timid in the hash",
+  "expect": 0,
+  "url": "https://calcareers.ca.gov/CalHRPublic/Search/JobSearchResults.aspx#locid=481&wtypid=1&minsal=4000&socmajorcode=23-0000"
+ },
+ {
+  "label": "only three conditions (salary missing)",
+  "expect": 0,
+  "url": "https://calcareers.ca.gov/CalHRPublic/Search/JobSearchResults.aspx#locid=481&timid=1&socmajorcode=23-0000"
+ },
+ {
+  "label": "form filled but left on the advanced-search page without submitting",
+  "expect": 0,
+  "url": "https://calcareers.ca.gov/CalHRPublic/Search/AdvancedJobSearch.aspx#locid=481&timid=1&minsal=4000&socmajorcode=23-0000"
+ },
+ {
+  "label": "stopped at the home page",
+  "expect": 0,
+  "url": "https://www.calcareers.ca.gov/"
+ },
+ {
+  "label": "look-alike domain",
+  "expect": 0,
+  "url": "https://evil.example.com/CalHRPublic/Search/JobSearchResults.aspx#locid=481&timid=1&minsal=4000&socmajorcode=23-0000"
+ }
+]

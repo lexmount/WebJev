@@ -1,0 +1,10 @@
+.env
+.env.*
+.venv/
+runs/
+tests/
+**/__pycache__/
+**/*.pyc
+frontend/node_modules/
+frontend/dist/
+frontend/*.tsbuildinfo

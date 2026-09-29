@@ -1,0 +1,32 @@
+{
+ "task_id": "vts-132-arxiv-help-withdraw",
+ "task_name": "On arxiv.org, open the arXiv Help page that explains how to withdraw an article whose submission has not yet been announced.",
+ "website": "https://arxiv.org/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "ArXiv--10",
+  "original_task_name": "Visit ArXiv Help on how to withdraw an article if the submission is not yet announced.",
+  "original_website": "https://arxiv.org/",
+  "intent_modified": true,
+  "intent_modified_reason": "The original (\"Visit ArXiv Help\") did not say which page to end on, so no end state could be verified. The task now asks to open the help page on withdrawing a submission that has not been announced; the verifier checks that page's URL. The site name was added."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_withdraw_help_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "^https://info\\.arxiv\\.org/help/withdraw\\.html([?#]|$)"
+     ]
+    }
+   }
+  ]
+ }
+}

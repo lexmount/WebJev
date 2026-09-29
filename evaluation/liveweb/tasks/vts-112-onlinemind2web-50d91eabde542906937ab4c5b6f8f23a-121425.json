@@ -1,0 +1,74 @@
+{
+ "task_id": "vts-112-onlinemind2web-50d91eabde542906937ab4c5b6f8f23a-121425",
+ "task_name": "My baby boy was born on Dec 1, 2025. His weight is 7 lb 8 oz, height is 20 inches, and head circumference is 35 cm. The measurement date is Dec 1, 2025. Can you calculate his growth percentiles using a calculator?",
+ "website": "https://www.babycenter.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "50d91eabde542906937ab4c5b6f8f23a_121425",
+  "original_task_name": "My baby boy was born on Dec 1, 2025. His weight is 7 lb 8 oz, height is 20 inches, and head circumference is 35 cm. The measurement date is Dec 1, 2025. Can you calculate his growth percentiles using a calculator?",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "weight_percentile",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": [
+        "(?:(?<![A-Za-z])weight(?![A-Za-z])|\u4f53\u91cd)(?:(?!(?:(?<![A-Za-z])(?:weight|height|length|head(?:[\\s_-]+circumference)?|hc)(?![A-Za-z])|\u4f53\u91cd|\u8eab\u9ad8|\u8eab\u957f|\u982d\u570d|\u5934\u56f4))[\\s\\S]){0,160}(?<![\\d.])(?:55(?:\\.0+)?(?:\\s*(?:th|%))?(?![\\d.])|fifty[\\s-]+(?:five|fifth)(?![A-Za-z]))",
+        "(?<![\\d.])(?:55(?:\\.0+)?(?:\\s*(?:th|%))?(?![\\d.])|fifty[\\s-]+(?:five|fifth)(?![A-Za-z]))(?:(?!(?:(?<![A-Za-z])(?:weight|height|length|head(?:[\\s_-]+circumference)?|hc)(?![A-Za-z])|\u4f53\u91cd|\u8eab\u9ad8|\u8eab\u957f|\u982d\u570d|\u5934\u56f4))[\\s\\S]){0,160}(?:(?<![A-Za-z])weight(?![A-Za-z])|\u4f53\u91cd)"
+       ],
+       "flags": "I"
+      }
+     }
+    }
+   },
+   {
+    "name": "height_percentile",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": [
+        "(?:(?<![A-Za-z])(?:height|length)(?![A-Za-z])|\u8eab\u9ad8|\u8eab\u957f)(?:(?!(?:(?<![A-Za-z])(?:weight|height|length|head(?:[\\s_-]+circumference)?|hc)(?![A-Za-z])|\u4f53\u91cd|\u8eab\u9ad8|\u8eab\u957f|\u982d\u570d|\u5934\u56f4))[\\s\\S]){0,160}(?<![\\d.])(?:69(?:\\.0+)?(?:\\s*(?:th|%))?(?![\\d.])|sixty[\\s-]+(?:nine|ninth)(?![A-Za-z]))",
+        "(?<![\\d.])(?:69(?:\\.0+)?(?:\\s*(?:th|%))?(?![\\d.])|sixty[\\s-]+(?:nine|ninth)(?![A-Za-z]))(?:(?!(?:(?<![A-Za-z])(?:weight|height|length|head(?:[\\s_-]+circumference)?|hc)(?![A-Za-z])|\u4f53\u91cd|\u8eab\u9ad8|\u8eab\u957f|\u982d\u570d|\u5934\u56f4))[\\s\\S]){0,160}(?:(?<![A-Za-z])(?:height|length)(?![A-Za-z])|\u8eab\u9ad8|\u8eab\u957f)"
+       ],
+       "flags": "I"
+      }
+     }
+    }
+   },
+   {
+    "name": "head_circumference_percentile",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": [
+        "(?:(?<![A-Za-z])(?:head(?:[\\s_-]+circumference)?|hc)(?![A-Za-z])|\u982d\u570d|\u5934\u56f4)(?:(?!(?:(?<![A-Za-z])(?:weight|height|length|head(?:[\\s_-]+circumference)?|hc)(?![A-Za-z])|\u4f53\u91cd|\u8eab\u9ad8|\u8eab\u957f|\u982d\u570d|\u5934\u56f4))[\\s\\S]){0,160}(?<![\\d.])(?:66(?:\\.0+)?(?:\\s*(?:th|%))?(?![\\d.])|sixty[\\s-]+(?:six|sixth)(?![A-Za-z]))",
+        "(?<![\\d.])(?:66(?:\\.0+)?(?:\\s*(?:th|%))?(?![\\d.])|sixty[\\s-]+(?:six|sixth)(?![A-Za-z]))(?:(?!(?:(?<![A-Za-z])(?:weight|height|length|head(?:[\\s_-]+circumference)?|hc)(?![A-Za-z])|\u4f53\u91cd|\u8eab\u9ad8|\u8eab\u957f|\u982d\u570d|\u5934\u56f4))[\\s\\S]){0,160}(?:(?<![A-Za-z])(?:head(?:[\\s_-]+circumference)?|hc)(?![A-Za-z])|\u982d\u570d|\u5934\u56f4)"
+       ],
+       "flags": "I"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

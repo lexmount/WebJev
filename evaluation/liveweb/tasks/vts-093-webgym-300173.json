@@ -1,0 +1,47 @@
+{
+ "task_id": "vts-093-webgym-300173",
+ "task_name": "Bypass the Cloudflare security verification on aquascapeinc.com and navigate to the homepage.",
+ "website": "https://www.aquascapeinc.com",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300173",
+  "original_task_name": "Bypass the Cloudflare security verification on aquascapeinc.com and navigate to the homepage.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_aquascape_homepage",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https?://(?:www\\.)?aquascapeinc\\.com/?(?:[?#].*)?$"
+    }
+   },
+   {
+    "name": "homepage_content_is_accessible",
+    "requires": [
+     "on_aquascape_homepage"
+    ],
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Aquascape Your Landscape",
+       "Aquascape Pond Products"
+      ]
+     }
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,110 @@
+{
+ "task_id": "vts-044-craigslist-sfbay-iphonex-good-max400-titles",
+ "task_name": "On the SF Bay Area craigslist (sfbay.craigslist.org), browse iPhone X for sale with condition set to good, a maximum price of $400, and search in titles only. Leave the filtered search results open.",
+ "website": "https://sfbay.craigslist.org/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "690d7b4a285fdb1e9dabf973bf46ae4d",
+  "original_task_name": "Browse iPhone X for sale that is in good condition, has a max price of 400, and searches in titles only.",
+  "original_website": "https://craigslist.org/",
+  "source_row_zero_based": 193,
+  "intent_modified": true,
+  "intent_modified_reason": "The original task names no region; the city is fixed to the San Francisco Bay Area so the cloud browser's exit location cannot choose it. All four conditions (iPhone X, good condition, at most $400, titles only) are kept."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://(?:(?:sfbay\\.craigslist\\.org/search/(?:sss|sse|moa|mob|mod|ela|ele|eld))|(?:www\\.)?craigslist\\.org/search/area/sfbay)(?:/|[?#]|$)"
+    }
+   },
+   {
+    "name": "category_is_for_sale",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "(?:[?&]cat=(?:sss|ppa|ara|sna|pta|ava|baa|bar|haa|bip|bia|bpa|boo|boa|bka|bfa|cta|ema|moa|cla|cba|syp|sya|ela|gra|hva|jwa|maa|mpa|mca|msa|pha|rva|sga|tia|tla|taa|tra|vga|wta|fua|hsa|ata|foa|zip|gms|fuo|fud|hso|hsd|ato|atd|foo|fod|sso|ssd)(?:[&#]|$)|/search/(?:[a-z]{3}/)?(?:sss|ppa|ara|sna|pta|ava|baa|bar|haa|bip|bia|bpa|boo|boa|bka|bfa|cta|ema|moa|cla|cba|syp|sya|ela|gra|hva|jwa|maa|mpa|mca|msa|pha|rva|sga|tia|tla|taa|tra|vga|wta|fua|hsa|ata|foa|zip|gms|fuo|fud|hso|hsd|ato|atd|foo|fod|sso|ssd)(?:[/?#]|$))"
+    }
+   },
+   {
+    "name": "all_four_search_constraints",
+    "metric": "json_object_match",
+    "result": {
+     "type": "url_parse",
+     "parse_keys": [
+      "query",
+      "condition",
+      "max_price",
+      "srchType"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "query": {
+       "re": "^\\s*\"?iphone\\s*x\"?\\s*$",
+       "flags": "I"
+      },
+      "condition": {
+       "eq": "40"
+      },
+      "max_price": {
+       "eq": "400"
+      },
+      "srchType": {
+       "eq": "T"
+      }
+     }
+    }
+   },
+   {
+    "name": "search_form_contains_expected_controls",
+    "metric": "json_object_match",
+    "result": {
+     "type": "control_state",
+     "selectors": {
+      "query": "input[name=\"query\"], input[placeholder^=\"search \"]:not([placeholder=\"search chats\"])",
+      "price": "input[placeholder=\"max\"]:not([type=\"hidden\"]), input[name=\"max_price\"]:not([type=\"hidden\"])",
+      "titles": "input[name=\"srchType\"]",
+      "condition": "input[name=\"condition\"][value=\"40\"]"
+     },
+     "must_exist": [
+      "query",
+      "price",
+      "titles",
+      "condition"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "query.value": {
+       "re": "^\\s*\"?iphone\\s*x\"?\\s*$",
+       "flags": "I"
+      },
+      "price.value": {
+       "eq": "400"
+      },
+      "titles.checked": true,
+      "condition.checked": true
+     }
+    },
+    "requires": [
+     "on_target_page",
+     "category_is_for_sale"
+    ]
+   }
+  ]
+ }
+}

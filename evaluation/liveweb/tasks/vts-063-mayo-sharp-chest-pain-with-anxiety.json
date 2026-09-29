@@ -1,0 +1,169 @@
+{
+ "task_id": "vts-063-mayo-sharp-chest-pain-with-anxiety",
+ "task_name": "On mayoclinic.org, use the Symptom Checker to find possible causes of adult chest pain described as Sharp and accompanied by Anxiety. Select only those two factors, leave the View possible causes results open, and return only a JSON object with a \"causes\" array listing every displayed condition name.",
+ "website": "https://www.mayoclinic.org/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "8103786e0e5976ebf961bd062d5f39cd",
+  "original_task_name": "Find possible causes for the symptoms of chest pain which is sharp which is accompanied by anxiety.",
+  "original_website": "https://www.mayoclinic.org/",
+  "source_row_zero_based": 139,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept chest pain, sharp, anxiety and possible causes. The task uses the site's adult symptom checker, selects only the two factors named in the task, ends on the results page and returns the condition names as a JSON list for item-by-item comparison. The list of possible causes is not a diagnosis."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "target_page",
+    "metric": "url_matches",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "https://www.mayoclinic.org/symptom-checker/chest-pain-in-adults-adult/related-factors/itt-20009075"
+    }
+   },
+   {
+    "name": "results_stage",
+    "metric": "json_object_match",
+    "requires": [
+     "target_page"
+    ],
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "stage": ".symptomchecker"
+     },
+     "attr": "class",
+     "must_exist": [
+      "stage"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "stage": {
+       "eq": "symptomchecker step3"
+      }
+     }
+    }
+   },
+   {
+    "name": "selected_sharp_and_anxiety_only",
+    "metric": "json_object_match",
+    "requires": [
+     "target_page",
+     "results_stage"
+    ],
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "selected": ".symptomchecker.step3 .factors li.match"
+     },
+     "all": true,
+     "must_exist": [
+      "selected"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "selected": {
+       "eq": [
+        "Accompanied by anxiety",
+        "Pain best described as sharp"
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "persisted_two_factors",
+    "metric": "json_object_match",
+    "requires": [
+     "target_page",
+     "results_stage"
+    ],
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "factors": "#FactorGuidsHiddenField"
+     },
+     "attr": "value",
+     "must_exist": [
+      "factors"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "factors": {
+       "any": [
+        {
+         "eq": "|{ABFC817F-4BD4-43BB-92DC-44E83BD5D88C}|{082E8E2E-2428-4D9C-BEF9-76E06DB3D3E9}"
+        },
+        {
+         "eq": "|{082E8E2E-2428-4D9C-BEF9-76E06DB3D3E9}|{ABFC817F-4BD4-43BB-92DC-44E83BD5D88C}"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "chest_pain_result_context",
+    "metric": "json_object_match",
+    "requires": [
+     "target_page",
+     "results_stage"
+    ],
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "symptom": ".symptomchecker.step3 .check > h2"
+     },
+     "must_exist": [
+      "symptom"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "symptom": {
+       "eq": "Chest pain in adults"
+      }
+     }
+    }
+   },
+   {
+    "name": "reported_causes_match_results",
+    "metric": "answer_match",
+    "requires": [
+     "target_page",
+     "results_stage",
+     "selected_sharp_and_anxiety_only",
+     "persisted_two_factors"
+    ],
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "dom_extract",
+     "selectors": {
+      "causes": ".symptomchecker.step3 .factors h3 > a"
+     },
+     "all": true,
+     "must_exist": [
+      "causes"
+     ]
+    },
+    "options": {
+     "ignore_literal_whitespace": true
+    }
+   }
+  ]
+ }
+}

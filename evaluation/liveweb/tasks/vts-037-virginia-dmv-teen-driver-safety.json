@@ -1,0 +1,72 @@
+{
+ "task_id": "vts-037-virginia-dmv-teen-driver-safety",
+ "task_name": "On dmv.virginia.gov, open the Teen Driver Safety program information page and leave it open.",
+ "website": "https://www.dmv.virginia.gov/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "c8d7f2aa7eb5dd074c48c9f76f8659ad",
+  "original_task_name": "Show Teen Driver Safety program information.",
+  "original_website": "https://www.dmv.virginia.gov/",
+  "source_row_zero_based": 150,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept the Teen Driver Safety topic; added the site and a verifiable end state (the page left open)."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_target_page",
+    "metric": "url_matches",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "https://www.dmv.virginia.gov/safety/programs/teens"
+    }
+   },
+   {
+    "name": "heading_identifies_target",
+    "metric": "json_object_match",
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "heading": "h1"
+     },
+     "must_exist": [
+      "heading"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "heading": {
+       "re": "^\\s*Teen Driver Safety\\s*$",
+       "flags": "I"
+      }
+     }
+    },
+    "requires": [
+     "on_target_page"
+    ]
+   },
+   {
+    "name": "target_content_loaded",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Safe, Responsible Driving",
+       "Teen Driver Safety Resources"
+      ]
+     }
+    }
+   }
+  ]
+ }
+}

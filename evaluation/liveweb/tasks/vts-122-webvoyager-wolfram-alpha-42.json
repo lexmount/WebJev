@@ -1,0 +1,60 @@
+{
+ "task_id": "vts-122-webvoyager-wolfram-alpha-42",
+ "task_name": "What is the raw memory of a 100.2\" * 123.5\" true colour picture at 72 ppi?",
+ "website": "https://www.wolframalpha.com/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "Wolfram Alpha--42",
+  "original_task_name": "What is the raw memory of a 100.2\" * 123.5\" true colour picture at 72 ppi?",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "raw_memory_quantity",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "(?<![\\d.])192(?:\\.(?:4\\d*|50*))?(?![\\d.])(?:[\\s\\x22\\x27`:=,()\\[\\]{}_*~-]|(?i:unit|units|value|amount|size|is|about|approximately)){0,30}(?:MB|(?i:megabytes?|million\\s+bytes))\\b|\\b(?:MB|(?i:megabytes?|million\\s+bytes))(?:[\\s\\x22\\x27`:=,()\\[\\]{}_*~-]|(?i:unit|units|value|amount|size|is|about|approximately)){0,30}(?<![\\d.])192(?:\\.(?:4\\d*|50*))?(?![\\d.])"
+        },
+        {
+         "re": "(?<![\\d.])(?:183\\.5(?:[23]\\d*|4|0*)?|184)(?![\\d.])(?:[\\s\\x22\\x27`:=,()\\[\\]{}_*~-]|(?i:unit|units|value|amount|size|is|about|approximately)){0,30}(?:MiB|(?i:mebibytes?))\\b|\\b(?:MiB|(?i:mebibytes?))(?:[\\s\\x22\\x27`:=,()\\[\\]{}_*~-]|(?i:unit|units|value|amount|size|is|about|approximately)){0,30}(?<![\\d.])(?:183\\.5(?:[23]\\d*|4|0*)?|184)(?![\\d.])"
+        },
+        {
+         "re": "(?<![\\d.])(?:192[,\\s]?451[,\\s]?334(?:\\.4)?|192[,\\s]?440[,\\s]?664|1\\.(?:924[45]\\d*|925)\\s*(?:[eE]\\+?8|[x×*]\\s*10\\s*\\^?\\s*8))(?![\\d.])(?:[\\s\\x22\\x27`:=,()\\[\\]{}_*~-]|(?i:unit|units|value|amount|size|is|about|approximately)){0,30}(?:B|(?i:bytes?))\\b|\\b(?:B|(?i:bytes?))(?:[\\s\\x22\\x27`:=,()\\[\\]{}_*~-]|(?i:unit|units|value|amount|size|is|about|approximately)){0,30}(?<![\\d.])(?:192[,\\s]?451[,\\s]?334(?:\\.4)?|192[,\\s]?440[,\\s]?664|1\\.(?:924[45]\\d*|925)\\s*(?:[eE]\\+?8|[x×*]\\s*10\\s*\\^?\\s*8))(?![\\d.])"
+        },
+        {
+         "re": "(?<![\\d.])0\\.192(?:4\\d*|50*)?(?![\\d.])(?:[\\s\\x22\\x27`:=,()\\[\\]{}_*~-]|(?i:unit|units|value|amount|size|is|about|approximately)){0,30}(?:GB|(?i:gigabytes?))\\b|\\b(?:GB|(?i:gigabytes?))(?:[\\s\\x22\\x27`:=,()\\[\\]{}_*~-]|(?i:unit|units|value|amount|size|is|about|approximately)){0,30}(?<![\\d.])0\\.192(?:4\\d*|50*)?(?![\\d.])"
+        },
+        {
+         "re": "(?<![\\d.])0\\.179(?:2\\d*)?(?![\\d.])(?:[\\s\\x22\\x27`:=,()\\[\\]{}_*~-]|(?i:unit|units|value|amount|size|is|about|approximately)){0,30}(?:GiB|(?i:gibibytes?))\\b|\\b(?:GiB|(?i:gibibytes?))(?:[\\s\\x22\\x27`:=,()\\[\\]{}_*~-]|(?i:unit|units|value|amount|size|is|about|approximately)){0,30}(?<![\\d.])0\\.179(?:2\\d*)?(?![\\d.])"
+        },
+        {
+         "re": "(?<![\\d.])1\\.(?:539\\d*|540*)(?![\\d.])(?:[\\s\\x22\\x27`:=,()\\[\\]{}_*~-]|(?i:unit|units|value|amount|size|is|about|approximately)){0,30}(?:Gb|(?i:gigabits?|billion\\s+bits))\\b|\\b(?:Gb|(?i:gigabits?|billion\\s+bits))(?:[\\s\\x22\\x27`:=,()\\[\\]{}_*~-]|(?i:unit|units|value|amount|size|is|about|approximately)){0,30}(?<![\\d.])1\\.(?:539\\d*|540*)(?![\\d.])"
+        },
+        {
+         "re": "(?<![\\d.])(?:1539\\.\\d+|1540)(?![\\d.])(?:[\\s\\x22\\x27`:=,()\\[\\]{}_*~-]|(?i:unit|units|value|amount|size|is|about|approximately)){0,30}(?:Mb|(?i:megabits?|million\\s+bits))\\b|\\b(?:Mb|(?i:megabits?|million\\s+bits))(?:[\\s\\x22\\x27`:=,()\\[\\]{}_*~-]|(?i:unit|units|value|amount|size|is|about|approximately)){0,30}(?<![\\d.])(?:1539\\.\\d+|1540)(?![\\d.])"
+        },
+        {
+         "re": "(?<![\\d.])1\\.(?:539\\d*|540*)\\s*(?:[eE]\\+?9|[x×*]\\s*10\\s*\\^?\\s*9)(?![\\d.])(?:[\\s\\x22\\x27`:=,()\\[\\]{}_*~-]|(?i:unit|units|value|amount|size|is|about|approximately)){0,30}(?i:bits?)\\b|\\b(?i:bits?)(?:[\\s\\x22\\x27`:=,()\\[\\]{}_*~-]|(?i:unit|units|value|amount|size|is|about|approximately)){0,30}(?<![\\d.])1\\.(?:539\\d*|540*)\\s*(?:[eE]\\+?9|[x×*]\\s*10\\s*\\^?\\s*9)(?![\\d.])"
+        }
+       ]
+      }
+     }
+    },
+    "options": {
+     "case_sensitive": true
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "task_id": "vts-097-webvoyager-arxiv-17",
+ "task_name": "Find the paper 'GPT-4 Technical Report', when was v3 submitted?",
+ "website": "https://arxiv.org/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "ArXiv--17",
+  "original_task_name": "Find the paper 'GPT-4 Technical Report', when was v3 submitted?",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "v3_submission_date",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "(?<!\\d)(?:27(?:th)?\\s+(?:of\\s+)?Mar(?:ch)?\\.?\\s*,?\\s*2023|Mar(?:ch)?\\.?\\s+27(?:th)?\\s*,?\\s*2023|2023[-/.]0?3[-/.]27|27[-/.]0?3[-/.]2023|0?3[-/.]27[-/.]2023|2023\\s*\u5e74\\s*3\\s*\u6708\\s*27\\s*[\u65e5\u53f7]?)(?!\\d)",
+       "flags": "I"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

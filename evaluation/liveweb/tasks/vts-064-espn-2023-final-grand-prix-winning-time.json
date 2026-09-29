@@ -1,0 +1,124 @@
+{
+ "task_id": "vts-064-espn-2023-final-grand-prix-winning-time",
+ "task_name": "On espn.com, find the winning driver's total race time for the last Grand Prix of the 2023 Formula 1 season and report that duration. Leave ESPN's race summary or results page open with the race-winner information loaded.",
+ "website": "https://www.espn.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "864244b6969e0f8733b0eb1ca06cd51f",
+  "original_task_name": "Find the race time for who wins the first place in the last race of the 2023 Formula 1 (F1).",
+  "original_website": "https://www.espn.com/",
+  "source_row_zero_based": 219,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept the goal: the full race time of the winner of the final 2023 Formula 1 Grand Prix. The source is espn.com; the time must appear in the final answer and the race Summary or Results page with the winner's information must be open at the end. No fixed route, answer format or extra statistics are required."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_2023_final_race_source",
+    "metric": "url_matches",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "https://www.espn.com/f1/race/_/id/600026790",
+      "https://www.espn.com/f1/results/_/id/600026790"
+     ]
+    }
+   },
+   {
+    "name": "race_winner_bound_to_event",
+    "metric": "json_object_match",
+    "requires": [
+     "on_2023_final_race_source"
+    ],
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "event": ".GamestripRacing .GamestripRacing__EventName",
+      "date": ".GamestripRacing .GamestripRacing__Date",
+      "session": ".GamestripRacing .GamestripRacing__Details .GamestripRacing__Session",
+      "winner": ".GamestripRacing .GamestripRacing__Details .GamestripRacing__Athlete__Name",
+      "time": ".GamestripRacing .GamestripRacing__Details .GamestripRacing__FinishTime"
+     },
+     "must_exist": [
+      "event",
+      "date",
+      "session",
+      "winner",
+      "time"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "event": {
+       "re": "\\bAbu Dhabi (?:GP|Grand Prix)\\b"
+      },
+      "date": {
+       "re": "\\b26,?\\s+2023\\b"
+      },
+      "session": "Race Winner",
+      "winner": "Max Verstappen",
+      "time": "1:27:02.624"
+     }
+    }
+   },
+   {
+    "name": "race_winner_information_visible",
+    "metric": "include_exclude",
+    "requires": [
+     "race_winner_bound_to_event"
+    ],
+    "result": {
+     "type": "visible_text",
+     "selector": ".GamestripRacing",
+     "max_chars": 12000
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Abu Dhabi",
+       "2023",
+       "Race Winner",
+       "Max Verstappen",
+       "1:27:02.624"
+      ]
+     }
+    }
+   },
+   {
+    "name": "reported_total_race_time",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "duration": {
+       "any": [
+        {
+         "re": "(?<![\\d:.+-])0?1\\s*:\\s*27\\s*:\\s*0?2\\.6240*(?!\\d)"
+        },
+        {
+         "re": "(?<![\\d.+-])(?:1|one)\\s*(?:hours?|hrs?|h|\u5c0f\u65f6)\\s*[,\uff0c]?\\s*(?:27|twenty[ -]seven)\\s*(?:minutes?|mins?|m|\u5206\u949f|\u5206)\\s*[,\uff0c]?\\s*(?:and\\s+)?0?2\\.6240*\\s*(?:seconds?|secs?|s\\b|\u79d2)"
+        },
+        {
+         "re": "(?<![\\d.+-])87\\s*(?:minutes?|mins?|m\\b|\u5206\u949f|\u5206)\\s*[,\uff0c]?\\s*(?:and\\s+)?0?2\\.6240*\\s*(?:seconds?|secs?|s\\b|\u79d2)"
+        },
+        {
+         "re": "(?<![\\d.+-])(?:5222|5,222)\\.6240*\\s*(?:seconds?|secs?|s\\b|\u79d2)"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

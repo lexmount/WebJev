@@ -1,0 +1,66 @@
+[
+ {
+  "label": "true end state (via the home-page search box, with site-filled parameters)",
+  "expect": 1
+ },
+ {
+  "label": "hand-built minimal URL without pg/sid/rad",
+  "expect": 1,
+  "url": "https://jobs.ohiomeansjobs.applygovt.com/Search.aspx?q=marketing&lv=5"
+ },
+ {
+  "label": "parameters in reverse order",
+  "expect": 1,
+  "url": "https://jobs.ohiomeansjobs.applygovt.com/Search.aspx?lv=5&q=marketing"
+ },
+ {
+  "label": "keyword capitalized",
+  "expect": 1,
+  "url": "https://jobs.ohiomeansjobs.applygovt.com/Search.aspx?pg=1&q=Marketing&lv=5"
+ },
+ {
+  "label": "keyword typed as 'marketing jobs' (an equally reasonable reading)",
+  "expect": 1,
+  "url": "https://jobs.ohiomeansjobs.applygovt.com/Search.aspx?q=marketing+jobs&lv=5"
+ },
+ {
+  "label": "top failure mode: ticked Bachelor's degree but did not click Display Results, so lv is not in the URL",
+  "expect": 0,
+  "url": "https://jobs.ohiomeansjobs.applygovt.com/Search.aspx?pg=1&sid=68&rad=20&rad_units=miles&q=marketing"
+ },
+ {
+  "label": "degree set to Master's (lv=3)",
+  "expect": 0,
+  "url": "https://jobs.ohiomeansjobs.applygovt.com/Search.aspx?q=marketing&lv=3"
+ },
+ {
+  "label": "degree set to High school (lv=8)",
+  "expect": 0,
+  "url": "https://jobs.ohiomeansjobs.applygovt.com/Search.aspx?q=marketing&lv=8"
+ },
+ {
+  "label": "degree without the keyword",
+  "expect": 0,
+  "url": "https://jobs.ohiomeansjobs.applygovt.com/Search.aspx?lv=5"
+ },
+ {
+  "label": "a different search intent",
+  "expect": 0,
+  "url": "https://jobs.ohiomeansjobs.applygovt.com/Search.aspx?q=digital+marketing&lv=5"
+ },
+ {
+  "label": "stopped at the portal home page",
+  "expect": 0,
+  "url": "https://ohiomeansjobs.ohio.gov/"
+ },
+ {
+  "label": "the same white-label portal of another state",
+  "expect": 0,
+  "url": "https://jobs.indianameansjobs.applygovt.com/Search.aspx?q=marketing&lv=5"
+ },
+ {
+  "label": "look-alike domain",
+  "expect": 0,
+  "url": "https://evil.example.com/Search.aspx?q=marketing&lv=5"
+ }
+]

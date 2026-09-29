@@ -1,0 +1,169 @@
+{
+ "task_id": "vts-048-arxiv-reinforcement-learning-cs-math-dates",
+ "task_name": "On arxiv.org, use Advanced Search to search all fields for reinforcement learning. Select both Computer Science and Mathematics, with no other subject areas, and filter by the most recent submission date from September 1, 2024 through January 31, 2025. Submit the search and leave the results page open.",
+ "website": "https://arxiv.org/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "71f8de1834599fba443f40dbbfab8edd",
+  "original_task_name": "Search for papers related to reinforcement learning under the topics of computer science and mathematics on arxiv, with recent submission dates between September 2024 and January 2025.",
+  "original_website": "https://arxiv.org/",
+  "source_row_zero_based": 238,
+  "intent_modified": true,
+  "intent_modified_reason": "Kept the topic, both subjects (CS and Math) and the September 2024 to January 2025 range. \"Recent submission dates\" means the most recent submission (not the first); the month range was expanded to its first and last days; the results page is the end state."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https://arxiv\\.org/search/advanced/?(?:[?#]|$)"
+    }
+   },
+   {
+    "name": "query_subjects_and_submission_dates",
+    "metric": "json_object_match",
+    "result": {
+     "type": "url_parse",
+     "parse_keys": [
+      "terms-0-term",
+      "terms-0-field",
+      "classification-computer_science",
+      "classification-mathematics",
+      "date-filter_by",
+      "date-from_date",
+      "date-to_date",
+      "date-date_type",
+      "terms-1-term",
+      "classification-physics",
+      "classification-quantitative_biology",
+      "classification-quantitative_finance",
+      "classification-statistics",
+      "classification-economics",
+      "classification-electrical_engineering_and_systems_science"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "terms-0-term": {
+       "re": "^\\s*\"?reinforcement learning\"?\\s*$",
+       "flags": "I"
+      },
+      "terms-0-field": {
+       "eq": "all"
+      },
+      "classification-computer_science": {
+       "eq": "y"
+      },
+      "classification-mathematics": {
+       "eq": "y"
+      },
+      "date-filter_by": {
+       "eq": "date_range"
+      },
+      "date-from_date": {
+       "eq": "2024-09-01"
+      },
+      "date-to_date": {
+       "eq": "2025-01-31"
+      },
+      "date-date_type": {
+       "eq": "submitted_date"
+      },
+      "terms-1-term": {
+       "any": [
+        {
+         "exists": false
+        },
+        {
+         "eq": ""
+        }
+       ]
+      },
+      "classification-physics": {
+       "any": [
+        {
+         "exists": false
+        },
+        {
+         "eq": ""
+        }
+       ]
+      },
+      "classification-quantitative_biology": {
+       "any": [
+        {
+         "exists": false
+        },
+        {
+         "eq": ""
+        }
+       ]
+      },
+      "classification-quantitative_finance": {
+       "any": [
+        {
+         "exists": false
+        },
+        {
+         "eq": ""
+        }
+       ]
+      },
+      "classification-statistics": {
+       "any": [
+        {
+         "exists": false
+        },
+        {
+         "eq": ""
+        }
+       ]
+      },
+      "classification-economics": {
+       "any": [
+        {
+         "exists": false
+        },
+        {
+         "eq": ""
+        }
+       ]
+      },
+      "classification-electrical_engineering_and_systems_science": {
+       "any": [
+        {
+         "exists": false
+        },
+        {
+         "eq": ""
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "results_or_explicit_empty_result_loaded",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "(?:Search Results|Showing\\s+\\d|Sorry, your query|No results)",
+      "reinforcement learning"
+     ]
+    }
+   }
+  ]
+ }
+}

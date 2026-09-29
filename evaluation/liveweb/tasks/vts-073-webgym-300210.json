@@ -1,0 +1,106 @@
+{
+ "task_id": "vts-073-webgym-300210",
+ "task_name": "Find information on how foreign candidates can apply for a work permit in Canada on workingincanada.gc.ca. Specifically, identify if there's a section detailing the application process for temporary foreign workers.",
+ "website": "https://www.workingincanada.gc.ca",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "300210",
+  "original_task_name": "Find information on how foreign candidates can apply for a work permit in Canada on workingincanada.gc.ca. Specifically, identify if there's a section detailing the application process for temporary foreign workers.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "states_when_candidate_can_apply",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "application_prerequisites": {
+       "all": [
+        {
+         "re": "(written\\s+)?job offer|employment contract"
+        },
+        {
+         "any": [
+          {
+           "re": "LMIA.{0,80}(decision\\s+)?letter"
+          },
+          {
+           "re": "offer of employment number"
+          }
+         ]
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "describes_application_steps_and_submission",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "application_process": {
+       "all": [
+        {
+         "re": "(gather|prepare|provide|collect).{0,40}documents?|document checklist|IMM\\s*5488"
+        },
+        {
+         "re": "(complete|fill out|submit).{0,40}(application|forms?)|IMM\\s*1295"
+        },
+        {
+         "re": "(pay|payment).{0,40}(fees?|processing)"
+        },
+        {
+         "re": "(apply|submit).{0,40}(online|Visa Application Cent(?:er|re)|\\bVAC\\b)"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "identifies_application_process_section",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "process_section_exists": {
+       "any": [
+        {
+         "eq": true
+        },
+        {
+         "re": "\\byes\\b|there is|section.{0,30}exists|includes? a section|contains? a section"
+        }
+       ]
+      },
+      "process_section_details": {
+       "all": [
+        {
+         "re": "What Happens Next|The application process"
+        },
+        {
+         "re": "completion check|processing|review for decision|letter of introduction|port of entry"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

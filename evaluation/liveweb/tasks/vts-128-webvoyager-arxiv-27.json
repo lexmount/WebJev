@@ -1,0 +1,65 @@
+{
+ "task_id": "vts-128-webvoyager-arxiv-27",
+ "task_name": "On ArXiv, what categories does Economics include, and what are their abbreviations?",
+ "website": "https://arxiv.org/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "ArXiv--27",
+  "original_task_name": "On ArXiv, what categories does Economics include, and what are their abbreviations?",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "econometrics_abbreviation",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "(?:\\bEconometrics\\b(?:(?!(?:\\becon\\s*\\.\\s*[a-z]+\\b|\\bGeneral\\s+Economics\\b|\\bTheoretical\\s+Economics\\b))[\\s\\S])*?\\becon\\s*\\.\\s*EM\\b|\\becon\\s*\\.\\s*EM\\b(?:(?!(?:\\becon\\s*\\.\\s*[a-z]+\\b|\\bGeneral\\s+Economics\\b|\\bTheoretical\\s+Economics\\b))[\\s\\S])*?\\bEconometrics\\b)",
+       "flags": "I"
+      }
+     }
+    }
+   },
+   {
+    "name": "general_economics_abbreviation",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "(?:\\bGeneral\\s+Economics\\b(?:(?!(?:\\becon\\s*\\.\\s*[a-z]+\\b|\\bEconometrics\\b|\\bTheoretical\\s+Economics\\b))[\\s\\S])*?\\becon\\s*\\.\\s*GN\\b|\\becon\\s*\\.\\s*GN\\b(?:(?!(?:\\becon\\s*\\.\\s*[a-z]+\\b|\\bEconometrics\\b|\\bTheoretical\\s+Economics\\b))[\\s\\S])*?\\bGeneral\\s+Economics\\b)",
+       "flags": "I"
+      }
+     }
+    }
+   },
+   {
+    "name": "theoretical_economics_abbreviation",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "re": "(?:\\bTheoretical\\s+Economics\\b(?:(?!(?:\\becon\\s*\\.\\s*[a-z]+\\b|\\bEconometrics\\b|\\bGeneral\\s+Economics\\b))[\\s\\S])*?\\becon\\s*\\.\\s*TH\\b|\\becon\\s*\\.\\s*TH\\b(?:(?!(?:\\becon\\s*\\.\\s*[a-z]+\\b|\\bEconometrics\\b|\\bGeneral\\s+Economics\\b))[\\s\\S])*?\\bTheoretical\\s+Economics\\b)",
+       "flags": "I"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

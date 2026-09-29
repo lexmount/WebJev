@@ -1,0 +1,57 @@
+{
+ "task_id": "vts-002-coinmarketcap-xrp-yearly-chart",
+ "task_name": "On coinmarketcap.com, open XRP's page and set its price chart to the 1Y (yearly) range.",
+ "website": "https://coinmarketcap.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "82eb3bfedd78456a0230b389f4e7a938",
+  "intent_modified": true,
+  "intent_modified_reason": "Added the site and the end state. The original task named no site, while the verifier checks a coinmarketcap.com URL. The task now says to switch XRP's chart range to 1Y (the verifier reads the range the page stores once the control is used) rather than to find some yearly chart. The verifier itself was not changed."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_xrp_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "^https://coinmarketcap\\.com/currencies/xrp(/|[?#]|$)"
+     ]
+    }
+   },
+   {
+    "name": "chart_range_is_yearly",
+    "metric": "json_object_match",
+    "requires": [
+     "on_xrp_page"
+    ],
+    "result": {
+     "type": "storage",
+     "kind": "local",
+     "origin": "https://coinmarketcap.com",
+     "keys": [
+      "CMC_CDP_CHART_SETTINGS"
+     ],
+     "json_values": true
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "CMC_CDP_CHART_SETTINGS.value.range": {
+       "eq": "1Y"
+      },
+      "CMC_CDP_CHART_SETTINGS.value.chartType": {
+       "eq": "Line"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

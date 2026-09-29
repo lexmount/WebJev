@@ -1,0 +1,201 @@
+{
+ "task_id": "vts-109-webgym-301049",
+ "task_name": "Explain the process for a complementary healthcare practitioner to register with CNHC if they do NOT belong to a professional association.",
+ "website": "https://www.cnhc.org.uk",
+ "source": {
+  "benchmark": "WebGym",
+  "task_id": "301049",
+  "original_task_name": "Explain the process for a complementary healthcare practitioner to register with CNHC if they do NOT belong to a professional association.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "non_member_can_apply_without_joining",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "\\b(?:do not|does not|don[\\u0027\\u2019]t|need not|needn[\\u0027\\u2019]t|not required to|not necessary to|no need to).{0,70}\\b(?:join|belong|become\\s+(?:a\\s+)?member|be\\s+(?:a\\s+)?member)\\b",
+         "flags": "IS"
+        },
+        {
+         "re": "\\b(?:membership|joining|belonging).{0,80}\\b(?:not (?:required|necessary|mandatory|a prerequisite)|optional)\\b",
+         "flags": "IS"
+        },
+        {
+         "re": "\\b(?:can|may|able to|eligible to).{0,80}\\b(?:register|apply).{0,90}\\bwithout.{0,90}\\b(?:association|member|joining|belonging)\\b",
+         "flags": "IS"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "use_verifying_organisation_for_relevant_discipline",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "all": [
+        {
+         "any": [
+          {
+           "re": "\\bverif(?:ying|ication)\\s+(?:organi[sz]ation|bod(?:y|ies)|association)s?\\b",
+           "flags": "IS"
+          },
+          {
+           "re": "\\bCNHC.{0,90}\\b(?:approved|authori[sz]ed|recogni[sz]ed|recognised|listed|designated).{0,70}\\b(?:organi[sz]ation|bod(?:y|ies)|association)s?\\b",
+           "flags": "IS"
+          }
+         ]
+        },
+        {
+         "re": "\\b(?:discipline|profession|occupation|therapy|therapies|modality)\\b",
+         "flags": "IS"
+        },
+        {
+         "re": "\\b(?:choose|select|contact|use|find|identify|locate|approach|check).{0,160}\\b(?:organi[sz]ation|verifier|discipline|profession|non[ -]?member|route|form)\\b",
+         "flags": "IS"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "complete_non_member_request_to_register_form",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "all": [
+        {
+         "re": "\\b(?:complet\\w*|fill\\w*|submit\\w*|return\\w*|send\\w*|use)\\b.{0,130}\\b(?:application|request[ -]to[ -]register|verif(?:ication|ying))\\b.{0,80}\\bform\\b",
+         "flags": "IS"
+        },
+        {
+         "re": "\\b(?:non[ -]?members?|not\\s+(?:a\\s+)?members?|without\\s+(?:association\\s+)?membership)\\b",
+         "flags": "IS"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "verification_covers_training_insurance_and_experience",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "all": [
+        {
+         "re": "\\b(?:check\\w*|verif\\w*|assess\\w*|review\\w*|confirm\\w*)\\b",
+         "flags": "IS"
+        },
+        {
+         "re": "\\b(?:training|qualifications?|education)\\b",
+         "flags": "IS"
+        },
+        {
+         "re": "\\b(?:insurance|indemnity\\s+(?:cover|coverage))\\b",
+         "flags": "IS"
+        },
+        {
+         "re": "\\b(?:experience|practice\\s+history)\\b",
+         "flags": "IS"
+        },
+        {
+         "re": "\\b(?:eligib\\w*|meets?\\s+(?:the\\s+)?(?:CNHC\\s+)?(?:standards|requirements|criteria))\\b",
+         "flags": "IS"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "non_member_assessment_may_have_administration_charge",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "any": [
+        {
+         "re": "\\b(?:administrat\\w*|verification|assessment|processing)\\b.{0,80}\\b(?:fee|charge|cost)\\b",
+         "flags": "IS"
+        },
+        {
+         "re": "\\b(?:fee|charge|cost)\\b.{0,90}\\b(?:assess\\w*|verif\\w*|administrat\\w*)\\b",
+         "flags": "IS"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "complete_cnhc_registration_and_pay_registration_fee",
+    "metric": "answer_match",
+    "result": {
+     "type": "agent_answer"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      ".": {
+       "all": [
+        {
+         "re": "\\bCNHC\\b",
+         "flags": "IS"
+        },
+        {
+         "any": [
+          {
+           "re": "\\b(?:pay|payment|paid)\\b.{0,100}\\b(?:CNHC|registration|register)\\b.{0,60}\\bfee\\b",
+           "flags": "IS"
+          },
+          {
+           "re": "\\b(?:CNHC|registration)\\b.{0,70}\\bfee\\b.{0,90}\\b(?:pay|payment|paid)\\b",
+           "flags": "IS"
+          }
+         ]
+        },
+        {
+         "re": "\\b(?:register|registration)\\b",
+         "flags": "IS"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,99 @@
+{
+ "task_id": "vts-007-bestbuy-8k-samsung-tvs",
+ "task_name": "On bestbuy.com, use the brand and resolution filters to browse 8K Samsung TVs.",
+ "website": "https://www.bestbuy.com/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "271b36efd4346721b5542488ff997042",
+  "intent_modified": true,
+  "intent_modified_reason": "Three changes. (1) The original \"Browse 8K Samsung TVs that are open box\" has no solution on Best Buy: the three filters together return no results, and after choosing Samsung and 8K the Condition filter disappears, so it cannot be reached through the UI; the open-box condition was dropped. (2) The task now says to use the brand and resolution filters: in an early trial the site search returned the same eight products, but the verifier checks the filter state, and \"every product is a Samsung 8K TV\" cannot be checked reliably, so the task text states what is checked. (3) The site name was added. The verifier itself was not changed."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_bestbuy_site",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "^https://www\\.bestbuy\\.com/site/"
+     ]
+    }
+   },
+   {
+    "name": "brand_and_resolution_facets_applied",
+    "metric": "json_object_match",
+    "result": {
+     "type": "url_parse",
+     "parse_keys": [
+      "qp"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "qp": {
+       "all": [
+        {
+         "contains": "brand_facet=Brand~Samsung"
+        },
+        {
+         "contains": "verticalresolution_facet=Resolution~8K"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "name": "results_grid_rendered",
+    "metric": "count_in_range",
+    "requires": [
+     "brand_and_resolution_facets_applied"
+    ],
+    "result": {
+     "type": "dom_count",
+     "selector": "ul.product-grid-view-container",
+     "must_exist": true
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "ge": 1
+     }
+    }
+   },
+   {
+    "name": "grid_has_results",
+    "metric": "json_object_match",
+    "requires": [
+     "results_grid_rendered"
+    ],
+    "result": {
+     "type": "dom_extract",
+     "selectors": {
+      "skus": "ul.product-grid-view-container > li[data-product-id]"
+     },
+     "attr": "data-product-id",
+     "all": true,
+     "must_exist": []
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "skus": {
+       "len": {
+        "ge": 1
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}

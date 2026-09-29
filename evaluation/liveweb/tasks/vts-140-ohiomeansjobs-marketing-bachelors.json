@@ -1,0 +1,56 @@
+{
+ "task_id": "vts-140-ohiomeansjobs-marketing-bachelors",
+ "task_name": "On ohiomeansjobs.ohio.gov, search for marketing jobs and filter the results to the Bachelor's Degree education level.",
+ "website": "https://ohiomeansjobs.ohio.gov/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "354b4ddf048815f8fd4163d0d7e1aaa3",
+  "original_task_name": "Browse marketing jobs and filter by Bachelor's Degree education level.",
+  "original_website": "https://ohiomeansjobs.ohio.gov/",
+  "source_row_zero_based": 66,
+  "intent_modified": true,
+  "intent_modified_reason": "Added the site name (the verifier checks this site's URL and controls). The filters are unchanged. A .gov site has no regional redirects and no inventory-dependent results."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "on_applygovt_job_search",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": [
+      "^https://jobs\\.ohiomeansjobs\\.applygovt\\.com/Search\\.aspx([?#]|$)"
+     ]
+    }
+   },
+   {
+    "name": "marketing_keyword_and_bachelors_level",
+    "metric": "json_object_match",
+    "result": {
+     "type": "url_parse",
+     "parse_keys": [
+      "q",
+      "lv"
+     ]
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "q": {
+       "re": "^\\s*marketing(\\s+jobs?)?\\s*$"
+      },
+      "lv": "5"
+     }
+    },
+    "requires": [
+     "on_applygovt_job_search"
+    ]
+   }
+  ]
+ }
+}

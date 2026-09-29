@@ -1,0 +1,63 @@
+{
+ "task_id": "vts-071-webvoyager-wolfram-alpha-18",
+ "task_name": "Plot Albert Einstein curve with Parametric equations.",
+ "website": "https://www.wolframalpha.com/",
+ "source": {
+  "benchmark": "WebVoyager",
+  "task_id": "Wolfram Alpha--18",
+  "original_task_name": "Plot Albert Einstein curve with Parametric equations.",
+  "intent_modified": false
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "einstein_parametric_query_result",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_title"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Albert Einstein curve",
+       "parametric equations"
+      ]
+     }
+    }
+   },
+   {
+    "name": "parametric_xy_equations_present",
+    "metric": "count_in_range",
+    "result": {
+     "type": "axtree_query",
+     "role": "image",
+     "name_pattern": "(?s)^x\\(t\\)\\s*=.*y\\(t\\)\\s*="
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "ge": 1
+     }
+    }
+   },
+   {
+    "name": "curve_plot_present",
+    "metric": "count_in_range",
+    "result": {
+     "type": "axtree_query",
+     "role": "image",
+     "name_pattern": "^Plot$"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "ge": 1
+     }
+    }
+   }
+  ]
+ }
+}

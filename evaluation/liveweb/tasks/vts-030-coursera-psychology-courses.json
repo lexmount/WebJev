@@ -1,0 +1,47 @@
+{
+ "task_id": "vts-030-coursera-psychology-courses",
+ "task_name": "On coursera.org, explore Psychology courses and leave the Psychology course directory or Psychology course search results displayed.",
+ "website": "https://www.coursera.org/",
+ "source": {
+  "benchmark": "Online-Mind2Web",
+  "task_id": "a11ecdff735b51372d536c866011af6f",
+  "original_task_name": "Explore courses related to Psychology.",
+  "intent_modified": true,
+  "intent_modified_reason": "Made the site, the target page and the end state explicit. \"Explore\" means ending on the search results; no extra conditions (price, enrollment, level) were added."
+ },
+ "evaluator": {
+  "spec_version": "1",
+  "conj": "and",
+  "checks": [
+   {
+    "name": "target_page",
+    "metric": "url_pattern_match",
+    "result": {
+     "type": "final_url"
+    },
+    "expected": {
+     "type": "const",
+     "value": "^https?://(?:www\\.)?coursera\\.org/(?:browse/health/psychology/?(?:[?#]|$)|(?:search|courses)/?\\?(?:[^#]*&)?query=psychology(?:[&#]|$))"
+    }
+   },
+   {
+    "name": "target_content",
+    "metric": "include_exclude",
+    "result": {
+     "type": "page_text"
+    },
+    "expected": {
+     "type": "const",
+     "value": {
+      "must_include": [
+       "Psychology"
+      ]
+     }
+    },
+    "requires": [
+     "target_page"
+    ]
+   }
+  ]
+ }
+}

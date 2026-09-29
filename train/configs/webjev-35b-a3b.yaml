@@ -1,0 +1,47 @@
+# WebJev-35B-A3B: supervised fine-tuning of Qwen/Qwen3.5-35B-A3B-Base on the full data mixture (one epoch).
+# Relative paths are resolved against the train/ directory.
+
+paths:
+  base_model: models/Qwen3.5-35B-A3B-Base   # hf download Qwen/Qwen3.5-35B-A3B-Base --revision 0f0813072d2358973511097385626f21fcb6d422
+  items: work/mixture/items.pkl             # data/build_all.sh output (items.pkl.json must sit next to it)
+  runs: runs                                # one directory per run: logs, metrics, checkpoints
+  exports: models                           # exported model directories
+  upstream: third_party/decider             # Mapika/decider checkout made by setup.sh
+
+resources:
+  gpus: 8                                   # one node, 8 x A100 80GB
+  min_gpu_memory_mib: 80000
+
+training:
+  learning_rate: 1.0e-5
+  lr_schedule: constant                     # constant | warmup_cosine
+  warmup_steps: 150                         # only used by warmup_cosine
+  batch_tokens: 8192                        # length-bucketed batches of at most 8,192 padded tokens
+  batches_per_update: 16                    # batches averaged into one optimizer update
+  batch_seed: 1
+  model_seed: 0
+  micro_tokens: 2048                        # per-GPU micro-batch budget in padded tokens (whole items only)
+  expert_chunk_tokens: 1024                 # routed experts run in checkpointed blocks of token rows (memory only)
+  grad_clip: 1.0
+  max_steps: 0                              # 0 = one full epoch
+
+checkpoint:
+  every_steps: 2000                         # plus the final step
+  keep_last: 2                              # complete checkpoints kept for resuming
+
+logging:
+  log_every_steps: 5
+
+export:
+  after_training: true                      # write a full model directory when training completes
+
+environment:
+  NCCL_NVLS_ENABLE: "0"
+  NCCL_IB_DISABLE: "1"
+  OMP_NUM_THREADS: "4"
+  MKL_NUM_THREADS: "4"
+  TOKENIZERS_PARALLELISM: "false"
+  HF_HUB_OFFLINE: "1"
+  TRANSFORMERS_OFFLINE: "1"
+  PYTHONUNBUFFERED: "1"
+  PYTORCH_CUDA_ALLOC_CONF: "expandable_segments:True"
