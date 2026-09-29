@@ -7,7 +7,7 @@ single forward pass.
   <img src="assets/gifs/01-apple-macbook-air-specs.gif" width="100%"
        alt="Jev 1.13 (left) and WebJev-35B-A3B (right) on the same apple.com task. Jev opens the buy page and loops on the search icon; WebJev reaches the MacBook Air Tech Specs page in 5 steps.">
 </p>
-<p align="center"><sub>Same browser agent ([jev-ultrafast](https://github.com/browser-use/jev-ultrafast)), same live website; only the decision model differs.
+<p align="center"><sub>Same browser agent, same live website; only the decision model differs.
 Left: Jev 1.13. Right: WebJev-35B-A3B. Real time. Verdicts come from the task's deterministic verifier.</sub></p>
 
 We ran **125 real-website tasks**, each graded by a deterministic verifier. Both models drive the same browser agent,
